@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  admin
+  developer
+  operator
+}
+
+enum ProductStatus {
+  pending_assign
+  pending_review
+  approved
+  rejected
+  returned
+  redevelop
+  objection_pending
+}
+
+enum Decision {
+  approved
+  rejected
+  returned
+  redevelop
+}
+
+model User {
+  id           String   @id @db.Uuid
+  name         String   @db.VarChar(50)
+  loginName    String   @unique @map("login_name") @db.VarChar(100)
+  authEmail    String   @unique @map("email") @db.VarChar(100)
+  role         Role
+  feishuUserId String?  @map("feishu_user_id") @db.VarChar(100)
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  submissions  Product[] @relation("Submitter")
+  assignments  Product[] @relation("Reviewer")
+  reviews      ReviewRound[]
+  objections   Objection[]
+  auditLogs    AuditLog[]
+  uploads      Attachment[]
+  notifications NotificationLog[]
+  @@map("users")
+}
+
+model Product {
+  id               String        @id @default(uuid()) @db.Uuid
+  code             String        @unique @db.VarChar(30)
+  name             String        @db.VarChar(200)
+  category         String?       @db.VarChar(50)
+  sourceUrl        String?       @map("source_url") @db.VarChar(500)
+  expectedPrice    Decimal?      @map("expected_price") @db.Decimal(10, 2)
+  notes            String?
+  submitterId      String        @map("submitter_id") @db.Uuid
+  reviewerId       String?       @map("reviewer_id") @db.Uuid
+  status           ProductStatus @default(pending_assign)
+  submitTime       DateTime      @default(now()) @map("submit_time")
+  assignTime       DateTime?     @map("assign_time")
+  latestReviewTime DateTime?     @map("latest_review_time")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  submitter        User          @relation("Submitter", fields: [submitterId], references: [id])
+  reviewer         User?         @relation("Reviewer", fields: [reviewerId], references: [id])
+  reviews          ReviewRound[]
+  objections       Objection[]
+  attachments      Attachment[]
+  auditLogs        AuditLog[]
+  @@index([status])
+  @@index([submitterId])
+  @@index([reviewerId])
+  @@map("products")
+}
+
+model ReviewRound {
+  id          String   @id @default(uuid()) @db.Uuid
+  productId   String   @map("product_id") @db.Uuid
+  roundNumber Int      @map("round_number")
+  reviewerId  String   @map("reviewer_id") @db.Uuid
+  decision    Decision
+  comment     String
+  createdAt   DateTime @default(now()) @map("created_at")
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  reviewer    User     @relation(fields: [reviewerId], references: [id])
+  objections  Objection[]
+  attachments Attachment[]
+  @@unique([productId, roundNumber])
+  @@map("review_rounds")
+}
+
+model Objection {
+  id          String   @id @default(uuid()) @db.Uuid
+  productId   String   @map("product_id") @db.Uuid
+  roundId     String   @map("round_id") @db.Uuid
+  submitterId String   @map("submitter_id") @db.Uuid
+  content     String
+  createdAt   DateTime @default(now()) @map("created_at")
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  round       ReviewRound @relation(fields: [roundId], references: [id])
+  submitter   User     @relation(fields: [submitterId], references: [id])
+  attachments Attachment[]
+  @@map("objections")
+}
+
+model Attachment {
+  id           String   @id @default(uuid()) @db.Uuid
+  productId    String   @map("product_id") @db.Uuid
+  roundId      String?  @map("round_id") @db.Uuid
+  objectionId  String?  @map("objection_id") @db.Uuid
+  fileName     String   @map("file_name") @db.VarChar(255)
+  filePath     String   @map("file_path") @db.VarChar(500)
+  fileSize     Int      @map("file_size")
+  fileType     String   @map("file_type") @db.VarChar(50)
+  uploaderId   String   @map("uploader_id") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at")
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  round        ReviewRound? @relation(fields: [roundId], references: [id])
+  objection    Objection? @relation(fields: [objectionId], references: [id])
+  uploader     User     @relation(fields: [uploaderId], references: [id])
+  @@map("attachments")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  productId  String   @map("product_id") @db.Uuid
+  operatorId String   @map("operator_id") @db.Uuid
+  action     String   @db.VarChar(50)
+  detail     Json
+  createdAt  DateTime @default(now()) @map("created_at")
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  operator   User     @relation(fields: [operatorId], references: [id])
+  @@map("audit_log")
+}
+
+model NotificationLog {
+  id          String   @id @default(uuid()) @db.Uuid
+  recipientId String?  @map("recipient_id") @db.Uuid
+  channel     String   @default("feishu") @db.VarChar(30)
+  event       String   @db.VarChar(50)
+  content     String
+  status      String   @db.VarChar(20)
+  error       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  recipient   User?    @relation(fields: [recipientId], references: [id])
+  @@index([createdAt])
+  @@map("notification_log")
+}
