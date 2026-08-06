@@ -28,10 +28,12 @@ export type AggregateReviewRound = {
 
 export type ReviewRoundAvgAggregateOutputType = {
   roundNumber: number | null
+  firstBatchQuantity: number | null
 }
 
 export type ReviewRoundSumAggregateOutputType = {
   roundNumber: number | null
+  firstBatchQuantity: number | null
 }
 
 export type ReviewRoundMinAggregateOutputType = {
@@ -41,6 +43,12 @@ export type ReviewRoundMinAggregateOutputType = {
   reviewerId: string | null
   decision: $Enums.Decision | null
   comment: string | null
+  launchDate: Date | null
+  firstBatchQuantity: number | null
+  marketAnalysis: string | null
+  competitivenessAnalysis: string | null
+  alternativeSuggestions: string | null
+  improvementSuggestions: string | null
   createdAt: Date | null
 }
 
@@ -51,6 +59,12 @@ export type ReviewRoundMaxAggregateOutputType = {
   reviewerId: string | null
   decision: $Enums.Decision | null
   comment: string | null
+  launchDate: Date | null
+  firstBatchQuantity: number | null
+  marketAnalysis: string | null
+  competitivenessAnalysis: string | null
+  alternativeSuggestions: string | null
+  improvementSuggestions: string | null
   createdAt: Date | null
 }
 
@@ -61,6 +75,12 @@ export type ReviewRoundCountAggregateOutputType = {
   reviewerId: number
   decision: number
   comment: number
+  launchDate: number
+  firstBatchQuantity: number
+  marketAnalysis: number
+  competitivenessAnalysis: number
+  alternativeSuggestions: number
+  improvementSuggestions: number
   createdAt: number
   _all: number
 }
@@ -68,10 +88,12 @@ export type ReviewRoundCountAggregateOutputType = {
 
 export type ReviewRoundAvgAggregateInputType = {
   roundNumber?: true
+  firstBatchQuantity?: true
 }
 
 export type ReviewRoundSumAggregateInputType = {
   roundNumber?: true
+  firstBatchQuantity?: true
 }
 
 export type ReviewRoundMinAggregateInputType = {
@@ -81,6 +103,12 @@ export type ReviewRoundMinAggregateInputType = {
   reviewerId?: true
   decision?: true
   comment?: true
+  launchDate?: true
+  firstBatchQuantity?: true
+  marketAnalysis?: true
+  competitivenessAnalysis?: true
+  alternativeSuggestions?: true
+  improvementSuggestions?: true
   createdAt?: true
 }
 
@@ -91,6 +119,12 @@ export type ReviewRoundMaxAggregateInputType = {
   reviewerId?: true
   decision?: true
   comment?: true
+  launchDate?: true
+  firstBatchQuantity?: true
+  marketAnalysis?: true
+  competitivenessAnalysis?: true
+  alternativeSuggestions?: true
+  improvementSuggestions?: true
   createdAt?: true
 }
 
@@ -101,6 +135,12 @@ export type ReviewRoundCountAggregateInputType = {
   reviewerId?: true
   decision?: true
   comment?: true
+  launchDate?: true
+  firstBatchQuantity?: true
+  marketAnalysis?: true
+  competitivenessAnalysis?: true
+  alternativeSuggestions?: true
+  improvementSuggestions?: true
   createdAt?: true
   _all?: true
 }
@@ -198,6 +238,12 @@ export type ReviewRoundGroupByOutputType = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate: Date | null
+  firstBatchQuantity: number | null
+  marketAnalysis: string | null
+  competitivenessAnalysis: string | null
+  alternativeSuggestions: string | null
+  improvementSuggestions: string | null
   createdAt: Date
   _count: ReviewRoundCountAggregateOutputType | null
   _avg: ReviewRoundAvgAggregateOutputType | null
@@ -231,6 +277,12 @@ export type ReviewRoundWhereInput = {
   reviewerId?: Prisma.UuidFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringFilter<"ReviewRound"> | string
+  launchDate?: Prisma.DateTimeNullableFilter<"ReviewRound"> | Date | string | null
+  firstBatchQuantity?: Prisma.IntNullableFilter<"ReviewRound"> | number | null
+  marketAnalysis?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  improvementSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   reviewer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -245,6 +297,12 @@ export type ReviewRoundOrderByWithRelationInput = {
   reviewerId?: Prisma.SortOrder
   decision?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   reviewer?: Prisma.UserOrderByWithRelationInput
@@ -263,6 +321,12 @@ export type ReviewRoundWhereUniqueInput = Prisma.AtLeast<{
   reviewerId?: Prisma.UuidFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringFilter<"ReviewRound"> | string
+  launchDate?: Prisma.DateTimeNullableFilter<"ReviewRound"> | Date | string | null
+  firstBatchQuantity?: Prisma.IntNullableFilter<"ReviewRound"> | number | null
+  marketAnalysis?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  improvementSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   reviewer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -277,6 +341,12 @@ export type ReviewRoundOrderByWithAggregationInput = {
   reviewerId?: Prisma.SortOrder
   decision?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ReviewRoundCountOrderByAggregateInput
   _avg?: Prisma.ReviewRoundAvgOrderByAggregateInput
@@ -295,6 +365,12 @@ export type ReviewRoundScalarWhereWithAggregatesInput = {
   reviewerId?: Prisma.UuidWithAggregatesFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionWithAggregatesFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringWithAggregatesFilter<"ReviewRound"> | string
+  launchDate?: Prisma.DateTimeNullableWithAggregatesFilter<"ReviewRound"> | Date | string | null
+  firstBatchQuantity?: Prisma.IntNullableWithAggregatesFilter<"ReviewRound"> | number | null
+  marketAnalysis?: Prisma.StringNullableWithAggregatesFilter<"ReviewRound"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableWithAggregatesFilter<"ReviewRound"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableWithAggregatesFilter<"ReviewRound"> | string | null
+  improvementSuggestions?: Prisma.StringNullableWithAggregatesFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ReviewRound"> | Date | string
 }
 
@@ -303,6 +379,12 @@ export type ReviewRoundCreateInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -317,6 +399,12 @@ export type ReviewRoundUncheckedCreateInput = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
@@ -327,6 +415,12 @@ export type ReviewRoundUpdateInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -341,6 +435,12 @@ export type ReviewRoundUncheckedUpdateInput = {
   reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
@@ -353,6 +453,12 @@ export type ReviewRoundCreateManyInput = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
 }
 
@@ -361,6 +467,12 @@ export type ReviewRoundUpdateManyMutationInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -371,6 +483,12 @@ export type ReviewRoundUncheckedUpdateManyInput = {
   reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -396,11 +514,18 @@ export type ReviewRoundCountOrderByAggregateInput = {
   reviewerId?: Prisma.SortOrder
   decision?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type ReviewRoundAvgOrderByAggregateInput = {
   roundNumber?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
 }
 
 export type ReviewRoundMaxOrderByAggregateInput = {
@@ -410,6 +535,12 @@ export type ReviewRoundMaxOrderByAggregateInput = {
   reviewerId?: Prisma.SortOrder
   decision?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -420,11 +551,18 @@ export type ReviewRoundMinOrderByAggregateInput = {
   reviewerId?: Prisma.SortOrder
   decision?: Prisma.SortOrder
   comment?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrder
+  improvementSuggestions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type ReviewRoundSumOrderByAggregateInput = {
   roundNumber?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
 }
 
 export type ReviewRoundScalarRelationFilter = {
@@ -568,6 +706,12 @@ export type ReviewRoundCreateWithoutReviewerInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   objections?: Prisma.ObjectionCreateNestedManyWithoutRoundInput
@@ -580,6 +724,12 @@ export type ReviewRoundUncheckedCreateWithoutReviewerInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
@@ -621,6 +771,12 @@ export type ReviewRoundScalarWhereInput = {
   reviewerId?: Prisma.UuidFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringFilter<"ReviewRound"> | string
+  launchDate?: Prisma.DateTimeNullableFilter<"ReviewRound"> | Date | string | null
+  firstBatchQuantity?: Prisma.IntNullableFilter<"ReviewRound"> | number | null
+  marketAnalysis?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
+  improvementSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
 }
 
@@ -629,6 +785,12 @@ export type ReviewRoundCreateWithoutProductInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
   objections?: Prisma.ObjectionCreateNestedManyWithoutRoundInput
@@ -641,6 +803,12 @@ export type ReviewRoundUncheckedCreateWithoutProductInput = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
@@ -677,6 +845,12 @@ export type ReviewRoundCreateWithoutObjectionsInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -690,6 +864,12 @@ export type ReviewRoundUncheckedCreateWithoutObjectionsInput = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
 }
@@ -715,6 +895,12 @@ export type ReviewRoundUpdateWithoutObjectionsInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -728,6 +914,12 @@ export type ReviewRoundUncheckedUpdateWithoutObjectionsInput = {
   reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
 }
@@ -737,6 +929,12 @@ export type ReviewRoundCreateWithoutAttachmentsInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -750,6 +948,12 @@ export type ReviewRoundUncheckedCreateWithoutAttachmentsInput = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
 }
@@ -775,6 +979,12 @@ export type ReviewRoundUpdateWithoutAttachmentsInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -788,6 +998,12 @@ export type ReviewRoundUncheckedUpdateWithoutAttachmentsInput = {
   reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
 }
@@ -798,6 +1014,12 @@ export type ReviewRoundCreateManyReviewerInput = {
   roundNumber: number
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
 }
 
@@ -806,6 +1028,12 @@ export type ReviewRoundUpdateWithoutReviewerInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   objections?: Prisma.ObjectionUpdateManyWithoutRoundNestedInput
@@ -818,6 +1046,12 @@ export type ReviewRoundUncheckedUpdateWithoutReviewerInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
@@ -829,6 +1063,12 @@ export type ReviewRoundUncheckedUpdateManyWithoutReviewerInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -838,6 +1078,12 @@ export type ReviewRoundCreateManyProductInput = {
   reviewerId: string
   decision: $Enums.Decision
   comment: string
+  launchDate?: Date | string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
+  improvementSuggestions?: string | null
   createdAt?: Date | string
 }
 
@@ -846,6 +1092,12 @@ export type ReviewRoundUpdateWithoutProductInput = {
   roundNumber?: Prisma.IntFieldUpdateOperationsInput | number
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   objections?: Prisma.ObjectionUpdateManyWithoutRoundNestedInput
@@ -858,6 +1110,12 @@ export type ReviewRoundUncheckedUpdateWithoutProductInput = {
   reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
@@ -869,6 +1127,12 @@ export type ReviewRoundUncheckedUpdateManyWithoutProductInput = {
   reviewerId?: Prisma.StringFieldUpdateOperationsInput | string
   decision?: Prisma.EnumDecisionFieldUpdateOperationsInput | $Enums.Decision
   comment?: Prisma.StringFieldUpdateOperationsInput | string
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -919,6 +1183,12 @@ export type ReviewRoundSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   reviewerId?: boolean
   decision?: boolean
   comment?: boolean
+  launchDate?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
+  improvementSuggestions?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -934,6 +1204,12 @@ export type ReviewRoundSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   reviewerId?: boolean
   decision?: boolean
   comment?: boolean
+  launchDate?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
+  improvementSuggestions?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -946,6 +1222,12 @@ export type ReviewRoundSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   reviewerId?: boolean
   decision?: boolean
   comment?: boolean
+  launchDate?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
+  improvementSuggestions?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -958,10 +1240,16 @@ export type ReviewRoundSelectScalar = {
   reviewerId?: boolean
   decision?: boolean
   comment?: boolean
+  launchDate?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
+  improvementSuggestions?: boolean
   createdAt?: boolean
 }
 
-export type ReviewRoundOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundNumber" | "reviewerId" | "decision" | "comment" | "createdAt", ExtArgs["result"]["reviewRound"]>
+export type ReviewRoundOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundNumber" | "reviewerId" | "decision" | "comment" | "launchDate" | "firstBatchQuantity" | "marketAnalysis" | "competitivenessAnalysis" | "alternativeSuggestions" | "improvementSuggestions" | "createdAt", ExtArgs["result"]["reviewRound"]>
 export type ReviewRoundInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -993,6 +1281,12 @@ export type $ReviewRoundPayload<ExtArgs extends runtime.Types.Extensions.Interna
     reviewerId: string
     decision: $Enums.Decision
     comment: string
+    launchDate: Date | null
+    firstBatchQuantity: number | null
+    marketAnalysis: string | null
+    competitivenessAnalysis: string | null
+    alternativeSuggestions: string | null
+    improvementSuggestions: string | null
     createdAt: Date
   }, ExtArgs["result"]["reviewRound"]>
   composites: {}
@@ -1427,6 +1721,12 @@ export interface ReviewRoundFieldRefs {
   readonly reviewerId: Prisma.FieldRef<"ReviewRound", 'String'>
   readonly decision: Prisma.FieldRef<"ReviewRound", 'Decision'>
   readonly comment: Prisma.FieldRef<"ReviewRound", 'String'>
+  readonly launchDate: Prisma.FieldRef<"ReviewRound", 'DateTime'>
+  readonly firstBatchQuantity: Prisma.FieldRef<"ReviewRound", 'Int'>
+  readonly marketAnalysis: Prisma.FieldRef<"ReviewRound", 'String'>
+  readonly competitivenessAnalysis: Prisma.FieldRef<"ReviewRound", 'String'>
+  readonly alternativeSuggestions: Prisma.FieldRef<"ReviewRound", 'String'>
+  readonly improvementSuggestions: Prisma.FieldRef<"ReviewRound", 'String'>
   readonly createdAt: Prisma.FieldRef<"ReviewRound", 'DateTime'>
 }
     

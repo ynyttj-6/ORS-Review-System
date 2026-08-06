@@ -14,6 +14,7 @@ enum Role {
 }
 
 enum ProductStatus {
+  draft
   pending_assign
   pending_review
   approved
@@ -28,6 +29,13 @@ enum Decision {
   rejected
   returned
   redevelop
+}
+
+enum AttachmentType {
+  product_image
+  competitor_screenshot
+  data_screenshot
+  supplier_info
 }
 
 model User {
@@ -58,6 +66,57 @@ model Product {
   sourceUrl        String?       @map("source_url") @db.VarChar(500)
   expectedPrice    Decimal?      @map("expected_price") @db.Decimal(10, 2)
   notes            String?
+  competitorLink   String?       @map("competitor_link") @db.VarChar(1000)
+  competitorAsins  String?       @map("competitor_asins") @db.VarChar(1000)
+  coreKeyword      String?       @map("core_keyword") @db.VarChar(300)
+  priceRange       String?       @map("price_range") @db.VarChar(100)
+  topCompetitorLink String?      @map("top_competitor_link") @db.VarChar(1000)
+  seasonality      String?
+  usageScenario    String?       @map("usage_scenario")
+  iterationPlan    String?       @map("iteration_plan")
+  targetAudience   String?       @map("target_audience")
+  certification    String?
+  patentStatus     String?       @map("patent_status")
+  trademarkStatus  String?       @map("trademark_status")
+  competitorReviewsAnalysis String? @map("competitor_reviews_analysis")
+  visualUpgradeDirection String? @map("visual_upgrade_direction")
+  copyrightCheck   String?       @map("copyright_check")
+  troCheck         String?       @map("tro_check")
+  phraseTrademarkCheck String?   @map("phrase_trademark_check")
+  packaging        String?
+  supplyChainAdvantage String?   @map("supply_chain_advantage")
+  suggestedQuantity Int?         @map("suggested_quantity")
+  suggestedPrice   Decimal?      @map("suggested_price") @db.Decimal(10, 2)
+  minPrice         Decimal?      @map("min_price") @db.Decimal(10, 2)
+  productCostCny   Decimal?      @map("product_cost_cny") @db.Decimal(10, 2)
+  supplierName     String?       @map("supplier_name") @db.VarChar(200)
+  moq              Int?
+  unitPrice        String?       @map("unit_price") @db.VarChar(300)
+  productionTime   String?       @map("production_time") @db.VarChar(200)
+  supplierLink     String?       @map("supplier_link") @db.VarChar(1000)
+  supplierRemark   String?       @map("supplier_remark")
+  lengthCm         Decimal?      @map("length_cm") @db.Decimal(10, 2)
+  widthCm          Decimal?      @map("width_cm") @db.Decimal(10, 2)
+  heightCm         Decimal?      @map("height_cm") @db.Decimal(10, 2)
+  weightG          Decimal?      @map("weight_g") @db.Decimal(10, 2)
+  volumetricWeightKg Decimal?    @map("volumetric_weight_kg") @db.Decimal(10, 3)
+  billingWeightLb  Decimal?      @map("billing_weight_lb") @db.Decimal(10, 3)
+  fbaSizeTier      String?       @map("fba_size_tier") @db.VarChar(80)
+  fbaFee           Decimal?      @map("fba_fee") @db.Decimal(10, 2)
+  commissionRate   Decimal       @default(0.15) @map("commission_rate") @db.Decimal(5, 4)
+  exchangeRate     Decimal       @default(7.2) @map("exchange_rate") @db.Decimal(10, 4)
+  shippingCost     Decimal?      @map("shipping_cost") @db.Decimal(10, 2)
+  profitMargin     Decimal?      @map("profit_margin") @db.Decimal(8, 2)
+  profitAmount     Decimal?      @map("profit_amount") @db.Decimal(10, 2)
+  inventoryQuantity Int?        @map("inventory_quantity")
+  inventoryValue   Decimal?      @map("inventory_value") @db.Decimal(12, 2)
+  finalDecision    Decision?     @map("final_decision")
+  launchDate       DateTime?     @map("launch_date") @db.Date
+  rejectionReason  String?      @map("rejection_reason")
+  firstBatchQuantity Int?       @map("first_batch_quantity")
+  marketAnalysis   String?      @map("market_analysis")
+  competitivenessAnalysis String? @map("competitiveness_analysis")
+  alternativeSuggestions String? @map("alternative_suggestions")
   submitterId      String        @map("submitter_id") @db.Uuid
   reviewerId       String?       @map("reviewer_id") @db.Uuid
   status           ProductStatus @default(pending_assign)
@@ -75,6 +134,7 @@ model Product {
   @@index([status])
   @@index([submitterId])
   @@index([reviewerId])
+  @@index([createdAt])
   @@map("products")
 }
 
@@ -85,12 +145,19 @@ model ReviewRound {
   reviewerId  String   @map("reviewer_id") @db.Uuid
   decision    Decision
   comment     String
+  launchDate  DateTime? @map("launch_date") @db.Date
+  firstBatchQuantity Int? @map("first_batch_quantity")
+  marketAnalysis String? @map("market_analysis")
+  competitivenessAnalysis String? @map("competitiveness_analysis")
+  alternativeSuggestions String? @map("alternative_suggestions")
+  improvementSuggestions String? @map("improvement_suggestions")
   createdAt   DateTime @default(now()) @map("created_at")
   product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   reviewer    User     @relation(fields: [reviewerId], references: [id])
   objections  Objection[]
   attachments Attachment[]
   @@unique([productId, roundNumber])
+  @@index([productId, createdAt])
   @@map("review_rounds")
 }
 
@@ -100,6 +167,7 @@ model Objection {
   roundId     String   @map("round_id") @db.Uuid
   submitterId String   @map("submitter_id") @db.Uuid
   content     String
+  hasObjection Boolean @default(true) @map("has_objection")
   createdAt   DateTime @default(now()) @map("created_at")
   product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   round       ReviewRound @relation(fields: [roundId], references: [id])
@@ -113,6 +181,7 @@ model Attachment {
   productId    String   @map("product_id") @db.Uuid
   roundId      String?  @map("round_id") @db.Uuid
   objectionId  String?  @map("objection_id") @db.Uuid
+  attachmentType AttachmentType @default(data_screenshot) @map("attachment_type")
   fileName     String   @map("file_name") @db.VarChar(255)
   filePath     String   @map("file_path") @db.VarChar(500)
   fileSize     Int      @map("file_size")
@@ -123,6 +192,7 @@ model Attachment {
   round        ReviewRound? @relation(fields: [roundId], references: [id])
   objection    Objection? @relation(fields: [objectionId], references: [id])
   uploader     User     @relation(fields: [uploaderId], references: [id])
+  @@index([productId, attachmentType])
   @@map("attachments")
 }
 

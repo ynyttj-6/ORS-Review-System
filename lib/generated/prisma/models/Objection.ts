@@ -30,6 +30,7 @@ export type ObjectionMinAggregateOutputType = {
   roundId: string | null
   submitterId: string | null
   content: string | null
+  hasObjection: boolean | null
   createdAt: Date | null
 }
 
@@ -39,6 +40,7 @@ export type ObjectionMaxAggregateOutputType = {
   roundId: string | null
   submitterId: string | null
   content: string | null
+  hasObjection: boolean | null
   createdAt: Date | null
 }
 
@@ -48,6 +50,7 @@ export type ObjectionCountAggregateOutputType = {
   roundId: number
   submitterId: number
   content: number
+  hasObjection: number
   createdAt: number
   _all: number
 }
@@ -59,6 +62,7 @@ export type ObjectionMinAggregateInputType = {
   roundId?: true
   submitterId?: true
   content?: true
+  hasObjection?: true
   createdAt?: true
 }
 
@@ -68,6 +72,7 @@ export type ObjectionMaxAggregateInputType = {
   roundId?: true
   submitterId?: true
   content?: true
+  hasObjection?: true
   createdAt?: true
 }
 
@@ -77,6 +82,7 @@ export type ObjectionCountAggregateInputType = {
   roundId?: true
   submitterId?: true
   content?: true
+  hasObjection?: true
   createdAt?: true
   _all?: true
 }
@@ -159,6 +165,7 @@ export type ObjectionGroupByOutputType = {
   roundId: string
   submitterId: string
   content: string
+  hasObjection: boolean
   createdAt: Date
   _count: ObjectionCountAggregateOutputType | null
   _min: ObjectionMinAggregateOutputType | null
@@ -189,6 +196,7 @@ export type ObjectionWhereInput = {
   roundId?: Prisma.UuidFilter<"Objection"> | string
   submitterId?: Prisma.UuidFilter<"Objection"> | string
   content?: Prisma.StringFilter<"Objection"> | string
+  hasObjection?: Prisma.BoolFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Objection"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   round?: Prisma.XOR<Prisma.ReviewRoundScalarRelationFilter, Prisma.ReviewRoundWhereInput>
@@ -202,6 +210,7 @@ export type ObjectionOrderByWithRelationInput = {
   roundId?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  hasObjection?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   round?: Prisma.ReviewRoundOrderByWithRelationInput
@@ -218,6 +227,7 @@ export type ObjectionWhereUniqueInput = Prisma.AtLeast<{
   roundId?: Prisma.UuidFilter<"Objection"> | string
   submitterId?: Prisma.UuidFilter<"Objection"> | string
   content?: Prisma.StringFilter<"Objection"> | string
+  hasObjection?: Prisma.BoolFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Objection"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   round?: Prisma.XOR<Prisma.ReviewRoundScalarRelationFilter, Prisma.ReviewRoundWhereInput>
@@ -231,6 +241,7 @@ export type ObjectionOrderByWithAggregationInput = {
   roundId?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  hasObjection?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ObjectionCountOrderByAggregateInput
   _max?: Prisma.ObjectionMaxOrderByAggregateInput
@@ -246,12 +257,14 @@ export type ObjectionScalarWhereWithAggregatesInput = {
   roundId?: Prisma.UuidWithAggregatesFilter<"Objection"> | string
   submitterId?: Prisma.UuidWithAggregatesFilter<"Objection"> | string
   content?: Prisma.StringWithAggregatesFilter<"Objection"> | string
+  hasObjection?: Prisma.BoolWithAggregatesFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Objection"> | Date | string
 }
 
 export type ObjectionCreateInput = {
   id?: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutObjectionsInput
   round: Prisma.ReviewRoundCreateNestedOneWithoutObjectionsInput
@@ -265,6 +278,7 @@ export type ObjectionUncheckedCreateInput = {
   roundId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutObjectionInput
 }
@@ -272,6 +286,7 @@ export type ObjectionUncheckedCreateInput = {
 export type ObjectionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutObjectionsNestedInput
   round?: Prisma.ReviewRoundUpdateOneRequiredWithoutObjectionsNestedInput
@@ -285,6 +300,7 @@ export type ObjectionUncheckedUpdateInput = {
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutObjectionNestedInput
 }
@@ -295,12 +311,14 @@ export type ObjectionCreateManyInput = {
   roundId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
 }
 
 export type ObjectionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -310,6 +328,7 @@ export type ObjectionUncheckedUpdateManyInput = {
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -329,6 +348,7 @@ export type ObjectionCountOrderByAggregateInput = {
   roundId?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  hasObjection?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -338,6 +358,7 @@ export type ObjectionMaxOrderByAggregateInput = {
   roundId?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  hasObjection?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -347,6 +368,7 @@ export type ObjectionMinOrderByAggregateInput = {
   roundId?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  hasObjection?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -500,6 +522,7 @@ export type ObjectionUpdateOneWithoutAttachmentsNestedInput = {
 export type ObjectionCreateWithoutSubmitterInput = {
   id?: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutObjectionsInput
   round: Prisma.ReviewRoundCreateNestedOneWithoutObjectionsInput
@@ -511,6 +534,7 @@ export type ObjectionUncheckedCreateWithoutSubmitterInput = {
   productId: string
   roundId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutObjectionInput
 }
@@ -550,12 +574,14 @@ export type ObjectionScalarWhereInput = {
   roundId?: Prisma.UuidFilter<"Objection"> | string
   submitterId?: Prisma.UuidFilter<"Objection"> | string
   content?: Prisma.StringFilter<"Objection"> | string
+  hasObjection?: Prisma.BoolFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Objection"> | Date | string
 }
 
 export type ObjectionCreateWithoutProductInput = {
   id?: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   round: Prisma.ReviewRoundCreateNestedOneWithoutObjectionsInput
   submitter: Prisma.UserCreateNestedOneWithoutObjectionsInput
@@ -567,6 +593,7 @@ export type ObjectionUncheckedCreateWithoutProductInput = {
   roundId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutObjectionInput
 }
@@ -600,6 +627,7 @@ export type ObjectionUpdateManyWithWhereWithoutProductInput = {
 export type ObjectionCreateWithoutRoundInput = {
   id?: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutObjectionsInput
   submitter: Prisma.UserCreateNestedOneWithoutObjectionsInput
@@ -611,6 +639,7 @@ export type ObjectionUncheckedCreateWithoutRoundInput = {
   productId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutObjectionInput
 }
@@ -644,6 +673,7 @@ export type ObjectionUpdateManyWithWhereWithoutRoundInput = {
 export type ObjectionCreateWithoutAttachmentsInput = {
   id?: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutObjectionsInput
   round: Prisma.ReviewRoundCreateNestedOneWithoutObjectionsInput
@@ -656,6 +686,7 @@ export type ObjectionUncheckedCreateWithoutAttachmentsInput = {
   roundId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
 }
 
@@ -678,6 +709,7 @@ export type ObjectionUpdateToOneWithWhereWithoutAttachmentsInput = {
 export type ObjectionUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutObjectionsNestedInput
   round?: Prisma.ReviewRoundUpdateOneRequiredWithoutObjectionsNestedInput
@@ -690,6 +722,7 @@ export type ObjectionUncheckedUpdateWithoutAttachmentsInput = {
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -698,12 +731,14 @@ export type ObjectionCreateManySubmitterInput = {
   productId: string
   roundId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
 }
 
 export type ObjectionUpdateWithoutSubmitterInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutObjectionsNestedInput
   round?: Prisma.ReviewRoundUpdateOneRequiredWithoutObjectionsNestedInput
@@ -715,6 +750,7 @@ export type ObjectionUncheckedUpdateWithoutSubmitterInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutObjectionNestedInput
 }
@@ -724,6 +760,7 @@ export type ObjectionUncheckedUpdateManyWithoutSubmitterInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -732,12 +769,14 @@ export type ObjectionCreateManyProductInput = {
   roundId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
 }
 
 export type ObjectionUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   round?: Prisma.ReviewRoundUpdateOneRequiredWithoutObjectionsNestedInput
   submitter?: Prisma.UserUpdateOneRequiredWithoutObjectionsNestedInput
@@ -749,6 +788,7 @@ export type ObjectionUncheckedUpdateWithoutProductInput = {
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutObjectionNestedInput
 }
@@ -758,6 +798,7 @@ export type ObjectionUncheckedUpdateManyWithoutProductInput = {
   roundId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -766,12 +807,14 @@ export type ObjectionCreateManyRoundInput = {
   productId: string
   submitterId: string
   content: string
+  hasObjection?: boolean
   createdAt?: Date | string
 }
 
 export type ObjectionUpdateWithoutRoundInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutObjectionsNestedInput
   submitter?: Prisma.UserUpdateOneRequiredWithoutObjectionsNestedInput
@@ -783,6 +826,7 @@ export type ObjectionUncheckedUpdateWithoutRoundInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutObjectionNestedInput
 }
@@ -792,6 +836,7 @@ export type ObjectionUncheckedUpdateManyWithoutRoundInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  hasObjection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -832,6 +877,7 @@ export type ObjectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   roundId?: boolean
   submitterId?: boolean
   content?: boolean
+  hasObjection?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   round?: boolean | Prisma.ReviewRoundDefaultArgs<ExtArgs>
@@ -846,6 +892,7 @@ export type ObjectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   roundId?: boolean
   submitterId?: boolean
   content?: boolean
+  hasObjection?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   round?: boolean | Prisma.ReviewRoundDefaultArgs<ExtArgs>
@@ -858,6 +905,7 @@ export type ObjectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   roundId?: boolean
   submitterId?: boolean
   content?: boolean
+  hasObjection?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   round?: boolean | Prisma.ReviewRoundDefaultArgs<ExtArgs>
@@ -870,10 +918,11 @@ export type ObjectionSelectScalar = {
   roundId?: boolean
   submitterId?: boolean
   content?: boolean
+  hasObjection?: boolean
   createdAt?: boolean
 }
 
-export type ObjectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundId" | "submitterId" | "content" | "createdAt", ExtArgs["result"]["objection"]>
+export type ObjectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundId" | "submitterId" | "content" | "hasObjection" | "createdAt", ExtArgs["result"]["objection"]>
 export type ObjectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   round?: boolean | Prisma.ReviewRoundDefaultArgs<ExtArgs>
@@ -906,6 +955,7 @@ export type $ObjectionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     roundId: string
     submitterId: string
     content: string
+    hasObjection: boolean
     createdAt: Date
   }, ExtArgs["result"]["objection"]>
   composites: {}
@@ -1339,6 +1389,7 @@ export interface ObjectionFieldRefs {
   readonly roundId: Prisma.FieldRef<"Objection", 'String'>
   readonly submitterId: Prisma.FieldRef<"Objection", 'String'>
   readonly content: Prisma.FieldRef<"Objection", 'String'>
+  readonly hasObjection: Prisma.FieldRef<"Objection", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Objection", 'DateTime'>
 }
     

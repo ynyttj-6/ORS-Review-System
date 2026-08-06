@@ -32,6 +32,7 @@
     "feishu:log:check": "tsx scripts/check-feishu-log.ts",
     "feishu:test": "tsx scripts/test-feishu.ts",
     "review:check": "tsx scripts/check-review.ts",
+    "flow-v2:check": "tsx scripts/check-business-flow-v2.ts",
     "timezone:check": "tsx scripts/check-timezone.ts",
     "supabase:setup": "tsx scripts/setup-supabase.ts",
     "production:check": "tsx scripts/check-production.ts"

@@ -1,5 +1,6 @@
 export type Role = "admin" | "developer" | "operator";
 export type ProductStatus =
+  | "draft"
   | "pending_assign"
   | "pending_review"
   | "approved"
@@ -25,6 +26,9 @@ export interface Attachment {
   name: string;
   size: number;
   type: string;
+  attachmentType?: "product_image" | "competitor_screenshot" | "data_screenshot" | "supplier_info";
+  roundId?: string;
+  objectionId?: string;
 }
 
 export interface ReviewRound {
@@ -34,6 +38,12 @@ export interface ReviewRound {
   decision: Decision;
   comment: string;
   createdAt: string;
+  launchDate?: string;
+  firstBatchQuantity?: number;
+  marketAnalysis?: string;
+  competitivenessAnalysis?: string;
+  alternativeSuggestions?: string;
+  improvementSuggestions?: string;
 }
 
 export interface Objection {
@@ -41,6 +51,7 @@ export interface Objection {
   roundId: string;
   submitterId: string;
   content: string;
+  hasObjection: boolean;
   createdAt: string;
 }
 
@@ -52,6 +63,57 @@ export interface Product {
   sourceUrl?: string;
   expectedPrice?: number;
   notes?: string;
+  competitorLink?: string;
+  competitorAsins?: string;
+  coreKeyword?: string;
+  priceRange?: string;
+  topCompetitorLink?: string;
+  seasonality?: string;
+  usageScenario?: string;
+  iterationPlan?: string;
+  targetAudience?: string;
+  certification?: string;
+  patentStatus?: string;
+  trademarkStatus?: string;
+  competitorReviewsAnalysis?: string;
+  visualUpgradeDirection?: string;
+  copyrightCheck?: string;
+  troCheck?: string;
+  phraseTrademarkCheck?: string;
+  packaging?: string;
+  supplyChainAdvantage?: string;
+  suggestedQuantity?: number;
+  suggestedPrice?: number;
+  minPrice?: number;
+  productCostCny?: number;
+  supplierName?: string;
+  moq?: number;
+  unitPrice?: string;
+  productionTime?: string;
+  supplierLink?: string;
+  supplierRemark?: string;
+  lengthCm?: number;
+  widthCm?: number;
+  heightCm?: number;
+  weightG?: number;
+  volumetricWeightKg?: number;
+  billingWeightLb?: number;
+  fbaSizeTier?: string;
+  fbaFee?: number;
+  commissionRate?: number;
+  exchangeRate?: number;
+  shippingCost?: number;
+  profitMargin?: number;
+  profitAmount?: number;
+  inventoryQuantity?: number;
+  inventoryValue?: number;
+  finalDecision?: Decision;
+  launchDate?: string;
+  rejectionReason?: string;
+  firstBatchQuantity?: number;
+  marketAnalysis?: string;
+  competitivenessAnalysis?: string;
+  alternativeSuggestions?: string;
   submitterId: string;
   reviewerId?: string;
   status: ProductStatus;

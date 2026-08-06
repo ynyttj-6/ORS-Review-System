@@ -28,10 +28,50 @@ export type AggregateProduct = {
 
 export type ProductAvgAggregateOutputType = {
   expectedPrice: runtime.Decimal | null
+  suggestedQuantity: number | null
+  suggestedPrice: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  productCostCny: runtime.Decimal | null
+  moq: number | null
+  lengthCm: runtime.Decimal | null
+  widthCm: runtime.Decimal | null
+  heightCm: runtime.Decimal | null
+  weightG: runtime.Decimal | null
+  volumetricWeightKg: runtime.Decimal | null
+  billingWeightLb: runtime.Decimal | null
+  fbaFee: runtime.Decimal | null
+  commissionRate: runtime.Decimal | null
+  exchangeRate: runtime.Decimal | null
+  shippingCost: runtime.Decimal | null
+  profitMargin: runtime.Decimal | null
+  profitAmount: runtime.Decimal | null
+  inventoryQuantity: number | null
+  inventoryValue: runtime.Decimal | null
+  firstBatchQuantity: number | null
 }
 
 export type ProductSumAggregateOutputType = {
   expectedPrice: runtime.Decimal | null
+  suggestedQuantity: number | null
+  suggestedPrice: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  productCostCny: runtime.Decimal | null
+  moq: number | null
+  lengthCm: runtime.Decimal | null
+  widthCm: runtime.Decimal | null
+  heightCm: runtime.Decimal | null
+  weightG: runtime.Decimal | null
+  volumetricWeightKg: runtime.Decimal | null
+  billingWeightLb: runtime.Decimal | null
+  fbaFee: runtime.Decimal | null
+  commissionRate: runtime.Decimal | null
+  exchangeRate: runtime.Decimal | null
+  shippingCost: runtime.Decimal | null
+  profitMargin: runtime.Decimal | null
+  profitAmount: runtime.Decimal | null
+  inventoryQuantity: number | null
+  inventoryValue: runtime.Decimal | null
+  firstBatchQuantity: number | null
 }
 
 export type ProductMinAggregateOutputType = {
@@ -42,6 +82,57 @@ export type ProductMinAggregateOutputType = {
   sourceUrl: string | null
   expectedPrice: runtime.Decimal | null
   notes: string | null
+  competitorLink: string | null
+  competitorAsins: string | null
+  coreKeyword: string | null
+  priceRange: string | null
+  topCompetitorLink: string | null
+  seasonality: string | null
+  usageScenario: string | null
+  iterationPlan: string | null
+  targetAudience: string | null
+  certification: string | null
+  patentStatus: string | null
+  trademarkStatus: string | null
+  competitorReviewsAnalysis: string | null
+  visualUpgradeDirection: string | null
+  copyrightCheck: string | null
+  troCheck: string | null
+  phraseTrademarkCheck: string | null
+  packaging: string | null
+  supplyChainAdvantage: string | null
+  suggestedQuantity: number | null
+  suggestedPrice: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  productCostCny: runtime.Decimal | null
+  supplierName: string | null
+  moq: number | null
+  unitPrice: string | null
+  productionTime: string | null
+  supplierLink: string | null
+  supplierRemark: string | null
+  lengthCm: runtime.Decimal | null
+  widthCm: runtime.Decimal | null
+  heightCm: runtime.Decimal | null
+  weightG: runtime.Decimal | null
+  volumetricWeightKg: runtime.Decimal | null
+  billingWeightLb: runtime.Decimal | null
+  fbaSizeTier: string | null
+  fbaFee: runtime.Decimal | null
+  commissionRate: runtime.Decimal | null
+  exchangeRate: runtime.Decimal | null
+  shippingCost: runtime.Decimal | null
+  profitMargin: runtime.Decimal | null
+  profitAmount: runtime.Decimal | null
+  inventoryQuantity: number | null
+  inventoryValue: runtime.Decimal | null
+  finalDecision: $Enums.Decision | null
+  launchDate: Date | null
+  rejectionReason: string | null
+  firstBatchQuantity: number | null
+  marketAnalysis: string | null
+  competitivenessAnalysis: string | null
+  alternativeSuggestions: string | null
   submitterId: string | null
   reviewerId: string | null
   status: $Enums.ProductStatus | null
@@ -60,6 +151,57 @@ export type ProductMaxAggregateOutputType = {
   sourceUrl: string | null
   expectedPrice: runtime.Decimal | null
   notes: string | null
+  competitorLink: string | null
+  competitorAsins: string | null
+  coreKeyword: string | null
+  priceRange: string | null
+  topCompetitorLink: string | null
+  seasonality: string | null
+  usageScenario: string | null
+  iterationPlan: string | null
+  targetAudience: string | null
+  certification: string | null
+  patentStatus: string | null
+  trademarkStatus: string | null
+  competitorReviewsAnalysis: string | null
+  visualUpgradeDirection: string | null
+  copyrightCheck: string | null
+  troCheck: string | null
+  phraseTrademarkCheck: string | null
+  packaging: string | null
+  supplyChainAdvantage: string | null
+  suggestedQuantity: number | null
+  suggestedPrice: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  productCostCny: runtime.Decimal | null
+  supplierName: string | null
+  moq: number | null
+  unitPrice: string | null
+  productionTime: string | null
+  supplierLink: string | null
+  supplierRemark: string | null
+  lengthCm: runtime.Decimal | null
+  widthCm: runtime.Decimal | null
+  heightCm: runtime.Decimal | null
+  weightG: runtime.Decimal | null
+  volumetricWeightKg: runtime.Decimal | null
+  billingWeightLb: runtime.Decimal | null
+  fbaSizeTier: string | null
+  fbaFee: runtime.Decimal | null
+  commissionRate: runtime.Decimal | null
+  exchangeRate: runtime.Decimal | null
+  shippingCost: runtime.Decimal | null
+  profitMargin: runtime.Decimal | null
+  profitAmount: runtime.Decimal | null
+  inventoryQuantity: number | null
+  inventoryValue: runtime.Decimal | null
+  finalDecision: $Enums.Decision | null
+  launchDate: Date | null
+  rejectionReason: string | null
+  firstBatchQuantity: number | null
+  marketAnalysis: string | null
+  competitivenessAnalysis: string | null
+  alternativeSuggestions: string | null
   submitterId: string | null
   reviewerId: string | null
   status: $Enums.ProductStatus | null
@@ -78,6 +220,57 @@ export type ProductCountAggregateOutputType = {
   sourceUrl: number
   expectedPrice: number
   notes: number
+  competitorLink: number
+  competitorAsins: number
+  coreKeyword: number
+  priceRange: number
+  topCompetitorLink: number
+  seasonality: number
+  usageScenario: number
+  iterationPlan: number
+  targetAudience: number
+  certification: number
+  patentStatus: number
+  trademarkStatus: number
+  competitorReviewsAnalysis: number
+  visualUpgradeDirection: number
+  copyrightCheck: number
+  troCheck: number
+  phraseTrademarkCheck: number
+  packaging: number
+  supplyChainAdvantage: number
+  suggestedQuantity: number
+  suggestedPrice: number
+  minPrice: number
+  productCostCny: number
+  supplierName: number
+  moq: number
+  unitPrice: number
+  productionTime: number
+  supplierLink: number
+  supplierRemark: number
+  lengthCm: number
+  widthCm: number
+  heightCm: number
+  weightG: number
+  volumetricWeightKg: number
+  billingWeightLb: number
+  fbaSizeTier: number
+  fbaFee: number
+  commissionRate: number
+  exchangeRate: number
+  shippingCost: number
+  profitMargin: number
+  profitAmount: number
+  inventoryQuantity: number
+  inventoryValue: number
+  finalDecision: number
+  launchDate: number
+  rejectionReason: number
+  firstBatchQuantity: number
+  marketAnalysis: number
+  competitivenessAnalysis: number
+  alternativeSuggestions: number
   submitterId: number
   reviewerId: number
   status: number
@@ -92,10 +285,50 @@ export type ProductCountAggregateOutputType = {
 
 export type ProductAvgAggregateInputType = {
   expectedPrice?: true
+  suggestedQuantity?: true
+  suggestedPrice?: true
+  minPrice?: true
+  productCostCny?: true
+  moq?: true
+  lengthCm?: true
+  widthCm?: true
+  heightCm?: true
+  weightG?: true
+  volumetricWeightKg?: true
+  billingWeightLb?: true
+  fbaFee?: true
+  commissionRate?: true
+  exchangeRate?: true
+  shippingCost?: true
+  profitMargin?: true
+  profitAmount?: true
+  inventoryQuantity?: true
+  inventoryValue?: true
+  firstBatchQuantity?: true
 }
 
 export type ProductSumAggregateInputType = {
   expectedPrice?: true
+  suggestedQuantity?: true
+  suggestedPrice?: true
+  minPrice?: true
+  productCostCny?: true
+  moq?: true
+  lengthCm?: true
+  widthCm?: true
+  heightCm?: true
+  weightG?: true
+  volumetricWeightKg?: true
+  billingWeightLb?: true
+  fbaFee?: true
+  commissionRate?: true
+  exchangeRate?: true
+  shippingCost?: true
+  profitMargin?: true
+  profitAmount?: true
+  inventoryQuantity?: true
+  inventoryValue?: true
+  firstBatchQuantity?: true
 }
 
 export type ProductMinAggregateInputType = {
@@ -106,6 +339,57 @@ export type ProductMinAggregateInputType = {
   sourceUrl?: true
   expectedPrice?: true
   notes?: true
+  competitorLink?: true
+  competitorAsins?: true
+  coreKeyword?: true
+  priceRange?: true
+  topCompetitorLink?: true
+  seasonality?: true
+  usageScenario?: true
+  iterationPlan?: true
+  targetAudience?: true
+  certification?: true
+  patentStatus?: true
+  trademarkStatus?: true
+  competitorReviewsAnalysis?: true
+  visualUpgradeDirection?: true
+  copyrightCheck?: true
+  troCheck?: true
+  phraseTrademarkCheck?: true
+  packaging?: true
+  supplyChainAdvantage?: true
+  suggestedQuantity?: true
+  suggestedPrice?: true
+  minPrice?: true
+  productCostCny?: true
+  supplierName?: true
+  moq?: true
+  unitPrice?: true
+  productionTime?: true
+  supplierLink?: true
+  supplierRemark?: true
+  lengthCm?: true
+  widthCm?: true
+  heightCm?: true
+  weightG?: true
+  volumetricWeightKg?: true
+  billingWeightLb?: true
+  fbaSizeTier?: true
+  fbaFee?: true
+  commissionRate?: true
+  exchangeRate?: true
+  shippingCost?: true
+  profitMargin?: true
+  profitAmount?: true
+  inventoryQuantity?: true
+  inventoryValue?: true
+  finalDecision?: true
+  launchDate?: true
+  rejectionReason?: true
+  firstBatchQuantity?: true
+  marketAnalysis?: true
+  competitivenessAnalysis?: true
+  alternativeSuggestions?: true
   submitterId?: true
   reviewerId?: true
   status?: true
@@ -124,6 +408,57 @@ export type ProductMaxAggregateInputType = {
   sourceUrl?: true
   expectedPrice?: true
   notes?: true
+  competitorLink?: true
+  competitorAsins?: true
+  coreKeyword?: true
+  priceRange?: true
+  topCompetitorLink?: true
+  seasonality?: true
+  usageScenario?: true
+  iterationPlan?: true
+  targetAudience?: true
+  certification?: true
+  patentStatus?: true
+  trademarkStatus?: true
+  competitorReviewsAnalysis?: true
+  visualUpgradeDirection?: true
+  copyrightCheck?: true
+  troCheck?: true
+  phraseTrademarkCheck?: true
+  packaging?: true
+  supplyChainAdvantage?: true
+  suggestedQuantity?: true
+  suggestedPrice?: true
+  minPrice?: true
+  productCostCny?: true
+  supplierName?: true
+  moq?: true
+  unitPrice?: true
+  productionTime?: true
+  supplierLink?: true
+  supplierRemark?: true
+  lengthCm?: true
+  widthCm?: true
+  heightCm?: true
+  weightG?: true
+  volumetricWeightKg?: true
+  billingWeightLb?: true
+  fbaSizeTier?: true
+  fbaFee?: true
+  commissionRate?: true
+  exchangeRate?: true
+  shippingCost?: true
+  profitMargin?: true
+  profitAmount?: true
+  inventoryQuantity?: true
+  inventoryValue?: true
+  finalDecision?: true
+  launchDate?: true
+  rejectionReason?: true
+  firstBatchQuantity?: true
+  marketAnalysis?: true
+  competitivenessAnalysis?: true
+  alternativeSuggestions?: true
   submitterId?: true
   reviewerId?: true
   status?: true
@@ -142,6 +477,57 @@ export type ProductCountAggregateInputType = {
   sourceUrl?: true
   expectedPrice?: true
   notes?: true
+  competitorLink?: true
+  competitorAsins?: true
+  coreKeyword?: true
+  priceRange?: true
+  topCompetitorLink?: true
+  seasonality?: true
+  usageScenario?: true
+  iterationPlan?: true
+  targetAudience?: true
+  certification?: true
+  patentStatus?: true
+  trademarkStatus?: true
+  competitorReviewsAnalysis?: true
+  visualUpgradeDirection?: true
+  copyrightCheck?: true
+  troCheck?: true
+  phraseTrademarkCheck?: true
+  packaging?: true
+  supplyChainAdvantage?: true
+  suggestedQuantity?: true
+  suggestedPrice?: true
+  minPrice?: true
+  productCostCny?: true
+  supplierName?: true
+  moq?: true
+  unitPrice?: true
+  productionTime?: true
+  supplierLink?: true
+  supplierRemark?: true
+  lengthCm?: true
+  widthCm?: true
+  heightCm?: true
+  weightG?: true
+  volumetricWeightKg?: true
+  billingWeightLb?: true
+  fbaSizeTier?: true
+  fbaFee?: true
+  commissionRate?: true
+  exchangeRate?: true
+  shippingCost?: true
+  profitMargin?: true
+  profitAmount?: true
+  inventoryQuantity?: true
+  inventoryValue?: true
+  finalDecision?: true
+  launchDate?: true
+  rejectionReason?: true
+  firstBatchQuantity?: true
+  marketAnalysis?: true
+  competitivenessAnalysis?: true
+  alternativeSuggestions?: true
   submitterId?: true
   reviewerId?: true
   status?: true
@@ -247,6 +633,57 @@ export type ProductGroupByOutputType = {
   sourceUrl: string | null
   expectedPrice: runtime.Decimal | null
   notes: string | null
+  competitorLink: string | null
+  competitorAsins: string | null
+  coreKeyword: string | null
+  priceRange: string | null
+  topCompetitorLink: string | null
+  seasonality: string | null
+  usageScenario: string | null
+  iterationPlan: string | null
+  targetAudience: string | null
+  certification: string | null
+  patentStatus: string | null
+  trademarkStatus: string | null
+  competitorReviewsAnalysis: string | null
+  visualUpgradeDirection: string | null
+  copyrightCheck: string | null
+  troCheck: string | null
+  phraseTrademarkCheck: string | null
+  packaging: string | null
+  supplyChainAdvantage: string | null
+  suggestedQuantity: number | null
+  suggestedPrice: runtime.Decimal | null
+  minPrice: runtime.Decimal | null
+  productCostCny: runtime.Decimal | null
+  supplierName: string | null
+  moq: number | null
+  unitPrice: string | null
+  productionTime: string | null
+  supplierLink: string | null
+  supplierRemark: string | null
+  lengthCm: runtime.Decimal | null
+  widthCm: runtime.Decimal | null
+  heightCm: runtime.Decimal | null
+  weightG: runtime.Decimal | null
+  volumetricWeightKg: runtime.Decimal | null
+  billingWeightLb: runtime.Decimal | null
+  fbaSizeTier: string | null
+  fbaFee: runtime.Decimal | null
+  commissionRate: runtime.Decimal
+  exchangeRate: runtime.Decimal
+  shippingCost: runtime.Decimal | null
+  profitMargin: runtime.Decimal | null
+  profitAmount: runtime.Decimal | null
+  inventoryQuantity: number | null
+  inventoryValue: runtime.Decimal | null
+  finalDecision: $Enums.Decision | null
+  launchDate: Date | null
+  rejectionReason: string | null
+  firstBatchQuantity: number | null
+  marketAnalysis: string | null
+  competitivenessAnalysis: string | null
+  alternativeSuggestions: string | null
   submitterId: string
   reviewerId: string | null
   status: $Enums.ProductStatus
@@ -288,6 +725,57 @@ export type ProductWhereInput = {
   sourceUrl?: Prisma.StringNullableFilter<"Product"> | string | null
   expectedPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorAsins?: Prisma.StringNullableFilter<"Product"> | string | null
+  coreKeyword?: Prisma.StringNullableFilter<"Product"> | string | null
+  priceRange?: Prisma.StringNullableFilter<"Product"> | string | null
+  topCompetitorLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  seasonality?: Prisma.StringNullableFilter<"Product"> | string | null
+  usageScenario?: Prisma.StringNullableFilter<"Product"> | string | null
+  iterationPlan?: Prisma.StringNullableFilter<"Product"> | string | null
+  targetAudience?: Prisma.StringNullableFilter<"Product"> | string | null
+  certification?: Prisma.StringNullableFilter<"Product"> | string | null
+  patentStatus?: Prisma.StringNullableFilter<"Product"> | string | null
+  trademarkStatus?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorReviewsAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  visualUpgradeDirection?: Prisma.StringNullableFilter<"Product"> | string | null
+  copyrightCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  troCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  phraseTrademarkCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  packaging?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplyChainAdvantage?: Prisma.StringNullableFilter<"Product"> | string | null
+  suggestedQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  suggestedPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.StringNullableFilter<"Product"> | string | null
+  moq?: Prisma.IntNullableFilter<"Product"> | number | null
+  unitPrice?: Prisma.StringNullableFilter<"Product"> | string | null
+  productionTime?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplierLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplierRemark?: Prisma.StringNullableFilter<"Product"> | string | null
+  lengthCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.StringNullableFilter<"Product"> | string | null
+  fbaFee?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  inventoryValue?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.EnumDecisionNullableFilter<"Product"> | $Enums.Decision | null
+  launchDate?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Product"> | string | null
+  firstBatchQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  marketAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableFilter<"Product"> | string | null
   submitterId?: Prisma.UuidFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
@@ -312,6 +800,57 @@ export type ProductOrderByWithRelationInput = {
   sourceUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   expectedPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorAsins?: Prisma.SortOrderInput | Prisma.SortOrder
+  coreKeyword?: Prisma.SortOrderInput | Prisma.SortOrder
+  priceRange?: Prisma.SortOrderInput | Prisma.SortOrder
+  topCompetitorLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  seasonality?: Prisma.SortOrderInput | Prisma.SortOrder
+  usageScenario?: Prisma.SortOrderInput | Prisma.SortOrder
+  iterationPlan?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetAudience?: Prisma.SortOrderInput | Prisma.SortOrder
+  certification?: Prisma.SortOrderInput | Prisma.SortOrder
+  patentStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  trademarkStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorReviewsAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  visualUpgradeDirection?: Prisma.SortOrderInput | Prisma.SortOrder
+  copyrightCheck?: Prisma.SortOrderInput | Prisma.SortOrder
+  troCheck?: Prisma.SortOrderInput | Prisma.SortOrder
+  phraseTrademarkCheck?: Prisma.SortOrderInput | Prisma.SortOrder
+  packaging?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplyChainAdvantage?: Prisma.SortOrderInput | Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  minPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  productCostCny?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierName?: Prisma.SortOrderInput | Prisma.SortOrder
+  moq?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  productionTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierRemark?: Prisma.SortOrderInput | Prisma.SortOrder
+  lengthCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  widthCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  heightCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  weightG?: Prisma.SortOrderInput | Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrderInput | Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrderInput | Prisma.SortOrder
+  fbaSizeTier?: Prisma.SortOrderInput | Prisma.SortOrder
+  fbaFee?: Prisma.SortOrderInput | Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrderInput | Prisma.SortOrder
+  profitMargin?: Prisma.SortOrderInput | Prisma.SortOrder
+  profitAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrderInput | Prisma.SortOrder
+  finalDecision?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -339,6 +878,57 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   sourceUrl?: Prisma.StringNullableFilter<"Product"> | string | null
   expectedPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorAsins?: Prisma.StringNullableFilter<"Product"> | string | null
+  coreKeyword?: Prisma.StringNullableFilter<"Product"> | string | null
+  priceRange?: Prisma.StringNullableFilter<"Product"> | string | null
+  topCompetitorLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  seasonality?: Prisma.StringNullableFilter<"Product"> | string | null
+  usageScenario?: Prisma.StringNullableFilter<"Product"> | string | null
+  iterationPlan?: Prisma.StringNullableFilter<"Product"> | string | null
+  targetAudience?: Prisma.StringNullableFilter<"Product"> | string | null
+  certification?: Prisma.StringNullableFilter<"Product"> | string | null
+  patentStatus?: Prisma.StringNullableFilter<"Product"> | string | null
+  trademarkStatus?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorReviewsAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  visualUpgradeDirection?: Prisma.StringNullableFilter<"Product"> | string | null
+  copyrightCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  troCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  phraseTrademarkCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  packaging?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplyChainAdvantage?: Prisma.StringNullableFilter<"Product"> | string | null
+  suggestedQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  suggestedPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.StringNullableFilter<"Product"> | string | null
+  moq?: Prisma.IntNullableFilter<"Product"> | number | null
+  unitPrice?: Prisma.StringNullableFilter<"Product"> | string | null
+  productionTime?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplierLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplierRemark?: Prisma.StringNullableFilter<"Product"> | string | null
+  lengthCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.StringNullableFilter<"Product"> | string | null
+  fbaFee?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  inventoryValue?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.EnumDecisionNullableFilter<"Product"> | $Enums.Decision | null
+  launchDate?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Product"> | string | null
+  firstBatchQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  marketAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableFilter<"Product"> | string | null
   submitterId?: Prisma.UuidFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
@@ -363,6 +953,57 @@ export type ProductOrderByWithAggregationInput = {
   sourceUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   expectedPrice?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorAsins?: Prisma.SortOrderInput | Prisma.SortOrder
+  coreKeyword?: Prisma.SortOrderInput | Prisma.SortOrder
+  priceRange?: Prisma.SortOrderInput | Prisma.SortOrder
+  topCompetitorLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  seasonality?: Prisma.SortOrderInput | Prisma.SortOrder
+  usageScenario?: Prisma.SortOrderInput | Prisma.SortOrder
+  iterationPlan?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetAudience?: Prisma.SortOrderInput | Prisma.SortOrder
+  certification?: Prisma.SortOrderInput | Prisma.SortOrder
+  patentStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  trademarkStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitorReviewsAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  visualUpgradeDirection?: Prisma.SortOrderInput | Prisma.SortOrder
+  copyrightCheck?: Prisma.SortOrderInput | Prisma.SortOrder
+  troCheck?: Prisma.SortOrderInput | Prisma.SortOrder
+  phraseTrademarkCheck?: Prisma.SortOrderInput | Prisma.SortOrder
+  packaging?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplyChainAdvantage?: Prisma.SortOrderInput | Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  minPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  productCostCny?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierName?: Prisma.SortOrderInput | Prisma.SortOrder
+  moq?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  productionTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplierRemark?: Prisma.SortOrderInput | Prisma.SortOrder
+  lengthCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  widthCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  heightCm?: Prisma.SortOrderInput | Prisma.SortOrder
+  weightG?: Prisma.SortOrderInput | Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrderInput | Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrderInput | Prisma.SortOrder
+  fbaSizeTier?: Prisma.SortOrderInput | Prisma.SortOrder
+  fbaFee?: Prisma.SortOrderInput | Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrderInput | Prisma.SortOrder
+  profitMargin?: Prisma.SortOrderInput | Prisma.SortOrder
+  profitAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrderInput | Prisma.SortOrder
+  finalDecision?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrderInput | Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -389,6 +1030,57 @@ export type ProductScalarWhereWithAggregatesInput = {
   sourceUrl?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   expectedPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  competitorLink?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  competitorAsins?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  coreKeyword?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  priceRange?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  topCompetitorLink?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  seasonality?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  usageScenario?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  iterationPlan?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  targetAudience?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  certification?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  patentStatus?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  trademarkStatus?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  competitorReviewsAnalysis?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  visualUpgradeDirection?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  copyrightCheck?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  troCheck?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  phraseTrademarkCheck?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  packaging?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  supplyChainAdvantage?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  suggestedQuantity?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  suggestedPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  moq?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  unitPrice?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  productionTime?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  supplierLink?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  supplierRemark?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  lengthCm?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  fbaFee?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  inventoryValue?: Prisma.DecimalNullableWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.EnumDecisionNullableWithAggregatesFilter<"Product"> | $Enums.Decision | null
+  launchDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  firstBatchQuantity?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  marketAnalysis?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   submitterId?: Prisma.UuidWithAggregatesFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableWithAggregatesFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
@@ -407,6 +1099,57 @@ export type ProductCreateInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -429,6 +1172,57 @@ export type ProductUncheckedCreateInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
@@ -451,6 +1245,57 @@ export type ProductUpdateInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -473,6 +1318,57 @@ export type ProductUncheckedUpdateInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
@@ -495,6 +1391,57 @@ export type ProductCreateManyInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
@@ -513,6 +1460,57 @@ export type ProductUpdateManyMutationInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -529,6 +1527,57 @@ export type ProductUncheckedUpdateManyInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
@@ -557,6 +1606,57 @@ export type ProductCountOrderByAggregateInput = {
   sourceUrl?: Prisma.SortOrder
   expectedPrice?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  competitorLink?: Prisma.SortOrder
+  competitorAsins?: Prisma.SortOrder
+  coreKeyword?: Prisma.SortOrder
+  priceRange?: Prisma.SortOrder
+  topCompetitorLink?: Prisma.SortOrder
+  seasonality?: Prisma.SortOrder
+  usageScenario?: Prisma.SortOrder
+  iterationPlan?: Prisma.SortOrder
+  targetAudience?: Prisma.SortOrder
+  certification?: Prisma.SortOrder
+  patentStatus?: Prisma.SortOrder
+  trademarkStatus?: Prisma.SortOrder
+  competitorReviewsAnalysis?: Prisma.SortOrder
+  visualUpgradeDirection?: Prisma.SortOrder
+  copyrightCheck?: Prisma.SortOrder
+  troCheck?: Prisma.SortOrder
+  phraseTrademarkCheck?: Prisma.SortOrder
+  packaging?: Prisma.SortOrder
+  supplyChainAdvantage?: Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  productCostCny?: Prisma.SortOrder
+  supplierName?: Prisma.SortOrder
+  moq?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
+  productionTime?: Prisma.SortOrder
+  supplierLink?: Prisma.SortOrder
+  supplierRemark?: Prisma.SortOrder
+  lengthCm?: Prisma.SortOrder
+  widthCm?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightG?: Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrder
+  fbaSizeTier?: Prisma.SortOrder
+  fbaFee?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrder
+  profitMargin?: Prisma.SortOrder
+  profitAmount?: Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrder
+  finalDecision?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -569,6 +1669,26 @@ export type ProductCountOrderByAggregateInput = {
 
 export type ProductAvgOrderByAggregateInput = {
   expectedPrice?: Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  productCostCny?: Prisma.SortOrder
+  moq?: Prisma.SortOrder
+  lengthCm?: Prisma.SortOrder
+  widthCm?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightG?: Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrder
+  fbaFee?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrder
+  profitMargin?: Prisma.SortOrder
+  profitAmount?: Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
 }
 
 export type ProductMaxOrderByAggregateInput = {
@@ -579,6 +1699,57 @@ export type ProductMaxOrderByAggregateInput = {
   sourceUrl?: Prisma.SortOrder
   expectedPrice?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  competitorLink?: Prisma.SortOrder
+  competitorAsins?: Prisma.SortOrder
+  coreKeyword?: Prisma.SortOrder
+  priceRange?: Prisma.SortOrder
+  topCompetitorLink?: Prisma.SortOrder
+  seasonality?: Prisma.SortOrder
+  usageScenario?: Prisma.SortOrder
+  iterationPlan?: Prisma.SortOrder
+  targetAudience?: Prisma.SortOrder
+  certification?: Prisma.SortOrder
+  patentStatus?: Prisma.SortOrder
+  trademarkStatus?: Prisma.SortOrder
+  competitorReviewsAnalysis?: Prisma.SortOrder
+  visualUpgradeDirection?: Prisma.SortOrder
+  copyrightCheck?: Prisma.SortOrder
+  troCheck?: Prisma.SortOrder
+  phraseTrademarkCheck?: Prisma.SortOrder
+  packaging?: Prisma.SortOrder
+  supplyChainAdvantage?: Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  productCostCny?: Prisma.SortOrder
+  supplierName?: Prisma.SortOrder
+  moq?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
+  productionTime?: Prisma.SortOrder
+  supplierLink?: Prisma.SortOrder
+  supplierRemark?: Prisma.SortOrder
+  lengthCm?: Prisma.SortOrder
+  widthCm?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightG?: Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrder
+  fbaSizeTier?: Prisma.SortOrder
+  fbaFee?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrder
+  profitMargin?: Prisma.SortOrder
+  profitAmount?: Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrder
+  finalDecision?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -597,6 +1768,57 @@ export type ProductMinOrderByAggregateInput = {
   sourceUrl?: Prisma.SortOrder
   expectedPrice?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  competitorLink?: Prisma.SortOrder
+  competitorAsins?: Prisma.SortOrder
+  coreKeyword?: Prisma.SortOrder
+  priceRange?: Prisma.SortOrder
+  topCompetitorLink?: Prisma.SortOrder
+  seasonality?: Prisma.SortOrder
+  usageScenario?: Prisma.SortOrder
+  iterationPlan?: Prisma.SortOrder
+  targetAudience?: Prisma.SortOrder
+  certification?: Prisma.SortOrder
+  patentStatus?: Prisma.SortOrder
+  trademarkStatus?: Prisma.SortOrder
+  competitorReviewsAnalysis?: Prisma.SortOrder
+  visualUpgradeDirection?: Prisma.SortOrder
+  copyrightCheck?: Prisma.SortOrder
+  troCheck?: Prisma.SortOrder
+  phraseTrademarkCheck?: Prisma.SortOrder
+  packaging?: Prisma.SortOrder
+  supplyChainAdvantage?: Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  productCostCny?: Prisma.SortOrder
+  supplierName?: Prisma.SortOrder
+  moq?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
+  productionTime?: Prisma.SortOrder
+  supplierLink?: Prisma.SortOrder
+  supplierRemark?: Prisma.SortOrder
+  lengthCm?: Prisma.SortOrder
+  widthCm?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightG?: Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrder
+  fbaSizeTier?: Prisma.SortOrder
+  fbaFee?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrder
+  profitMargin?: Prisma.SortOrder
+  profitAmount?: Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrder
+  finalDecision?: Prisma.SortOrder
+  launchDate?: Prisma.SortOrder
+  rejectionReason?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
+  marketAnalysis?: Prisma.SortOrder
+  competitivenessAnalysis?: Prisma.SortOrder
+  alternativeSuggestions?: Prisma.SortOrder
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -609,6 +1831,26 @@ export type ProductMinOrderByAggregateInput = {
 
 export type ProductSumOrderByAggregateInput = {
   expectedPrice?: Prisma.SortOrder
+  suggestedQuantity?: Prisma.SortOrder
+  suggestedPrice?: Prisma.SortOrder
+  minPrice?: Prisma.SortOrder
+  productCostCny?: Prisma.SortOrder
+  moq?: Prisma.SortOrder
+  lengthCm?: Prisma.SortOrder
+  widthCm?: Prisma.SortOrder
+  heightCm?: Prisma.SortOrder
+  weightG?: Prisma.SortOrder
+  volumetricWeightKg?: Prisma.SortOrder
+  billingWeightLb?: Prisma.SortOrder
+  fbaFee?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+  exchangeRate?: Prisma.SortOrder
+  shippingCost?: Prisma.SortOrder
+  profitMargin?: Prisma.SortOrder
+  profitAmount?: Prisma.SortOrder
+  inventoryQuantity?: Prisma.SortOrder
+  inventoryValue?: Prisma.SortOrder
+  firstBatchQuantity?: Prisma.SortOrder
 }
 
 export type ProductScalarRelationFilter = {
@@ -708,12 +1950,32 @@ export type NullableDecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type EnumProductStatusFieldUpdateOperationsInput = {
-  set?: $Enums.ProductStatus
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type NullableEnumDecisionFieldUpdateOperationsInput = {
+  set?: $Enums.Decision | null
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type EnumProductStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ProductStatus
 }
 
 export type ProductCreateNestedOneWithoutReviewsInput = {
@@ -780,6 +2042,57 @@ export type ProductCreateWithoutSubmitterInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -801,6 +2114,57 @@ export type ProductUncheckedCreateWithoutSubmitterInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   reviewerId?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
@@ -832,6 +2196,57 @@ export type ProductCreateWithoutReviewerInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -853,6 +2268,57 @@ export type ProductUncheckedCreateWithoutReviewerInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   status?: $Enums.ProductStatus
   submitTime?: Date | string
@@ -903,6 +2369,57 @@ export type ProductScalarWhereInput = {
   sourceUrl?: Prisma.StringNullableFilter<"Product"> | string | null
   expectedPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorAsins?: Prisma.StringNullableFilter<"Product"> | string | null
+  coreKeyword?: Prisma.StringNullableFilter<"Product"> | string | null
+  priceRange?: Prisma.StringNullableFilter<"Product"> | string | null
+  topCompetitorLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  seasonality?: Prisma.StringNullableFilter<"Product"> | string | null
+  usageScenario?: Prisma.StringNullableFilter<"Product"> | string | null
+  iterationPlan?: Prisma.StringNullableFilter<"Product"> | string | null
+  targetAudience?: Prisma.StringNullableFilter<"Product"> | string | null
+  certification?: Prisma.StringNullableFilter<"Product"> | string | null
+  patentStatus?: Prisma.StringNullableFilter<"Product"> | string | null
+  trademarkStatus?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitorReviewsAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  visualUpgradeDirection?: Prisma.StringNullableFilter<"Product"> | string | null
+  copyrightCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  troCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  phraseTrademarkCheck?: Prisma.StringNullableFilter<"Product"> | string | null
+  packaging?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplyChainAdvantage?: Prisma.StringNullableFilter<"Product"> | string | null
+  suggestedQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  suggestedPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.StringNullableFilter<"Product"> | string | null
+  moq?: Prisma.IntNullableFilter<"Product"> | number | null
+  unitPrice?: Prisma.StringNullableFilter<"Product"> | string | null
+  productionTime?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplierLink?: Prisma.StringNullableFilter<"Product"> | string | null
+  supplierRemark?: Prisma.StringNullableFilter<"Product"> | string | null
+  lengthCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.StringNullableFilter<"Product"> | string | null
+  fbaFee?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  inventoryValue?: Prisma.DecimalNullableFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.EnumDecisionNullableFilter<"Product"> | $Enums.Decision | null
+  launchDate?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
+  rejectionReason?: Prisma.StringNullableFilter<"Product"> | string | null
+  firstBatchQuantity?: Prisma.IntNullableFilter<"Product"> | number | null
+  marketAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  competitivenessAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
+  alternativeSuggestions?: Prisma.StringNullableFilter<"Product"> | string | null
   submitterId?: Prisma.UuidFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
@@ -937,6 +2454,57 @@ export type ProductCreateWithoutReviewsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -958,6 +2526,57 @@ export type ProductUncheckedCreateWithoutReviewsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
@@ -995,6 +2614,57 @@ export type ProductUpdateWithoutReviewsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1016,6 +2686,57 @@ export type ProductUncheckedUpdateWithoutReviewsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
@@ -1037,6 +2758,57 @@ export type ProductCreateWithoutObjectionsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -1058,6 +2830,57 @@ export type ProductUncheckedCreateWithoutObjectionsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
@@ -1095,6 +2918,57 @@ export type ProductUpdateWithoutObjectionsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1116,6 +2990,57 @@ export type ProductUncheckedUpdateWithoutObjectionsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
@@ -1137,6 +3062,57 @@ export type ProductCreateWithoutAttachmentsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -1158,6 +3134,57 @@ export type ProductUncheckedCreateWithoutAttachmentsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
@@ -1195,6 +3222,57 @@ export type ProductUpdateWithoutAttachmentsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1216,6 +3294,57 @@ export type ProductUncheckedUpdateWithoutAttachmentsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
@@ -1237,6 +3366,57 @@ export type ProductCreateWithoutAuditLogsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
   assignTime?: Date | string | null
@@ -1258,6 +3438,57 @@ export type ProductUncheckedCreateWithoutAuditLogsInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
@@ -1295,6 +3526,57 @@ export type ProductUpdateWithoutAuditLogsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1316,6 +3598,57 @@ export type ProductUncheckedUpdateWithoutAuditLogsInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
@@ -1337,6 +3670,57 @@ export type ProductCreateManySubmitterInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   reviewerId?: string | null
   status?: $Enums.ProductStatus
   submitTime?: Date | string
@@ -1354,6 +3738,57 @@ export type ProductCreateManyReviewerInput = {
   sourceUrl?: string | null
   expectedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: string | null
+  competitorLink?: string | null
+  competitorAsins?: string | null
+  coreKeyword?: string | null
+  priceRange?: string | null
+  topCompetitorLink?: string | null
+  seasonality?: string | null
+  usageScenario?: string | null
+  iterationPlan?: string | null
+  targetAudience?: string | null
+  certification?: string | null
+  patentStatus?: string | null
+  trademarkStatus?: string | null
+  competitorReviewsAnalysis?: string | null
+  visualUpgradeDirection?: string | null
+  copyrightCheck?: string | null
+  troCheck?: string | null
+  phraseTrademarkCheck?: string | null
+  packaging?: string | null
+  supplyChainAdvantage?: string | null
+  suggestedQuantity?: number | null
+  suggestedPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: string | null
+  moq?: number | null
+  unitPrice?: string | null
+  productionTime?: string | null
+  supplierLink?: string | null
+  supplierRemark?: string | null
+  lengthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: string | null
+  fbaFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: number | null
+  inventoryValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: $Enums.Decision | null
+  launchDate?: Date | string | null
+  rejectionReason?: string | null
+  firstBatchQuantity?: number | null
+  marketAnalysis?: string | null
+  competitivenessAnalysis?: string | null
+  alternativeSuggestions?: string | null
   submitterId: string
   status?: $Enums.ProductStatus
   submitTime?: Date | string
@@ -1371,6 +3806,57 @@ export type ProductUpdateWithoutSubmitterInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1392,6 +3878,57 @@ export type ProductUncheckedUpdateWithoutSubmitterInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1413,6 +3950,57 @@ export type ProductUncheckedUpdateManyWithoutSubmitterInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1430,6 +4018,57 @@ export type ProductUpdateWithoutReviewerInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1451,6 +4090,57 @@ export type ProductUncheckedUpdateWithoutReviewerInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1472,6 +4162,57 @@ export type ProductUncheckedUpdateManyWithoutReviewerInput = {
   sourceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   expectedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorAsins?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coreKeyword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  topCompetitorLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seasonality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  usageScenario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  iterationPlan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetAudience?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  certification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  patentStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trademarkStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitorReviewsAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visualUpgradeDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  troCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phraseTrademarkCheck?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packaging?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyChainAdvantage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suggestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  suggestedPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  minPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  productCostCny?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  supplierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moq?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  unitPrice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productionTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplierRemark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lengthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  widthCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  weightG?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  volumetricWeightKg?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  billingWeightLb?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  fbaSizeTier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fbaFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  commissionRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitMargin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  profitAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  inventoryQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  inventoryValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  finalDecision?: Prisma.NullableEnumDecisionFieldUpdateOperationsInput | $Enums.Decision | null
+  launchDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstBatchQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  marketAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1547,6 +4288,57 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   sourceUrl?: boolean
   expectedPrice?: boolean
   notes?: boolean
+  competitorLink?: boolean
+  competitorAsins?: boolean
+  coreKeyword?: boolean
+  priceRange?: boolean
+  topCompetitorLink?: boolean
+  seasonality?: boolean
+  usageScenario?: boolean
+  iterationPlan?: boolean
+  targetAudience?: boolean
+  certification?: boolean
+  patentStatus?: boolean
+  trademarkStatus?: boolean
+  competitorReviewsAnalysis?: boolean
+  visualUpgradeDirection?: boolean
+  copyrightCheck?: boolean
+  troCheck?: boolean
+  phraseTrademarkCheck?: boolean
+  packaging?: boolean
+  supplyChainAdvantage?: boolean
+  suggestedQuantity?: boolean
+  suggestedPrice?: boolean
+  minPrice?: boolean
+  productCostCny?: boolean
+  supplierName?: boolean
+  moq?: boolean
+  unitPrice?: boolean
+  productionTime?: boolean
+  supplierLink?: boolean
+  supplierRemark?: boolean
+  lengthCm?: boolean
+  widthCm?: boolean
+  heightCm?: boolean
+  weightG?: boolean
+  volumetricWeightKg?: boolean
+  billingWeightLb?: boolean
+  fbaSizeTier?: boolean
+  fbaFee?: boolean
+  commissionRate?: boolean
+  exchangeRate?: boolean
+  shippingCost?: boolean
+  profitMargin?: boolean
+  profitAmount?: boolean
+  inventoryQuantity?: boolean
+  inventoryValue?: boolean
+  finalDecision?: boolean
+  launchDate?: boolean
+  rejectionReason?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
@@ -1572,6 +4364,57 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sourceUrl?: boolean
   expectedPrice?: boolean
   notes?: boolean
+  competitorLink?: boolean
+  competitorAsins?: boolean
+  coreKeyword?: boolean
+  priceRange?: boolean
+  topCompetitorLink?: boolean
+  seasonality?: boolean
+  usageScenario?: boolean
+  iterationPlan?: boolean
+  targetAudience?: boolean
+  certification?: boolean
+  patentStatus?: boolean
+  trademarkStatus?: boolean
+  competitorReviewsAnalysis?: boolean
+  visualUpgradeDirection?: boolean
+  copyrightCheck?: boolean
+  troCheck?: boolean
+  phraseTrademarkCheck?: boolean
+  packaging?: boolean
+  supplyChainAdvantage?: boolean
+  suggestedQuantity?: boolean
+  suggestedPrice?: boolean
+  minPrice?: boolean
+  productCostCny?: boolean
+  supplierName?: boolean
+  moq?: boolean
+  unitPrice?: boolean
+  productionTime?: boolean
+  supplierLink?: boolean
+  supplierRemark?: boolean
+  lengthCm?: boolean
+  widthCm?: boolean
+  heightCm?: boolean
+  weightG?: boolean
+  volumetricWeightKg?: boolean
+  billingWeightLb?: boolean
+  fbaSizeTier?: boolean
+  fbaFee?: boolean
+  commissionRate?: boolean
+  exchangeRate?: boolean
+  shippingCost?: boolean
+  profitMargin?: boolean
+  profitAmount?: boolean
+  inventoryQuantity?: boolean
+  inventoryValue?: boolean
+  finalDecision?: boolean
+  launchDate?: boolean
+  rejectionReason?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
@@ -1592,6 +4435,57 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   sourceUrl?: boolean
   expectedPrice?: boolean
   notes?: boolean
+  competitorLink?: boolean
+  competitorAsins?: boolean
+  coreKeyword?: boolean
+  priceRange?: boolean
+  topCompetitorLink?: boolean
+  seasonality?: boolean
+  usageScenario?: boolean
+  iterationPlan?: boolean
+  targetAudience?: boolean
+  certification?: boolean
+  patentStatus?: boolean
+  trademarkStatus?: boolean
+  competitorReviewsAnalysis?: boolean
+  visualUpgradeDirection?: boolean
+  copyrightCheck?: boolean
+  troCheck?: boolean
+  phraseTrademarkCheck?: boolean
+  packaging?: boolean
+  supplyChainAdvantage?: boolean
+  suggestedQuantity?: boolean
+  suggestedPrice?: boolean
+  minPrice?: boolean
+  productCostCny?: boolean
+  supplierName?: boolean
+  moq?: boolean
+  unitPrice?: boolean
+  productionTime?: boolean
+  supplierLink?: boolean
+  supplierRemark?: boolean
+  lengthCm?: boolean
+  widthCm?: boolean
+  heightCm?: boolean
+  weightG?: boolean
+  volumetricWeightKg?: boolean
+  billingWeightLb?: boolean
+  fbaSizeTier?: boolean
+  fbaFee?: boolean
+  commissionRate?: boolean
+  exchangeRate?: boolean
+  shippingCost?: boolean
+  profitMargin?: boolean
+  profitAmount?: boolean
+  inventoryQuantity?: boolean
+  inventoryValue?: boolean
+  finalDecision?: boolean
+  launchDate?: boolean
+  rejectionReason?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
@@ -1612,6 +4506,57 @@ export type ProductSelectScalar = {
   sourceUrl?: boolean
   expectedPrice?: boolean
   notes?: boolean
+  competitorLink?: boolean
+  competitorAsins?: boolean
+  coreKeyword?: boolean
+  priceRange?: boolean
+  topCompetitorLink?: boolean
+  seasonality?: boolean
+  usageScenario?: boolean
+  iterationPlan?: boolean
+  targetAudience?: boolean
+  certification?: boolean
+  patentStatus?: boolean
+  trademarkStatus?: boolean
+  competitorReviewsAnalysis?: boolean
+  visualUpgradeDirection?: boolean
+  copyrightCheck?: boolean
+  troCheck?: boolean
+  phraseTrademarkCheck?: boolean
+  packaging?: boolean
+  supplyChainAdvantage?: boolean
+  suggestedQuantity?: boolean
+  suggestedPrice?: boolean
+  minPrice?: boolean
+  productCostCny?: boolean
+  supplierName?: boolean
+  moq?: boolean
+  unitPrice?: boolean
+  productionTime?: boolean
+  supplierLink?: boolean
+  supplierRemark?: boolean
+  lengthCm?: boolean
+  widthCm?: boolean
+  heightCm?: boolean
+  weightG?: boolean
+  volumetricWeightKg?: boolean
+  billingWeightLb?: boolean
+  fbaSizeTier?: boolean
+  fbaFee?: boolean
+  commissionRate?: boolean
+  exchangeRate?: boolean
+  shippingCost?: boolean
+  profitMargin?: boolean
+  profitAmount?: boolean
+  inventoryQuantity?: boolean
+  inventoryValue?: boolean
+  finalDecision?: boolean
+  launchDate?: boolean
+  rejectionReason?: boolean
+  firstBatchQuantity?: boolean
+  marketAnalysis?: boolean
+  competitivenessAnalysis?: boolean
+  alternativeSuggestions?: boolean
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
@@ -1622,7 +4567,7 @@ export type ProductSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "category" | "sourceUrl" | "expectedPrice" | "notes" | "submitterId" | "reviewerId" | "status" | "submitTime" | "assignTime" | "latestReviewTime" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "category" | "sourceUrl" | "expectedPrice" | "notes" | "competitorLink" | "competitorAsins" | "coreKeyword" | "priceRange" | "topCompetitorLink" | "seasonality" | "usageScenario" | "iterationPlan" | "targetAudience" | "certification" | "patentStatus" | "trademarkStatus" | "competitorReviewsAnalysis" | "visualUpgradeDirection" | "copyrightCheck" | "troCheck" | "phraseTrademarkCheck" | "packaging" | "supplyChainAdvantage" | "suggestedQuantity" | "suggestedPrice" | "minPrice" | "productCostCny" | "supplierName" | "moq" | "unitPrice" | "productionTime" | "supplierLink" | "supplierRemark" | "lengthCm" | "widthCm" | "heightCm" | "weightG" | "volumetricWeightKg" | "billingWeightLb" | "fbaSizeTier" | "fbaFee" | "commissionRate" | "exchangeRate" | "shippingCost" | "profitMargin" | "profitAmount" | "inventoryQuantity" | "inventoryValue" | "finalDecision" | "launchDate" | "rejectionReason" | "firstBatchQuantity" | "marketAnalysis" | "competitivenessAnalysis" | "alternativeSuggestions" | "submitterId" | "reviewerId" | "status" | "submitTime" | "assignTime" | "latestReviewTime" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   submitter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.Product$reviewerArgs<ExtArgs>
@@ -1659,6 +4604,57 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     sourceUrl: string | null
     expectedPrice: runtime.Decimal | null
     notes: string | null
+    competitorLink: string | null
+    competitorAsins: string | null
+    coreKeyword: string | null
+    priceRange: string | null
+    topCompetitorLink: string | null
+    seasonality: string | null
+    usageScenario: string | null
+    iterationPlan: string | null
+    targetAudience: string | null
+    certification: string | null
+    patentStatus: string | null
+    trademarkStatus: string | null
+    competitorReviewsAnalysis: string | null
+    visualUpgradeDirection: string | null
+    copyrightCheck: string | null
+    troCheck: string | null
+    phraseTrademarkCheck: string | null
+    packaging: string | null
+    supplyChainAdvantage: string | null
+    suggestedQuantity: number | null
+    suggestedPrice: runtime.Decimal | null
+    minPrice: runtime.Decimal | null
+    productCostCny: runtime.Decimal | null
+    supplierName: string | null
+    moq: number | null
+    unitPrice: string | null
+    productionTime: string | null
+    supplierLink: string | null
+    supplierRemark: string | null
+    lengthCm: runtime.Decimal | null
+    widthCm: runtime.Decimal | null
+    heightCm: runtime.Decimal | null
+    weightG: runtime.Decimal | null
+    volumetricWeightKg: runtime.Decimal | null
+    billingWeightLb: runtime.Decimal | null
+    fbaSizeTier: string | null
+    fbaFee: runtime.Decimal | null
+    commissionRate: runtime.Decimal
+    exchangeRate: runtime.Decimal
+    shippingCost: runtime.Decimal | null
+    profitMargin: runtime.Decimal | null
+    profitAmount: runtime.Decimal | null
+    inventoryQuantity: number | null
+    inventoryValue: runtime.Decimal | null
+    finalDecision: $Enums.Decision | null
+    launchDate: Date | null
+    rejectionReason: string | null
+    firstBatchQuantity: number | null
+    marketAnalysis: string | null
+    competitivenessAnalysis: string | null
+    alternativeSuggestions: string | null
     submitterId: string
     reviewerId: string | null
     status: $Enums.ProductStatus
@@ -2103,6 +5099,57 @@ export interface ProductFieldRefs {
   readonly sourceUrl: Prisma.FieldRef<"Product", 'String'>
   readonly expectedPrice: Prisma.FieldRef<"Product", 'Decimal'>
   readonly notes: Prisma.FieldRef<"Product", 'String'>
+  readonly competitorLink: Prisma.FieldRef<"Product", 'String'>
+  readonly competitorAsins: Prisma.FieldRef<"Product", 'String'>
+  readonly coreKeyword: Prisma.FieldRef<"Product", 'String'>
+  readonly priceRange: Prisma.FieldRef<"Product", 'String'>
+  readonly topCompetitorLink: Prisma.FieldRef<"Product", 'String'>
+  readonly seasonality: Prisma.FieldRef<"Product", 'String'>
+  readonly usageScenario: Prisma.FieldRef<"Product", 'String'>
+  readonly iterationPlan: Prisma.FieldRef<"Product", 'String'>
+  readonly targetAudience: Prisma.FieldRef<"Product", 'String'>
+  readonly certification: Prisma.FieldRef<"Product", 'String'>
+  readonly patentStatus: Prisma.FieldRef<"Product", 'String'>
+  readonly trademarkStatus: Prisma.FieldRef<"Product", 'String'>
+  readonly competitorReviewsAnalysis: Prisma.FieldRef<"Product", 'String'>
+  readonly visualUpgradeDirection: Prisma.FieldRef<"Product", 'String'>
+  readonly copyrightCheck: Prisma.FieldRef<"Product", 'String'>
+  readonly troCheck: Prisma.FieldRef<"Product", 'String'>
+  readonly phraseTrademarkCheck: Prisma.FieldRef<"Product", 'String'>
+  readonly packaging: Prisma.FieldRef<"Product", 'String'>
+  readonly supplyChainAdvantage: Prisma.FieldRef<"Product", 'String'>
+  readonly suggestedQuantity: Prisma.FieldRef<"Product", 'Int'>
+  readonly suggestedPrice: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly minPrice: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly productCostCny: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly supplierName: Prisma.FieldRef<"Product", 'String'>
+  readonly moq: Prisma.FieldRef<"Product", 'Int'>
+  readonly unitPrice: Prisma.FieldRef<"Product", 'String'>
+  readonly productionTime: Prisma.FieldRef<"Product", 'String'>
+  readonly supplierLink: Prisma.FieldRef<"Product", 'String'>
+  readonly supplierRemark: Prisma.FieldRef<"Product", 'String'>
+  readonly lengthCm: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly widthCm: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly heightCm: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly weightG: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly volumetricWeightKg: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly billingWeightLb: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly fbaSizeTier: Prisma.FieldRef<"Product", 'String'>
+  readonly fbaFee: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly commissionRate: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly exchangeRate: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly shippingCost: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly profitMargin: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly profitAmount: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly inventoryQuantity: Prisma.FieldRef<"Product", 'Int'>
+  readonly inventoryValue: Prisma.FieldRef<"Product", 'Decimal'>
+  readonly finalDecision: Prisma.FieldRef<"Product", 'Decision'>
+  readonly launchDate: Prisma.FieldRef<"Product", 'DateTime'>
+  readonly rejectionReason: Prisma.FieldRef<"Product", 'String'>
+  readonly firstBatchQuantity: Prisma.FieldRef<"Product", 'Int'>
+  readonly marketAnalysis: Prisma.FieldRef<"Product", 'String'>
+  readonly competitivenessAnalysis: Prisma.FieldRef<"Product", 'String'>
+  readonly alternativeSuggestions: Prisma.FieldRef<"Product", 'String'>
   readonly submitterId: Prisma.FieldRef<"Product", 'String'>
   readonly reviewerId: Prisma.FieldRef<"Product", 'String'>
   readonly status: Prisma.FieldRef<"Product", 'ProductStatus'>

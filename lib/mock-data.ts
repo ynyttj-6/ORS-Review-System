@@ -21,7 +21,7 @@ const products: Product[] = [
     notes: "含四色马克笔，亚克力透明面板。", submitterId: "u-dev-2", reviewerId: "u-op-2", status: "objection_pending",
     submitTime: "2026-07-30 14:23", assignTime: "2026-07-30 15:10", latestReviewTime: "2026-07-31 11:28", attachments: [{ id: "a-2", name: "市场容量.pdf", size: 916000, type: "application/pdf" }],
     reviews: [{ id: "r-1", round: 1, reviewerId: "u-op-2", decision: "returned", comment: "同质化较强，请补充差异化材质方案和包装成本测算。", createdAt: "2026-07-31 11:28" }],
-    objections: [{ id: "o-1", roundId: "r-1", submitterId: "u-dev-2", content: "已找到防刮磨砂材质供应商，包装成本可降低 0.7 美元，并补充了新报价。", createdAt: "2026-08-01 09:10" }],
+    objections: [{ id: "o-1", roundId: "r-1", submitterId: "u-dev-2", hasObjection: true, content: "已找到防刮磨砂材质供应商，包装成本可降低 0.7 美元，并补充了新报价。", createdAt: "2026-08-01 09:10" }],
   },
   {
     id: "p-1003", code: "ORS-260729", name: "儿童浴室鲸鱼造型温度计", category: "母婴用品", expectedPrice: 15.99,

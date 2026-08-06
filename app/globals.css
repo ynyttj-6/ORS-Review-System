@@ -86,6 +86,22 @@ button, input { font: inherit; }
 .timeline-item > div { display: flex; justify-content: space-between; margin-bottom: 4px; }
 .timeline-item p { margin: 0; padding: 9px 11px; border-radius: 7px; background: #f7f8fa; color: #5e687b; font-size: 12px; }
 .modal-form { margin-top: 20px; }
+.product-wizard { min-height: 530px; max-height: 62vh; overflow-y: auto; padding: 2px 8px 12px 2px; }
+.product-wizard > div > .ant-alert { margin-bottom: 18px; }
+.wizard-fields { margin-top: 18px; }
+.wizard-footer { display: flex; align-items: center; width: 100%; gap: 8px; }
+.wizard-footer-spacer { flex: 1; }
+.analysis-grid { column-count: 2; column-gap: 18px; }
+.analysis-grid .ant-form-item { break-inside: avoid; }
+.calculation-panel { margin-top: 10px; padding: 18px; border: 1px solid #e4e9f4; border-radius: 10px; background: linear-gradient(135deg, #f7f9ff, #f6fbfa); }
+.calculation-panel .ant-statistic { padding: 7px 8px; }
+.calculation-panel .ant-statistic-title { font-size: 11px; }
+.calculation-panel .ant-statistic-content { font-size: 18px; }
+.calculation-panel.compact { margin-top: 0; }
+.preview-descriptions { margin-top: 22px; }
+.analysis-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+.analysis-detail-grid > div { min-height: 90px; padding: 13px 15px; border: 1px solid #e8ebf1; border-radius: 8px; background: #fafbfc; }
+.analysis-detail-grid p { margin: 6px 0 0; white-space: pre-wrap; color: #27324a; }
 .review-summary { border-radius: 9px; padding: 14px 16px; background: #f6f8fc; margin-top: 12px; }
 .review-summary span { display: flex; flex-direction: column; gap: 2px; min-width: 90px; }
 .review-summary .ant-alert { margin-top: 13px; }

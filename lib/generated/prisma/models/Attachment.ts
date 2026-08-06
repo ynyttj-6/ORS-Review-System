@@ -39,6 +39,7 @@ export type AttachmentMinAggregateOutputType = {
   productId: string | null
   roundId: string | null
   objectionId: string | null
+  attachmentType: $Enums.AttachmentType | null
   fileName: string | null
   filePath: string | null
   fileSize: number | null
@@ -52,6 +53,7 @@ export type AttachmentMaxAggregateOutputType = {
   productId: string | null
   roundId: string | null
   objectionId: string | null
+  attachmentType: $Enums.AttachmentType | null
   fileName: string | null
   filePath: string | null
   fileSize: number | null
@@ -65,6 +67,7 @@ export type AttachmentCountAggregateOutputType = {
   productId: number
   roundId: number
   objectionId: number
+  attachmentType: number
   fileName: number
   filePath: number
   fileSize: number
@@ -88,6 +91,7 @@ export type AttachmentMinAggregateInputType = {
   productId?: true
   roundId?: true
   objectionId?: true
+  attachmentType?: true
   fileName?: true
   filePath?: true
   fileSize?: true
@@ -101,6 +105,7 @@ export type AttachmentMaxAggregateInputType = {
   productId?: true
   roundId?: true
   objectionId?: true
+  attachmentType?: true
   fileName?: true
   filePath?: true
   fileSize?: true
@@ -114,6 +119,7 @@ export type AttachmentCountAggregateInputType = {
   productId?: true
   roundId?: true
   objectionId?: true
+  attachmentType?: true
   fileName?: true
   filePath?: true
   fileSize?: true
@@ -214,6 +220,7 @@ export type AttachmentGroupByOutputType = {
   productId: string
   roundId: string | null
   objectionId: string | null
+  attachmentType: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -250,6 +257,7 @@ export type AttachmentWhereInput = {
   productId?: Prisma.UuidFilter<"Attachment"> | string
   roundId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
   objectionId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringFilter<"Attachment"> | string
   filePath?: Prisma.StringFilter<"Attachment"> | string
   fileSize?: Prisma.IntFilter<"Attachment"> | number
@@ -267,6 +275,7 @@ export type AttachmentOrderByWithRelationInput = {
   productId?: Prisma.SortOrder
   roundId?: Prisma.SortOrderInput | Prisma.SortOrder
   objectionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  attachmentType?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -287,6 +296,7 @@ export type AttachmentWhereUniqueInput = Prisma.AtLeast<{
   productId?: Prisma.UuidFilter<"Attachment"> | string
   roundId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
   objectionId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringFilter<"Attachment"> | string
   filePath?: Prisma.StringFilter<"Attachment"> | string
   fileSize?: Prisma.IntFilter<"Attachment"> | number
@@ -304,6 +314,7 @@ export type AttachmentOrderByWithAggregationInput = {
   productId?: Prisma.SortOrder
   roundId?: Prisma.SortOrderInput | Prisma.SortOrder
   objectionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  attachmentType?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -325,6 +336,7 @@ export type AttachmentScalarWhereWithAggregatesInput = {
   productId?: Prisma.UuidWithAggregatesFilter<"Attachment"> | string
   roundId?: Prisma.UuidNullableWithAggregatesFilter<"Attachment"> | string | null
   objectionId?: Prisma.UuidNullableWithAggregatesFilter<"Attachment"> | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeWithAggregatesFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   filePath?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   fileSize?: Prisma.IntWithAggregatesFilter<"Attachment"> | number
@@ -335,6 +347,7 @@ export type AttachmentScalarWhereWithAggregatesInput = {
 
 export type AttachmentCreateInput = {
   id?: string
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -351,6 +364,7 @@ export type AttachmentUncheckedCreateInput = {
   productId: string
   roundId?: string | null
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -361,6 +375,7 @@ export type AttachmentUncheckedCreateInput = {
 
 export type AttachmentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -377,6 +392,7 @@ export type AttachmentUncheckedUpdateInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -390,6 +406,7 @@ export type AttachmentCreateManyInput = {
   productId: string
   roundId?: string | null
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -400,6 +417,7 @@ export type AttachmentCreateManyInput = {
 
 export type AttachmentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -412,6 +430,7 @@ export type AttachmentUncheckedUpdateManyInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -435,6 +454,7 @@ export type AttachmentCountOrderByAggregateInput = {
   productId?: Prisma.SortOrder
   roundId?: Prisma.SortOrder
   objectionId?: Prisma.SortOrder
+  attachmentType?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -452,6 +472,7 @@ export type AttachmentMaxOrderByAggregateInput = {
   productId?: Prisma.SortOrder
   roundId?: Prisma.SortOrder
   objectionId?: Prisma.SortOrder
+  attachmentType?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -465,6 +486,7 @@ export type AttachmentMinOrderByAggregateInput = {
   productId?: Prisma.SortOrder
   roundId?: Prisma.SortOrder
   objectionId?: Prisma.SortOrder
+  attachmentType?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -645,8 +667,13 @@ export type AttachmentUncheckedUpdateManyWithoutObjectionNestedInput = {
   deleteMany?: Prisma.AttachmentScalarWhereInput | Prisma.AttachmentScalarWhereInput[]
 }
 
+export type EnumAttachmentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.AttachmentType
+}
+
 export type AttachmentCreateWithoutUploaderInput = {
   id?: string
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -662,6 +689,7 @@ export type AttachmentUncheckedCreateWithoutUploaderInput = {
   productId: string
   roundId?: string | null
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -703,6 +731,7 @@ export type AttachmentScalarWhereInput = {
   productId?: Prisma.UuidFilter<"Attachment"> | string
   roundId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
   objectionId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringFilter<"Attachment"> | string
   filePath?: Prisma.StringFilter<"Attachment"> | string
   fileSize?: Prisma.IntFilter<"Attachment"> | number
@@ -713,6 +742,7 @@ export type AttachmentScalarWhereInput = {
 
 export type AttachmentCreateWithoutProductInput = {
   id?: string
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -727,6 +757,7 @@ export type AttachmentUncheckedCreateWithoutProductInput = {
   id?: string
   roundId?: string | null
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -763,6 +794,7 @@ export type AttachmentUpdateManyWithWhereWithoutProductInput = {
 
 export type AttachmentCreateWithoutRoundInput = {
   id?: string
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -777,6 +809,7 @@ export type AttachmentUncheckedCreateWithoutRoundInput = {
   id?: string
   productId: string
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -813,6 +846,7 @@ export type AttachmentUpdateManyWithWhereWithoutRoundInput = {
 
 export type AttachmentCreateWithoutObjectionInput = {
   id?: string
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -827,6 +861,7 @@ export type AttachmentUncheckedCreateWithoutObjectionInput = {
   id?: string
   productId: string
   roundId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -866,6 +901,7 @@ export type AttachmentCreateManyUploaderInput = {
   productId: string
   roundId?: string | null
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -875,6 +911,7 @@ export type AttachmentCreateManyUploaderInput = {
 
 export type AttachmentUpdateWithoutUploaderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -890,6 +927,7 @@ export type AttachmentUncheckedUpdateWithoutUploaderInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -902,6 +940,7 @@ export type AttachmentUncheckedUpdateManyWithoutUploaderInput = {
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -913,6 +952,7 @@ export type AttachmentCreateManyProductInput = {
   id?: string
   roundId?: string | null
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -923,6 +963,7 @@ export type AttachmentCreateManyProductInput = {
 
 export type AttachmentUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -937,6 +978,7 @@ export type AttachmentUncheckedUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -949,6 +991,7 @@ export type AttachmentUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -961,6 +1004,7 @@ export type AttachmentCreateManyRoundInput = {
   id?: string
   productId: string
   objectionId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -971,6 +1015,7 @@ export type AttachmentCreateManyRoundInput = {
 
 export type AttachmentUpdateWithoutRoundInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -985,6 +1030,7 @@ export type AttachmentUncheckedUpdateWithoutRoundInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -997,6 +1043,7 @@ export type AttachmentUncheckedUpdateManyWithoutRoundInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   objectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1009,6 +1056,7 @@ export type AttachmentCreateManyObjectionInput = {
   id?: string
   productId: string
   roundId?: string | null
+  attachmentType?: $Enums.AttachmentType
   fileName: string
   filePath: string
   fileSize: number
@@ -1019,6 +1067,7 @@ export type AttachmentCreateManyObjectionInput = {
 
 export type AttachmentUpdateWithoutObjectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1033,6 +1082,7 @@ export type AttachmentUncheckedUpdateWithoutObjectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1045,6 +1095,7 @@ export type AttachmentUncheckedUpdateManyWithoutObjectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   roundId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachmentType?: Prisma.EnumAttachmentTypeFieldUpdateOperationsInput | $Enums.AttachmentType
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1060,6 +1111,7 @@ export type AttachmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   productId?: boolean
   roundId?: boolean
   objectionId?: boolean
+  attachmentType?: boolean
   fileName?: boolean
   filePath?: boolean
   fileSize?: boolean
@@ -1077,6 +1129,7 @@ export type AttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   productId?: boolean
   roundId?: boolean
   objectionId?: boolean
+  attachmentType?: boolean
   fileName?: boolean
   filePath?: boolean
   fileSize?: boolean
@@ -1094,6 +1147,7 @@ export type AttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   productId?: boolean
   roundId?: boolean
   objectionId?: boolean
+  attachmentType?: boolean
   fileName?: boolean
   filePath?: boolean
   fileSize?: boolean
@@ -1111,6 +1165,7 @@ export type AttachmentSelectScalar = {
   productId?: boolean
   roundId?: boolean
   objectionId?: boolean
+  attachmentType?: boolean
   fileName?: boolean
   filePath?: boolean
   fileSize?: boolean
@@ -1119,7 +1174,7 @@ export type AttachmentSelectScalar = {
   createdAt?: boolean
 }
 
-export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundId" | "objectionId" | "fileName" | "filePath" | "fileSize" | "fileType" | "uploaderId" | "createdAt", ExtArgs["result"]["attachment"]>
+export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundId" | "objectionId" | "attachmentType" | "fileName" | "filePath" | "fileSize" | "fileType" | "uploaderId" | "createdAt", ExtArgs["result"]["attachment"]>
 export type AttachmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   round?: boolean | Prisma.Attachment$roundArgs<ExtArgs>
@@ -1152,6 +1207,7 @@ export type $AttachmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     productId: string
     roundId: string | null
     objectionId: string | null
+    attachmentType: $Enums.AttachmentType
     fileName: string
     filePath: string
     fileSize: number
@@ -1589,6 +1645,7 @@ export interface AttachmentFieldRefs {
   readonly productId: Prisma.FieldRef<"Attachment", 'String'>
   readonly roundId: Prisma.FieldRef<"Attachment", 'String'>
   readonly objectionId: Prisma.FieldRef<"Attachment", 'String'>
+  readonly attachmentType: Prisma.FieldRef<"Attachment", 'AttachmentType'>
   readonly fileName: Prisma.FieldRef<"Attachment", 'String'>
   readonly filePath: Prisma.FieldRef<"Attachment", 'String'>
   readonly fileSize: Prisma.FieldRef<"Attachment", 'Int'>

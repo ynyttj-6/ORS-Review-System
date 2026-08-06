@@ -43,8 +43,8 @@ export default function LoginPage() {
         <section className="login-panel">
           <Card className="login-card">
             <Title level={3}>登录工作台</Title><Text type="secondary">使用管理员发放的账号和密码</Text>
-            {!production && <Alert type="info" showIcon message="当前是演示模式" description="将 NEXT_PUBLIC_APP_MODE 设置为 production 后启用 Supabase 登录。" />}
-            {error && <Alert type="error" showIcon message="登录失败" description={error} />}
+            {!production && <Alert type="info" showIcon title="当前是演示模式" description="将 NEXT_PUBLIC_APP_MODE 设置为 production 后启用 Supabase 登录。" />}
+            {error && <Alert type="error" showIcon title="登录失败" description={error} />}
             <Form layout="vertical" onFinish={submit} requiredMark={false}>
               <Form.Item label="登录账号" name="account" rules={[{ required: true, message: "请输入登录账号" }]}><Input size="large" prefix={<UserOutlined />} autoComplete="username" placeholder="输入管理员发放的账号" /></Form.Item>
               <Form.Item label="密码" name="password" rules={[{ required: true, message: "请输入密码" }]}><Input.Password size="large" prefix={<LockOutlined />} placeholder="输入登录密码" /></Form.Item>

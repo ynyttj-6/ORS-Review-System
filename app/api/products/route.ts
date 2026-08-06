@@ -5,6 +5,7 @@ import { createProductSchema } from "@/lib/api/schemas";
 import { ApiError, handleApiError, ok } from "@/lib/api/response";
 import { productInclude, serializeProduct } from "@/lib/api/serialize";
 import { formatChinaDateCode } from "@/lib/time";
+import { productData } from "@/lib/api/product-data";
 
 export async function GET() {
   try {
@@ -19,10 +20,11 @@ export async function POST(request: Request) {
   try {
     const user = await requireUser(["admin", "developer"]);
     const input = createProductSchema.parse(await request.json());
+    const { action, ...fields } = input;
     const code = `ORS-${formatChinaDateCode()}-${randomUUID().slice(0, 6).toUpperCase()}`;
     const product = await getPrisma().$transaction(async (tx) => {
-      const created = await tx.product.create({ data: { ...input, sourceUrl: input.sourceUrl || null, submitterId: user.id, code }, include: productInclude });
-      await tx.auditLog.create({ data: { productId: created.id, operatorId: user.id, action: "submit", detail: { code, name: input.name } } });
+      const created = await tx.product.create({ data: { ...productData(fields), name: fields.name, category: fields.category || null, status: action === "draft" ? "draft" : "pending_assign", submitterId: user.id, code }, include: productInclude });
+      await tx.auditLog.create({ data: { productId: created.id, operatorId: user.id, action: action === "draft" ? "save_draft" : "submit", detail: { code, name: input.name } } });
       return created;
     });
     return ok(serializeProduct(product), 201);

@@ -51,7 +51,6 @@ import {
   ClockCircleOutlined,
   CloudUploadOutlined,
   DatabaseOutlined,
-  DeleteOutlined,
   DownOutlined,
   ExclamationCircleOutlined,
   ExportOutlined,
@@ -361,14 +360,14 @@ function ReviewSystemInner() {
       const { confirmPassword: _confirmPassword, password, ...profileValues } = values;
       if (productionMode) {
         const isNew = userModal === "new";
-        const payload = password ? { ...profileValues, password } : profileValues;
+        const payload = isNew || !password ? profileValues : { ...profileValues, password };
         const saved = await apiRequest<User>(isNew ? "/api/users" : `/api/users/${(userModal as User).id}`, { method: isNew ? "POST" : "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
         setState((old) => ({ ...old, users: isNew ? [...old.users, saved] : old.users.map((user) => user.id === saved.id ? saved : user) }));
       } else if (userModal === "new") {
         const user: User = { id: `u-${Date.now()}`, ...profileValues, isActive: true, createdAt: formatChinaDate() };
         setState((old) => ({ ...old, users: [...old.users, user] }));
       } else if (userModal) setState((old) => ({ ...old, users: old.users.map((user) => user.id === userModal.id ? { ...user, ...profileValues } : user) }));
-      appMessage.success(userModal === "new" ? "用户账号已创建，可直接发放登录信息" : password ? "用户信息及登录密码已更新" : "用户信息已更新"); setUserModal(null); userForm.resetFields();
+      appMessage.success(userModal === "new" ? "用户已创建，邀请邮件已发送" : password ? "用户信息及登录密码已更新" : "用户信息已更新"); setUserModal(null); userForm.resetFields();
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
 
@@ -506,13 +505,13 @@ function ReviewSystemInner() {
       <Modal title={userModal === "new" ? "新增用户" : "编辑用户"} open={!!userModal} onCancel={() => { setUserModal(null); userForm.resetFields(); }} onOk={saveUser} okText="保存" width={560}>
         <Form form={userForm} layout="vertical" className="modal-form">
           <Form.Item label="姓名" name="name" rules={[{ required: true, message: "请输入姓名" }]}><Input /></Form.Item>
-          <Form.Item label="登录账号" name="account" rules={[{ required: true, message: "请输入登录账号" }, { min: 3, message: "登录账号至少 3 位" }, { max: 100, message: "登录账号最多 100 位" }, { pattern: /^[A-Za-z0-9][A-Za-z0-9._@-]*$/, message: "账号只能包含字母、数字、点、下划线、短横线或 @" }]}><Input autoComplete="off" placeholder="例如：zhangsan 或员工编号" /></Form.Item>
+          <Form.Item label="企业邮箱" name="email" rules={[{ required: true, type: "email", message: "请输入有效邮箱" }]}><Input /></Form.Item>
           <Form.Item label="角色" name="role" rules={[{ required: true }]}><Select options={Object.entries(roleMeta).map(([value, meta]) => ({ value, label: meta.label }))} /></Form.Item>
           <Form.Item label="飞书 User ID" name="feishuUserId"><Input placeholder="可选，用于机器人消息推送" /></Form.Item>
-          {productionMode && <>
+          {productionMode && userModal !== "new" && <>
             <Divider plain>登录密码</Divider>
-            <Alert type="info" showIcon title={userModal === "new" ? "由管理员设置初始密码并安全发放" : "当前密码已加密，任何人都无法查看"} description={userModal === "new" ? "账号创建后无需邮箱确认，可立即使用账号和密码登录。" : "如需修改，请设置新密码；留空保存时不会改变原密码。"} style={{ marginBottom: 16 }} />
-            <Form.Item label={userModal === "new" ? "初始密码" : "新密码（留空则不修改）"} name="password" rules={[{ required: userModal === "new", message: "请设置初始密码" }, { min: 12, message: "密码至少 12 位" }, { max: 72, message: "密码最多 72 位" }]}>
+            <Alert type="info" showIcon title="当前密码已加密，任何人都无法查看" description="如需修改，请设置新密码。留空保存时不会改变原密码。" style={{ marginBottom: 16 }} />
+            <Form.Item label="新密码（留空则不修改）" name="password" rules={[{ min: 12, message: "密码至少 12 位" }, { max: 72, message: "密码最多 72 位" }]}>
               <Input.Password autoComplete="new-password" placeholder="至少 12 位，可点击右侧图标查看输入" />
             </Form.Item>
             <Form.Item label="确认新密码" name="confirmPassword" dependencies={["password"]} rules={[({ getFieldValue }) => ({ validator(_, value) { const nextPassword = getFieldValue("password"); if (!nextPassword && !value) return Promise.resolve(); if (!value) return Promise.reject(new Error("请再次输入新密码")); return nextPassword === value ? Promise.resolve() : Promise.reject(new Error("两次输入的密码不一致")); } })]}>
@@ -758,8 +757,8 @@ function NotificationsPage(ctx: PageContext) {
       <PageHeading title="通知日志" description={description} extra={<Button icon={<ReloadOutlined />} loading={loading} onClick={() => setRefreshKey((value) => value + 1)}>刷新</Button>} />
       <Row gutter={[16, 16]} className="summary-strip notification-summary">
         <Col span={6}><Card><Statistic title="全部通知" value={data.summary.all} prefix={<BellOutlined />} /></Card></Col>
-        <Col span={6}><Card><Statistic title="发送成功" value={data.summary.success} prefix={<CheckCircleOutlined />} valueStyle={{ color: "#12a47d" }} /></Card></Col>
-        <Col span={6}><Card><Statistic title="发送失败" value={data.summary.failed} prefix={<ExclamationCircleOutlined />} valueStyle={{ color: "#d84a57" }} /></Card></Col>
+        <Col span={6}><Card><Statistic title="发送成功" value={data.summary.success} prefix={<CheckCircleOutlined />} content={{ color: "#12a47d" }} /></Card></Col>
+        <Col span={6}><Card><Statistic title="发送失败" value={data.summary.failed} prefix={<ExclamationCircleOutlined />} content={{ color: "#d84a57" }} /></Card></Col>
         <Col span={6}><Card><Statistic title="已跳过" value={data.summary.skipped} prefix={<ClockCircleOutlined />} /></Card></Col>
       </Row>
       <Card>
@@ -785,9 +784,8 @@ function NotificationsPage(ctx: PageContext) {
 }
 
 function UsersPage(ctx: PageContext) {
-  const { state, currentUser, setUserModal, userForm, setState, appMessage } = ctx;
+  const { state, setUserModal, userForm, setState, appMessage } = ctx;
   const [role, setRole] = useState("all");
-  const [deletingId, setDeletingId] = useState<string | null>(null);
   const data = state.users.filter((u) => role === "all" || u.role === role);
   const openEdit = (user: User) => { userForm.resetFields(); userForm.setFieldsValue(user); setUserModal(user); };
   const toggle = async (user: User) => {
@@ -798,28 +796,19 @@ function UsersPage(ctx: PageContext) {
       appMessage.success(`已${user.isActive ? "停用" : "启用"} ${user.name}`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
-  const remove = async (user: User) => {
-    setDeletingId(user.id);
-    try {
-      if (productionMode) await apiRequest<{ id: string; deleted: boolean }>(`/api/users/${user.id}`, { method: "DELETE" });
-      setState((old) => ({ ...old, users: old.users.filter((item) => item.id !== user.id) }));
-      appMessage.success(`用户账号 ${user.account} 已永久删除`);
-    } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
-    finally { setDeletingId(null); }
-  };
   const columns: TableColumnsType<User> = [
-    { title: "用户", render: (_, u) => <Space><Avatar style={{ background: roleMeta[u.role].color }}>{u.name.slice(-1)}</Avatar><span><strong>{u.name}</strong><br /><Text type="secondary" className="small-text">账号：{u.account}</Text></span></Space> },
+    { title: "用户", render: (_, u) => <Space><Avatar style={{ background: roleMeta[u.role].color }}>{u.name.slice(-1)}</Avatar><span><strong>{u.name}</strong><br /><Text type="secondary" className="small-text">{u.email}</Text></span></Space> },
     { title: "角色", dataIndex: "role", width: 120, render: (value) => <RoleTag role={value} /> },
     { title: "飞书绑定", dataIndex: "feishuUserId", width: 140, render: (value) => value ? <Tag icon={<CheckCircleFilled />} color="success">已绑定</Tag> : <Tag>未绑定</Tag> },
     { title: "状态", dataIndex: "isActive", width: 100, render: (value) => <Badge status={value ? "success" : "default"} text={value ? "启用" : "停用"} /> },
     { title: "创建日期", dataIndex: "createdAt", width: 120 },
-    { title: "操作", width: 250, align: "right", render: (_, u) => <Space size={4}><Button type="link" onClick={() => openEdit(u)}>编辑</Button><Popconfirm title={`确认${u.isActive ? "停用" : "启用"}该用户？`} onConfirm={() => toggle(u)}><Button type="link" danger={u.isActive}>{u.isActive ? "停用" : "启用"}</Button></Popconfirm><Popconfirm title={`永久删除 ${u.name}？`} description="删除后账号无法登录且不可恢复；已有业务记录的账号不能删除。" okText="永久删除" cancelText="取消" okButtonProps={{ danger: true }} onConfirm={() => remove(u)} disabled={u.id === currentUser.id}><Button type="link" danger icon={<DeleteOutlined />} disabled={u.id === currentUser.id} loading={deletingId === u.id}>删除</Button></Popconfirm></Space> },
+    { title: "操作", width: 150, align: "right", render: (_, u) => <Space><Button type="link" onClick={() => openEdit(u)}>编辑</Button><Popconfirm title={`确认${u.isActive ? "停用" : "启用"}该用户？`} onConfirm={() => toggle(u)}><Button type="link" danger={u.isActive}>{u.isActive ? "停用" : "启用"}</Button></Popconfirm></Space> },
   ];
   return (
     <>
       <PageHeading title="用户管理" description="管理团队账号、角色权限与飞书绑定" extra={<Space><Button icon={<CloudUploadOutlined />}>批量导入</Button><Button type="primary" icon={<PlusOutlined />} onClick={() => { userForm.resetFields(); setUserModal("new"); }}>新增用户</Button></Space>} />
       <Card>
-        <div className="table-toolbar"><Segmented value={role} onChange={(value) => setRole(String(value))} options={[{ value: "all", label: `全部 ${state.users.length}` }, { value: "developer", label: `开发 ${state.users.filter((u) => u.role === "developer").length}` }, { value: "operator", label: `运营 ${state.users.filter((u) => u.role === "operator").length}` }, { value: "admin", label: `管理员 ${state.users.filter((u) => u.role === "admin").length}` }]} /><Input prefix={<SearchOutlined />} placeholder="搜索姓名或账号" style={{ width: 240 }} /></div>
+        <div className="table-toolbar"><Segmented value={role} onChange={(value) => setRole(String(value))} options={[{ value: "all", label: `全部 ${state.users.length}` }, { value: "developer", label: `开发 ${state.users.filter((u) => u.role === "developer").length}` }, { value: "operator", label: `运营 ${state.users.filter((u) => u.role === "operator").length}` }, { value: "admin", label: `管理员 ${state.users.filter((u) => u.role === "admin").length}` }]} /><Input prefix={<SearchOutlined />} placeholder="搜索姓名或邮箱" style={{ width: 240 }} /></div>
         <Table rowKey="id" dataSource={data} columns={columns} pagination={false} />
       </Card>
     </>
@@ -906,7 +895,7 @@ function SettingsPage(ctx: PageContext) {
   return (
     <>
       <PageHeading title="系统设置" description="配置飞书应用、通知模板与自动分配规则" />
-          <Tabs tabPosition="left" className="settings-tabs" items={[
+          <Tabs tabPlacement="left" className="settings-tabs" items={[
         { key: "production", label: "生产接入", children: <Card title="生产环境接入进度"><Alert type={productionMode ? "success" : "warning"} showIcon title={productionMode ? "已启用生产数据模式" : "当前仍为安全演示模式"} description={productionMode ? "用户身份、业务数据、附件与通知均通过服务端生产接口处理。" : "完成以下步骤并将 NEXT_PUBLIC_APP_MODE 改为 production 后，系统才会连接云端资源。"} /><div className="production-checklist"><Steps orientation="vertical" current={productionMode ? 5 : 0} items={[{ title: "创建 Supabase 项目", content: "获取 Project URL、Publishable Key 与 Service Role Key" }, { title: "配置数据库连接", content: "分别填写运行时 Transaction Pooler URL 与迁移 Direct URL" }, { title: "执行数据库迁移", content: "运行 npm run db:migrate，并在 SQL Editor 执行 supabase/setup.sql" }, { title: "初始化管理员", content: "填写 BOOTSTRAP_ADMIN_* 后运行 npm run db:seed" }, { title: "启用生产模式", content: "设置 NEXT_PUBLIC_APP_MODE=production，重启或重新部署" }, { title: "验证外部服务", content: "访问 /api/health，并测试附件上传与飞书通知" }]} /></div></Card> },
         { key: "feishu", label: "飞书集成", children: <Card title="飞书自建应用"><Alert title="凭据仅保存在服务端环境变量中，页面不会回显 App Secret。" type="info" showIcon /><Form layout="vertical" className="settings-form" initialValues={{ appId: "cli_a7••••••••92", enabled: true }}><Form.Item label="App ID" name="appId"><Input /></Form.Item><Form.Item label="App Secret"><Input.Password placeholder="输入新的 Secret 以更新" /></Form.Item><Form.Item label="启用机器人通知" name="enabled" valuePropName="checked"><Switch /></Form.Item><Button type="primary" icon={<SendOutlined />} onClick={() => appMessage.success("连接测试成功")}>保存并测试连接</Button></Form></Card> },
         { key: "notify", label: "通知规则", children: <Card title="事件通知"><div className="setting-list">{["新选品分配给运营", "运营完成审核", "开发人员提交异议", "选品被驳回或要求二次开发"].map((item) => <div key={item}><span><strong>{item}</strong><small>通过飞书卡片消息实时推送</small></span><Switch defaultChecked /></div>)}</div></Card> },

@@ -44,6 +44,11 @@ async function main() {
 
   const latestReview = product.reviews[0] ?? null;
   const latestAudit = product.auditLogs[0] ?? null;
+  const reviewStatusMatched = latestReview?.decision === "redevelop"
+    ? ["objection_pending", "pending_review"].includes(product.status)
+    : latestReview?.decision === "returned"
+      ? ["returned", "objection_pending", "pending_review"].includes(product.status)
+      : latestReview?.decision === product.status;
   const result = {
     productCode: product.code,
     status: product.status,
@@ -54,7 +59,7 @@ async function main() {
     verified:
       Boolean(latestReview) &&
       Boolean(latestAudit) &&
-      latestReview?.decision === product.status &&
+      reviewStatusMatched &&
       latestAudit?.action === "review",
   };
 

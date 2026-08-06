@@ -1003,6 +1003,57 @@ export const ProductScalarFieldEnum = {
   sourceUrl: 'sourceUrl',
   expectedPrice: 'expectedPrice',
   notes: 'notes',
+  competitorLink: 'competitorLink',
+  competitorAsins: 'competitorAsins',
+  coreKeyword: 'coreKeyword',
+  priceRange: 'priceRange',
+  topCompetitorLink: 'topCompetitorLink',
+  seasonality: 'seasonality',
+  usageScenario: 'usageScenario',
+  iterationPlan: 'iterationPlan',
+  targetAudience: 'targetAudience',
+  certification: 'certification',
+  patentStatus: 'patentStatus',
+  trademarkStatus: 'trademarkStatus',
+  competitorReviewsAnalysis: 'competitorReviewsAnalysis',
+  visualUpgradeDirection: 'visualUpgradeDirection',
+  copyrightCheck: 'copyrightCheck',
+  troCheck: 'troCheck',
+  phraseTrademarkCheck: 'phraseTrademarkCheck',
+  packaging: 'packaging',
+  supplyChainAdvantage: 'supplyChainAdvantage',
+  suggestedQuantity: 'suggestedQuantity',
+  suggestedPrice: 'suggestedPrice',
+  minPrice: 'minPrice',
+  productCostCny: 'productCostCny',
+  supplierName: 'supplierName',
+  moq: 'moq',
+  unitPrice: 'unitPrice',
+  productionTime: 'productionTime',
+  supplierLink: 'supplierLink',
+  supplierRemark: 'supplierRemark',
+  lengthCm: 'lengthCm',
+  widthCm: 'widthCm',
+  heightCm: 'heightCm',
+  weightG: 'weightG',
+  volumetricWeightKg: 'volumetricWeightKg',
+  billingWeightLb: 'billingWeightLb',
+  fbaSizeTier: 'fbaSizeTier',
+  fbaFee: 'fbaFee',
+  commissionRate: 'commissionRate',
+  exchangeRate: 'exchangeRate',
+  shippingCost: 'shippingCost',
+  profitMargin: 'profitMargin',
+  profitAmount: 'profitAmount',
+  inventoryQuantity: 'inventoryQuantity',
+  inventoryValue: 'inventoryValue',
+  finalDecision: 'finalDecision',
+  launchDate: 'launchDate',
+  rejectionReason: 'rejectionReason',
+  firstBatchQuantity: 'firstBatchQuantity',
+  marketAnalysis: 'marketAnalysis',
+  competitivenessAnalysis: 'competitivenessAnalysis',
+  alternativeSuggestions: 'alternativeSuggestions',
   submitterId: 'submitterId',
   reviewerId: 'reviewerId',
   status: 'status',
@@ -1023,6 +1074,12 @@ export const ReviewRoundScalarFieldEnum = {
   reviewerId: 'reviewerId',
   decision: 'decision',
   comment: 'comment',
+  launchDate: 'launchDate',
+  firstBatchQuantity: 'firstBatchQuantity',
+  marketAnalysis: 'marketAnalysis',
+  competitivenessAnalysis: 'competitivenessAnalysis',
+  alternativeSuggestions: 'alternativeSuggestions',
+  improvementSuggestions: 'improvementSuggestions',
   createdAt: 'createdAt'
 } as const
 
@@ -1035,6 +1092,7 @@ export const ObjectionScalarFieldEnum = {
   roundId: 'roundId',
   submitterId: 'submitterId',
   content: 'content',
+  hasObjection: 'hasObjection',
   createdAt: 'createdAt'
 } as const
 
@@ -1046,6 +1104,7 @@ export const AttachmentScalarFieldEnum = {
   productId: 'productId',
   roundId: 'roundId',
   objectionId: 'objectionId',
+  attachmentType: 'attachmentType',
   fileName: 'fileName',
   filePath: 'filePath',
   fileSize: 'fileSize',
@@ -1193,20 +1252,6 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
- * Reference to a field of type 'ProductStatus'
- */
-export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus'>
-    
-
-
-/**
- * Reference to a field of type 'ProductStatus[]'
- */
-export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1231,6 +1276,34 @@ export type EnumDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Decision[]'
  */
 export type ListEnumDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decision[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductStatus'
+ */
+export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ProductStatus[]'
+ */
+export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus[]'>
+
+
+
+/**
+ * Reference to a field of type 'AttachmentType'
+ */
+export type EnumAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentType'>
+
+
+
+/**
+ * Reference to a field of type 'AttachmentType[]'
+ */
+export type ListEnumAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentType[]'>
     
 
 
@@ -1481,4 +1554,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

@@ -19,6 +19,7 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 
 export const ProductStatus = {
+  draft: 'draft',
   pending_assign: 'pending_assign',
   pending_review: 'pending_review',
   approved: 'approved',
@@ -39,3 +40,13 @@ export const Decision = {
 } as const
 
 export type Decision = (typeof Decision)[keyof typeof Decision]
+
+
+export const AttachmentType = {
+  product_image: 'product_image',
+  competitor_screenshot: 'competitor_screenshot',
+  data_screenshot: 'data_screenshot',
+  supplier_info: 'supplier_info'
+} as const
+
+export type AttachmentType = (typeof AttachmentType)[keyof typeof AttachmentType]
