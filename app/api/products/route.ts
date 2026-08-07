@@ -6,13 +6,25 @@ import { ApiError, handleApiError, ok } from "@/lib/api/response";
 import { productInclude, serializeProduct } from "@/lib/api/serialize";
 import { formatChinaDateCode } from "@/lib/time";
 import { productData } from "@/lib/api/product-data";
+import type { ProductStatus } from "@/lib/generated/prisma/client";
 
-export async function GET() {
+const productStatuses = new Set<ProductStatus>(["draft", "pending_assign", "pending_review", "approved", "rejected", "returned", "redevelop", "objection_pending"]);
+
+export async function GET(request: Request) {
   try {
     const user = await requireUser();
-    const where = user.role === "developer" ? { submitterId: user.id } : user.role === "operator" ? { reviewerId: user.id } : {};
-    const products = await getPrisma().product.findMany({ where, include: productInclude, orderBy: { submitTime: "desc" } });
-    return ok(products.map(serializeProduct));
+    const url = new URL(request.url);
+    const page = Math.max(Number.parseInt(url.searchParams.get("page") || "1", 10) || 1, 1);
+    const pageSize = Math.min(Math.max(Number.parseInt(url.searchParams.get("pageSize") || "20", 10) || 20, 1), 100);
+    const requestedStatus = url.searchParams.get("status") as ProductStatus | null;
+    const ownershipWhere = user.role === "developer" ? { submitterId: user.id } : user.role === "operator" ? { reviewerId: user.id } : {};
+    const where = requestedStatus && productStatuses.has(requestedStatus) ? { ...ownershipWhere, status: requestedStatus } : ownershipWhere;
+    const db = getPrisma();
+    const [products, total] = await Promise.all([
+      db.product.findMany({ where, include: productInclude, orderBy: { submitTime: "desc" }, skip: (page - 1) * pageSize, take: pageSize }),
+      db.product.count({ where }),
+    ]);
+    return ok({ items: products.map(serializeProduct), total, page, pageSize });
   } catch (error) { return handleApiError(error); }
 }
 

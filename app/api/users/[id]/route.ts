@@ -1,5 +1,5 @@
 import { getPrisma } from "@/lib/db";
-import { requireUser } from "@/lib/api/auth";
+import { cacheAuthenticatedUser, invalidateAuthenticatedUser, requireUser } from "@/lib/api/auth";
 import { updateUserSchema } from "@/lib/api/schemas";
 import { ApiError, handleApiError, ok } from "@/lib/api/response";
 import { serializeUser } from "@/lib/api/serialize";
@@ -36,6 +36,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
           },
         })
       : existing;
+    cacheAuthenticatedUser(user);
     return ok(serializeUser(user));
   } catch (error) { return handleApiError(error); }
 }
@@ -61,6 +62,7 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     const authUserMissing = error?.message.toLowerCase().includes("not found");
     if (error && !authUserMissing) throw new ApiError(502, "认证账号删除失败，请稍后重试");
     await db.user.delete({ where: { id } });
+    invalidateAuthenticatedUser(id);
     return ok({ id, deleted: true });
   } catch (error) { return handleApiError(error); }
 }

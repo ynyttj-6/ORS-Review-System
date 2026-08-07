@@ -65,6 +65,8 @@ async function main() {
     stage = "创建草稿";
     const draft = await expectData<{ id: string; status: string }>(await jsonRequest("/api/products", developerCookie, { name: "v2全链路验收选品", action: "draft" }));
     productId = draft.id;
+    stage = "再次编辑草稿";
+    const editedDraft = await expectData<{ id: string; name: string; status: string }>(await jsonRequest(`/api/products/${productId}`, developerCookie, { name: "v2全链路验收选品-草稿已编辑", notes: "验证已保存草稿可以再次编辑" }, "PATCH"));
     const fields = {
       name: "v2全链路验收选品", category: "办公用品", competitorLink: "https://www.amazon.com/dp/B000000000", competitorAsins: "B000000001,B000000002", coreKeyword: "workflow test product", priceRange: "9.99-19.99", topCompetitorLink: "https://www.amazon.com/dp/B000000003",
       seasonality: "全年稳定，季节波动较低", usageScenario: "家庭与办公室日常使用", iterationPlan: "增加配置并改善竞品主要差评，保持价格竞争力", targetAudience: "办公人群", certification: "无", patentStatus: "已完成初步排查", trademarkStatus: "已完成核心词排查", competitorReviewsAnalysis: "已分析四个竞品，集中问题为包装、耐用性、气味和尺寸", visualUpgradeDirection: "简洁中性色", copyrightCheck: "自有设计并保留源文件", troCheck: "已完成关键词和图案特征排查", phraseTrademarkCheck: "无短句", packaging: "定制开窗彩盒", supplyChainAdvantage: "48小时出样",
@@ -86,6 +88,7 @@ async function main() {
     const stored = await getPrisma().product.findUnique({ where: { id: productId }, include: { reviews: true, objections: true } });
     const status = {
       draftCreated: draft.status === "draft",
+      savedDraftCanBeEdited: editedDraft.id === draft.id && editedDraft.status === "draft" && editedDraft.name === "v2全链路验收选品-草稿已编辑",
       submittedAndCalculated: submitted.status === "pending_assign" && Number(submitted.fbaFee) > 0 && typeof submitted.profitMargin === "number",
       redevelopWaitsForDeveloper: returned.status === "objection_pending",
       objectionReturnsToReview: objected.status === "pending_review",

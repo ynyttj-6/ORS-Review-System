@@ -3,6 +3,7 @@ import { loginSchema } from "@/lib/api/schemas";
 import { ApiError, handleApiError, ok } from "@/lib/api/response";
 import { serializeUser } from "@/lib/api/serialize";
 import { createClient } from "@/lib/supabase/server";
+import { cacheAuthenticatedSession } from "@/lib/api/auth";
 
 export async function POST(request: Request) {
   try {
@@ -14,6 +15,7 @@ export async function POST(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.signInWithPassword({ email: user.authEmail, password: input.password });
     if (error) throw new ApiError(401, "账号或密码错误");
+    await cacheAuthenticatedSession(user);
     return ok(serializeUser(user));
   } catch (error) {
     return handleApiError(error);

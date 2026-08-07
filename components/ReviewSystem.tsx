@@ -42,37 +42,35 @@ import {
   theme,
 } from "antd";
 import type { MenuProps, TableColumnsType, UploadFile, UploadProps } from "antd";
-import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  BellOutlined,
-  CheckCircleFilled,
-  CheckCircleOutlined,
-  ClockCircleOutlined,
-  CloudUploadOutlined,
-  DatabaseOutlined,
-  DownOutlined,
-  ExclamationCircleOutlined,
-  ExportOutlined,
-  FileExcelOutlined,
-  FileSearchOutlined,
-  InboxOutlined,
-  LeftOutlined,
-  LogoutOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  MoreOutlined,
-  PlusOutlined,
-  ProductOutlined,
-  ReloadOutlined,
-  SafetyCertificateOutlined,
-  SearchOutlined,
-  SendOutlined,
-  SettingOutlined,
-  SwapOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import AppstoreOutlined from "@ant-design/icons/AppstoreOutlined";
+import BarChartOutlined from "@ant-design/icons/BarChartOutlined";
+import BellOutlined from "@ant-design/icons/BellOutlined";
+import CheckCircleFilled from "@ant-design/icons/CheckCircleFilled";
+import CheckCircleOutlined from "@ant-design/icons/CheckCircleOutlined";
+import ClockCircleOutlined from "@ant-design/icons/ClockCircleOutlined";
+import CloudUploadOutlined from "@ant-design/icons/CloudUploadOutlined";
+import DatabaseOutlined from "@ant-design/icons/DatabaseOutlined";
+import DownOutlined from "@ant-design/icons/DownOutlined";
+import ExclamationCircleOutlined from "@ant-design/icons/ExclamationCircleOutlined";
+import ExportOutlined from "@ant-design/icons/ExportOutlined";
+import FileExcelOutlined from "@ant-design/icons/FileExcelOutlined";
+import FileSearchOutlined from "@ant-design/icons/FileSearchOutlined";
+import InboxOutlined from "@ant-design/icons/InboxOutlined";
+import LeftOutlined from "@ant-design/icons/LeftOutlined";
+import LogoutOutlined from "@ant-design/icons/LogoutOutlined";
+import MenuFoldOutlined from "@ant-design/icons/MenuFoldOutlined";
+import MenuUnfoldOutlined from "@ant-design/icons/MenuUnfoldOutlined";
+import MoreOutlined from "@ant-design/icons/MoreOutlined";
+import PlusOutlined from "@ant-design/icons/PlusOutlined";
+import ProductOutlined from "@ant-design/icons/ProductOutlined";
+import ReloadOutlined from "@ant-design/icons/ReloadOutlined";
+import SafetyCertificateOutlined from "@ant-design/icons/SafetyCertificateOutlined";
+import SearchOutlined from "@ant-design/icons/SearchOutlined";
+import SendOutlined from "@ant-design/icons/SendOutlined";
+import SettingOutlined from "@ant-design/icons/SettingOutlined";
+import SwapOutlined from "@ant-design/icons/SwapOutlined";
+import TeamOutlined from "@ant-design/icons/TeamOutlined";
+import UserOutlined from "@ant-design/icons/UserOutlined";
 import zhCN from "antd/locale/zh_CN";
 import { formatChinaDate, formatChinaDateCode, formatChinaDateTime, formatChinaLongDate } from "@/lib/time";
 import { seedState } from "@/lib/mock-data";
@@ -188,6 +186,16 @@ function PageHeading({ title, description, extra }: { title: string; description
 
 const requiredRule = { required: true, message: "此项为提交审核必填项" };
 const textArea = (placeholder: string, rows = 3) => <Input.TextArea rows={rows} placeholder={placeholder} showCount maxLength={5000} />;
+const productAttachmentGroups = [
+  ["productImages", "product_image"],
+  ["competitorScreenshots", "competitor_screenshot"],
+  ["supportingFiles", "data_screenshot"],
+  ["supplierFiles", "supplier_info"],
+] as const;
+
+function normalizeUploadFiles(event: UploadFile[] | { fileList?: UploadFile[] }) {
+  return Array.isArray(event) ? event : event?.fileList || [];
+}
 
 function ProductWizardFields({ step, economics, values }: { step: number; economics: ReturnType<typeof calculateProductEconomics>; values: Record<string, unknown> }) {
   const upload = (hint: string) => <Upload.Dragger beforeUpload={() => false} maxCount={5} accept=".jpg,.jpeg,.png,.pdf"><p className="ant-upload-drag-icon"><InboxOutlined /></p><p>{hint}</p><Text type="secondary">JPG / PNG / PDF，单文件不超过 10MB</Text></Upload.Dragger>;
@@ -226,10 +234,11 @@ function ProductWizardFields({ step, economics, values }: { step: number; econom
       <Alert type="warning" showIcon title="FBA 费用为系统估算" description="按 Amazon.com US 2026 非服装费率分段并计入 3.5% 附加费；采购前请用 Seller Central Revenue Calculator 复核。" />
       <Row gutter={16} className="wizard-fields"><Col span={6}><Form.Item label="长（cm）" name="lengthCm" rules={[requiredRule]}><InputNumber min={0.01} style={{ width: "100%" }} /></Form.Item></Col><Col span={6}><Form.Item label="宽（cm）" name="widthCm" rules={[requiredRule]}><InputNumber min={0.01} style={{ width: "100%" }} /></Form.Item></Col><Col span={6}><Form.Item label="高（cm）" name="heightCm" rules={[requiredRule]}><InputNumber min={0.01} style={{ width: "100%" }} /></Form.Item></Col><Col span={6}><Form.Item label="重量（g）" name="weightG" rules={[requiredRule]}><InputNumber min={0.01} style={{ width: "100%" }} /></Form.Item></Col></Row>
       <Row gutter={16}><Col span={8}><Form.Item label="佣金比例" name="commissionRate"><InputNumber min={0} max={1} step={0.01} style={{ width: "100%" }} /></Form.Item></Col><Col span={8}><Form.Item label="人民币/美元汇率" name="exchangeRate"><InputNumber min={0.01} precision={4} style={{ width: "100%" }} /></Form.Item></Col><Col span={8}><Form.Item label="头程费用（USD/件）" name="shippingCost"><InputNumber min={0} precision={2} prefix="$" style={{ width: "100%" }} /></Form.Item></Col></Row>
+      <Row gutter={16}><Col span={8}><Form.Item label="库存数量" name="inventoryQuantity" extra="留空时按建议发货数量计算"><InputNumber min={0} precision={0} style={{ width: "100%" }} /></Form.Item></Col><Col span={16}><Alert type="info" showIcon title={`库存货值：¥${economics.inventoryValue ?? 0}`} description="库存数量 × 产品成本；用于评估首批备货资金占用。" /></Col></Row>
       <Row gutter={[12, 12]} className="calculation-panel"><Col span={8}><Statistic title="尺寸分段" value={economics.fbaSizeTier || "待计算"} /></Col><Col span={8}><Statistic title="体积重" value={economics.volumetricWeightKg ?? 0} suffix="kg" precision={3} /></Col><Col span={8}><Statistic title="计费重" value={economics.billingWeightLb ?? 0} suffix="lb" precision={3} /></Col><Col span={8}><Statistic title="FBA 配送费" value={economics.fbaFee ?? 0} prefix="$" precision={2} /></Col><Col span={8}><Statistic title="单件利润" value={economics.profitAmount ?? 0} prefix="$" precision={2} styles={{ content: { color: (economics.profitAmount ?? 0) >= 0 ? "#12a47d" : "#cf1322" } }} /></Col><Col span={8}><Statistic title="利润率" value={economics.profitMargin ?? 0} suffix="%" precision={2} styles={{ content: { color: (economics.profitMargin ?? 0) >= 20 ? "#12a47d" : "#d48806" } }} /></Col></Row>
     </div>
     <div style={{ display: step === 4 ? "block" : "none" }}>
-      <Row gutter={[16, 16]}><Col span={12}><Form.Item label="产品主图" name="productImages">{upload("上传自己的产品主图")}</Form.Item></Col><Col span={12}><Form.Item label="卖家精灵/竞品截图" name="competitorScreenshots">{upload("上传市场与竞品数据截图")}</Form.Item></Col><Col span={12}><Form.Item label="其他支撑数据" name="supportingFiles">{upload("上传支撑结论的数据截图")}</Form.Item></Col><Col span={12}><Form.Item label="供应商资料" name="supplierFiles">{upload("上传报价或供应商信息")}</Form.Item></Col></Row>
+      <Row gutter={[16, 16]}><Col span={12}><Form.Item label="产品主图" name="productImages" valuePropName="fileList" getValueFromEvent={normalizeUploadFiles}>{upload("上传自己的产品主图")}</Form.Item></Col><Col span={12}><Form.Item label="卖家精灵/竞品截图" name="competitorScreenshots" valuePropName="fileList" getValueFromEvent={normalizeUploadFiles}>{upload("上传市场与竞品数据截图")}</Form.Item></Col><Col span={12}><Form.Item label="其他支撑数据" name="supportingFiles" valuePropName="fileList" getValueFromEvent={normalizeUploadFiles}>{upload("上传支撑结论的数据截图")}</Form.Item></Col><Col span={12}><Form.Item label="供应商资料" name="supplierFiles" valuePropName="fileList" getValueFromEvent={normalizeUploadFiles}>{upload("上传报价或供应商信息")}</Form.Item></Col></Row>
     </div>
     <div style={{ display: step === 5 ? "block" : "none" }}>
       <Alert type="success" showIcon title="资料已准备完成" description="请核对关键数据。提交后将进入待分配状态，开发端不可再编辑。" />
@@ -238,9 +247,16 @@ function ProductWizardFields({ step, economics, values }: { step: number; econom
         { key: "price", label: "建议/最低售价", children: `$${values.suggestedPrice || 0} / $${values.minPrice || 0}` }, { key: "cost", label: "产品成本", children: `¥${values.productCostCny || 0}` },
         { key: "fba", label: "FBA 费用", children: `$${economics.fbaFee ?? 0}` }, { key: "profit", label: "利润率", children: `${economics.profitMargin ?? 0}%` },
         { key: "supplier", label: "供应商", children: String(values.supplierName || "—") }, { key: "qty", label: "建议发货量", children: String(values.suggestedQuantity || "—") },
+        { key: "inventory", label: "库存数量", children: String(values.inventoryQuantity || values.suggestedQuantity || "—") }, { key: "inventoryValue", label: "库存货值", children: `¥${economics.inventoryValue ?? 0}` },
       ]} />
     </div>
   </>;
+}
+
+function ProductWizardContent({ form, step }: { form: ReturnType<typeof Form.useForm>[0]; step: number }) {
+  const values = (Form.useWatch([], form) || {}) as Record<string, unknown>;
+  const economics = useMemo(() => calculateProductEconomics(values), [values]);
+  return <ProductWizardFields step={step} economics={economics} values={values} />;
 }
 
 export default function ReviewSystem() {
@@ -269,6 +285,7 @@ function ReviewSystemInner() {
   const [newProductOpen, setNewProductOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productStep, setProductStep] = useState(0);
+  const [draftSavedVersion, setDraftSavedVersion] = useState(0);
   const [reviewProduct, setReviewProduct] = useState<Product | null>(null);
   const [objectionProduct, setObjectionProduct] = useState<Product | null>(null);
   const [assignProduct, setAssignProduct] = useState<Product | null>(null);
@@ -278,10 +295,8 @@ function ReviewSystemInner() {
   const [objectionForm] = Form.useForm();
   const [assignForm] = Form.useForm();
   const [userForm] = Form.useForm();
-  const productValues = Form.useWatch([], productForm) || {};
   const reviewDecision = Form.useWatch("decision", reviewForm) as Decision | undefined;
   const hasObjection = Form.useWatch("hasObjection", objectionForm);
-  const liveEconomics = useMemo(() => calculateProductEconomics(productValues), [productValues]);
   const { message: appMessage } = AntApp.useApp();
 
   async function loadProduction() {
@@ -353,7 +368,15 @@ function ReviewSystemInner() {
     setEditingProduct(product || null);
     setProductStep(0);
     productForm.resetFields();
-    productForm.setFieldsValue(product ? { ...product } : { category: "其他", commissionRate: 0.15, exchangeRate: 7.2, shippingCost: 0 });
+    const values: Record<string, unknown> = product ? { ...product } : { category: "其他", commissionRate: 0.15, exchangeRate: 7.2, shippingCost: 0 };
+    if (product) {
+      for (const [field, attachmentType] of productAttachmentGroups) {
+        values[field] = product.attachments
+          .filter((attachment) => (attachment.attachmentType || "data_screenshot") === attachmentType)
+          .map((attachment) => ({ uid: attachment.id, name: attachment.name, status: "done", size: attachment.size, type: attachment.type, url: productionMode ? `/api/files/${attachment.id}` : undefined } satisfies UploadFile));
+      }
+    }
+    productForm.setFieldsValue(values);
     setNewProductOpen(true);
   };
 
@@ -361,10 +384,7 @@ function ReviewSystemInner() {
     try {
       const values = action === "submit" ? await productForm.validateFields() : productForm.getFieldsValue(true);
       if (!values.name || String(values.name).trim().length < 2) throw new Error("请至少填写产品名称后再保存草稿");
-      const groups = [
-        ["productImages", "product_image"], ["competitorScreenshots", "competitor_screenshot"],
-        ["supportingFiles", "data_screenshot"], ["supplierFiles", "supplier_info"],
-      ] as const;
+      const groups = productAttachmentGroups;
       const payload = Object.fromEntries(Object.entries(values).filter(([key]) => !groups.some(([field]) => field === key)));
       if (productionMode) {
         let product: Product;
@@ -375,7 +395,7 @@ function ReviewSystemInner() {
           product = await apiRequest<Product>("/api/products", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, action }) });
         }
         for (const [field, attachmentType] of groups) {
-          const attachments: UploadFile[] = values[field]?.fileList || [];
+          const attachments: UploadFile[] = values[field] || [];
           for (const attachment of attachments) {
             if (!attachment.originFileObj) continue;
             const formData = new FormData(); formData.append("productId", product.id); formData.append("attachmentType", attachmentType); formData.append("file", attachment.originFileObj);
@@ -385,11 +405,15 @@ function ReviewSystemInner() {
         await loadProduction();
       } else {
         const now = formatTime();
-        const attachments = groups.flatMap(([field, attachmentType]) => ((values[field]?.fileList || []) as UploadFile[]).map((file) => ({ id: file.uid, name: file.name, size: file.size || 0, type: file.type || "application/octet-stream", attachmentType })));
-        const product: Product = { ...(editingProduct || {} as Product), ...payload, ...liveEconomics, id: editingProduct?.id || `p-${Date.now()}`, code: editingProduct?.code || `ORS-${formatChinaDateCode()}-${String(state.products.length + 1).padStart(2, "0")}`, name: values.name, category: values.category || "其他", expectedPrice: values.suggestedPrice, sourceUrl: values.competitorLink, submitterId: currentUser.id, status: action === "draft" ? "draft" : "pending_assign", submitTime: now, attachments: [...(editingProduct?.attachments || []), ...attachments], reviews: editingProduct?.reviews || [], objections: editingProduct?.objections || [] } as Product;
+        const attachments = groups.flatMap(([field, attachmentType]) => ((values[field] || []) as UploadFile[])
+          .filter((file) => !editingProduct?.attachments.some((attachment) => attachment.id === file.uid))
+          .map((file) => ({ id: file.uid, name: file.name, size: file.size || 0, type: file.type || "application/octet-stream", attachmentType })));
+        const product: Product = { ...(editingProduct || {} as Product), ...payload, ...calculateProductEconomics(values), id: editingProduct?.id || `p-${Date.now()}`, code: editingProduct?.code || `ORS-${formatChinaDateCode()}-${String(state.products.length + 1).padStart(2, "0")}`, name: values.name, category: values.category || "其他", expectedPrice: values.suggestedPrice, sourceUrl: values.competitorLink, submitterId: currentUser.id, status: action === "draft" ? "draft" : "pending_assign", submitTime: now, attachments: [...(editingProduct?.attachments || []), ...attachments], reviews: editingProduct?.reviews || [], objections: editingProduct?.objections || [] } as Product;
         setState((old) => ({ ...old, products: editingProduct ? old.products.map((item) => item.id === product.id ? product : item) : [product, ...old.products] }));
       }
-      productForm.resetFields(); setNewProductOpen(false); setEditingProduct(null); appMessage.success(action === "draft" ? "草稿已保存" : "选品已提交，等待管理员分配");
+      productForm.resetFields(); setNewProductOpen(false); setEditingProduct(null);
+      if (action === "draft") { setDraftSavedVersion((version) => version + 1); router.push("/products"); }
+      appMessage.success(action === "draft" ? "草稿已保存，可在草稿箱继续编辑" : "选品已提交，等待管理员分配");
     } catch (error) { if (error instanceof Error && error.message) appMessage.error(error.message); }
   };
 
@@ -482,7 +506,7 @@ function ReviewSystemInner() {
 
   const renderPage = () => {
     const page = pathname === "/" ? "dashboard" : pathname.split("/").filter(Boolean)[0] || "dashboard";
-    const context = { state, currentUser, operators, setSelectedProduct, setNewProductOpen, openProductEditor, setReviewProduct, setObjectionProduct, setAssignProduct, setUserModal, userForm, setState, appMessage, reloadProduction: loadProduction };
+    const context = { state, currentUser, operators, setSelectedProduct, setNewProductOpen, openProductEditor, setReviewProduct, setObjectionProduct, setAssignProduct, setUserModal, userForm, setState, appMessage, reloadProduction: loadProduction, draftSavedVersion };
     if (!canRenderSelectedPage) return <DashboardPage {...context} />;
     switch (page) {
       case "products": return <ProductsPage {...context} />;
@@ -547,11 +571,11 @@ function ReviewSystemInner() {
         <Content className="app-content">{renderPage()}</Content>
       </Layout>
 
-      <ProductDrawer product={selectedProduct ? state.products.find((p) => p.id === selectedProduct.id) || selectedProduct : null} users={state.users} currentUser={currentUser} onClose={() => setSelectedProduct(null)} onReview={(p) => { setSelectedProduct(null); setReviewProduct(p); }} onObjection={(p) => { setSelectedProduct(null); setObjectionProduct(p); }} />
+      <ProductDrawer product={selectedProduct ? state.products.find((p) => p.id === selectedProduct.id) || selectedProduct : null} users={state.users} currentUser={currentUser} onClose={() => setSelectedProduct(null)} onEdit={(p) => { setSelectedProduct(null); openProductEditor(p); }} onReview={(p) => { setSelectedProduct(null); setReviewProduct(p); }} onObjection={(p) => { setSelectedProduct(null); setObjectionProduct(p); }} />
 
       <Modal title={editingProduct ? `继续编辑 · ${editingProduct.name}` : "新建选品"} open={newProductOpen} onCancel={() => { setNewProductOpen(false); setEditingProduct(null); productForm.resetFields(); }} width={980} footer={<div className="wizard-footer"><Button onClick={() => createProduct("draft")}>保存草稿</Button><span className="wizard-footer-spacer" />{productStep > 0 && <Button onClick={() => setProductStep((value) => value - 1)}>上一步</Button>}{productStep < 5 ? <Button type="primary" onClick={() => setProductStep((value) => value + 1)}>下一步</Button> : <Button type="primary" icon={<SendOutlined />} onClick={() => createProduct("submit")}>确认提交审核</Button>}</div>}>
         <Steps size="small" current={productStep} onChange={setProductStep} items={[{ title: "基本信息" }, { title: "产品分析" }, { title: "成本供应商" }, { title: "规格与利润" }, { title: "附件" }, { title: "预览提交" }]} />
-        <Form form={productForm} layout="vertical" className="modal-form product-wizard"><ProductWizardFields step={productStep} economics={liveEconomics} values={productValues} /></Form>
+        <Form form={productForm} layout="vertical" className="modal-form product-wizard"><ProductWizardContent form={productForm} step={productStep} /></Form>
       </Modal>
 
       <Modal title={reviewProduct ? `审核 · ${reviewProduct.name}` : "提交审核"} open={!!reviewProduct} onCancel={() => setReviewProduct(null)} onOk={submitReview} okText="确认提交" width={620}>
@@ -625,6 +649,7 @@ type PageContext = {
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   appMessage: ReturnType<typeof message.useMessage>[0];
   reloadProduction: () => Promise<void>;
+  draftSavedVersion: number;
 };
 
 function DashboardPage(ctx: PageContext) {
@@ -675,15 +700,31 @@ function MetricCard({ title, value, helper, icon, color, trend }: { title: strin
   return <Card className="metric-card"><div className="metric-top"><span className="metric-icon" style={{ color, background: `${color}15` }}>{icon}</span><MiniTrend values={trend} color={color} /></div><Statistic title={title} value={value} /><Text type="secondary" className="small-text">{helper}</Text></Card>;
 }
 
-function TrendChart() {
-  const submission = [5, 8, 6, 11, 9, 14, 12];
-  const complete = [3, 4, 7, 6, 8, 9, 11];
-  const days = ["7/26", "7/27", "7/28", "7/29", "7/30", "7/31", "8/1"];
-  const max = 16;
+function parseBusinessDate(value?: string) {
+  if (!value) return null;
+  const parsed = new Date(value.includes("T") ? value : value.replace(" ", "T"));
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function TrendChart({ products, monthly = false }: { products?: Product[]; monthly?: boolean } = {}) {
+  let submission = [5, 8, 6, 11, 9, 14, 12];
+  let complete = [3, 4, 7, 6, 8, 9, 11];
+  let labels = ["7/26", "7/27", "7/28", "7/29", "7/30", "7/31", "8/1"];
+  let keys = labels;
+  if (monthly && products) {
+    const anchor = new Date();
+    const periods = Array.from({ length: 6 }, (_, index) => new Date(anchor.getFullYear(), anchor.getMonth() - 5 + index, 1));
+    keys = periods.map((date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`);
+    labels = periods.map((date) => `${date.getMonth() + 1}月`);
+    const dateKey = (value?: string) => { const date = parseBusinessDate(value); return date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}` : ""; };
+    submission = keys.map((key) => products.filter((product) => product.status !== "draft" && dateKey(product.submitTime) === key).length);
+    complete = keys.map((key) => products.filter((product) => ["approved", "rejected"].includes(product.status) && dateKey(product.latestReviewTime || product.reviews.at(-1)?.createdAt) === key).length);
+  }
+  const max = Math.max(...submission, ...complete, 1);
   return (
     <div className="bar-chart">
       <div className="chart-legend"><span><i className="dot blue" />提交量</span><span><i className="dot teal" />完成量</span></div>
-      <div className="bars">{days.map((day, index) => <div className="bar-group" key={day}><div className="bar-stack"><Tooltip title={`提交 ${submission[index]}`}><i className="bar submit" style={{ height: `${submission[index] / max * 150}px` }} /></Tooltip><Tooltip title={`完成 ${complete[index]}`}><i className="bar complete" style={{ height: `${complete[index] / max * 150}px` }} /></Tooltip></div><span>{day}</span></div>)}</div>
+      <div className="bars">{labels.map((label, index) => <div className="bar-group" key={keys[index]}><div className="bar-stack"><Tooltip title={`${label}提交 ${submission[index]}`}><i className="bar submit" style={{ height: `${submission[index] / max * 150}px` }} /></Tooltip><Tooltip title={`${label}完成 ${complete[index]}`}><i className="bar complete" style={{ height: `${complete[index] / max * 150}px` }} /></Tooltip></div><span>{label}</span></div>)}</div>
     </div>
   );
 }
@@ -700,14 +741,16 @@ function productColumns(users: User[], open: (p: Product) => void, action?: (p: 
 }
 
 function ProductsPage(ctx: PageContext) {
-  const { state, currentUser, setSelectedProduct, openProductEditor, setObjectionProduct, setState, appMessage } = ctx;
+  const { state, currentUser, setSelectedProduct, openProductEditor, setObjectionProduct, setState, appMessage, draftSavedVersion } = ctx;
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<string>(currentUser.role === "developer" ? "submitted" : "all");
+  useEffect(() => {
+    if (draftSavedVersion > 0) setStatus("draft");
+  }, [draftSavedVersion]);
   const base = currentUser.role === "developer" ? state.products.filter((p) => p.submitterId === currentUser.id) : currentUser.role === "operator" ? state.products.filter((p) => p.reviewerId === currentUser.id) : state.products;
   const statusMatch = (product: Product) => status === "all" || (status === "draft" ? product.status === "draft" : status === "approved_tab" ? product.status === "approved" : status === "submitted" ? product.status !== "draft" : product.status === status);
-  const data = base.filter((p) => statusMatch(p) && (p.name.includes(query) || p.code.toLowerCase().includes(query.toLowerCase()) || p.coreKeyword?.toLowerCase().includes(query.toLowerCase())));
-  const columns = productColumns(state.users, setSelectedProduct);
-  columns.splice(3, 0, { title: "建议售价", width: 100, render: (_, p) => p.suggestedPrice ? `$${p.suggestedPrice.toFixed(2)}` : "—" }, { title: "利润率", width: 90, render: (_, p) => p.profitMargin == null ? "—" : <Text style={{ color: p.profitMargin >= 20 ? "#12a47d" : "#d48806" }}>{p.profitMargin.toFixed(1)}%</Text> });
+  const normalizedQuery = query.trim().toLowerCase();
+  const data = base.filter((p) => statusMatch(p) && (!normalizedQuery || p.name.toLowerCase().includes(normalizedQuery) || p.code.toLowerCase().includes(normalizedQuery) || p.coreKeyword?.toLowerCase().includes(normalizedQuery) || p.competitorLink?.toLowerCase().includes(normalizedQuery)));
   const removeDraft = async (product: Product) => {
     try {
       if (productionMode) await apiRequest(`/api/products/${product.id}`, { method: "DELETE" });
@@ -715,7 +758,21 @@ function ProductsPage(ctx: PageContext) {
       appMessage.success("草稿已删除");
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
-  columns[7] = { title: "操作", width: 190, align: "right", render: (_, p) => <Space size={2}>{currentUser.role === "developer" && p.status === "draft" && <><Button type="link" onClick={() => openProductEditor(p)}>继续编辑</Button><Popconfirm title="删除这份草稿？" onConfirm={() => removeDraft(p)}><Button type="link" danger>删除</Button></Popconfirm></>}{currentUser.role === "developer" && p.status === "objection_pending" && <Button type="link" onClick={() => setObjectionProduct(p)}>提交异议</Button>}<Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button></Space> };
+  const columns: TableColumnsType<Product> = [
+    { title: "选品", dataIndex: "name", key: "name", render: (_, p) => <button className="product-cell" onClick={() => setSelectedProduct(p)}><span className="product-thumb"><ProductOutlined /></span><span><strong>{p.name}</strong><small>{p.code} · {p.category}</small></span></button> },
+    { title: "竞品链接", key: "competitorLink", width: 110, render: (_, p) => { const link = p.competitorLink || p.sourceUrl; return link ? <a href={link} target="_blank" rel="noreferrer">打开竞品</a> : "—"; } },
+    { title: "提交人", dataIndex: "submitterId", width: 90, render: (id) => nameOf(state.users, id) },
+    { title: "审核人", dataIndex: "reviewerId", width: 90, render: (id) => nameOf(state.users, id) },
+    { title: "建议售价", width: 100, render: (_, p) => p.suggestedPrice == null ? "—" : `$${p.suggestedPrice.toFixed(2)}` },
+    { title: "利润率", width: 90, render: (_, p) => p.profitMargin == null ? "—" : <Text style={{ color: p.profitMargin >= 20 ? "#12a47d" : "#d48806" }}>{p.profitMargin.toFixed(1)}%</Text> },
+    ...(currentUser.role === "developer" && status === "approved_tab" ? [
+      { title: "上架日期", dataIndex: "launchDate", width: 120, render: (value: string | undefined) => value || "—" },
+      { title: "首批发货数量", dataIndex: "firstBatchQuantity", width: 120, render: (value: number | undefined) => value ?? "—" },
+    ] : []),
+    { title: "状态", dataIndex: "status", width: 110, render: (value) => <StatusTag status={value} /> },
+    { title: "提交时间", dataIndex: "submitTime", width: 150 },
+    { title: "操作", key: "action", width: 190, align: "right", render: (_, p) => <Space size={2}>{p.status === "draft" && (currentUser.role === "admin" || (currentUser.role === "developer" && p.submitterId === currentUser.id)) && <><Button type="link" onClick={() => openProductEditor(p)}>继续编辑</Button><Popconfirm title="删除这份草稿？" onConfirm={() => removeDraft(p)}><Button type="link" danger>删除</Button></Popconfirm></>}{currentUser.role === "developer" && p.status === "objection_pending" && <Button type="link" onClick={() => setObjectionProduct(p)}>提交异议</Button>}<Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button></Space> },
+  ];
   return (
     <>
       <PageHeading title={currentUser.role === "developer" ? "我的选品" : "选品管理"} description="集中查看选品资料、利润结果、审核状态与完整流转记录" extra={currentUser.role !== "operator" && <Button type="primary" icon={<PlusOutlined />} onClick={() => openProductEditor()}>新建选品</Button>} />
@@ -760,7 +817,16 @@ function ReviewPage(ctx: PageContext) {
   const [tab, setTab] = useState("todo");
   const own = currentUser.role === "admin" ? state.products.filter((p) => !!p.reviewerId) : state.products.filter((p) => p.reviewerId === currentUser.id);
   const data = tab === "todo" ? own.filter((p) => p.status === "pending_review") : own.filter((p) => p.reviews.length > 0);
-  const columns = productColumns(state.users, setSelectedProduct, tab === "todo" ? setReviewProduct : undefined, tab === "todo" ? "开始审核" : undefined);
+  const columns: TableColumnsType<Product> = [
+    { title: "选品", dataIndex: "name", key: "name", render: (_, p) => <button className="product-cell" onClick={() => setSelectedProduct(p)}><span className="product-thumb"><ProductOutlined /></span><span><strong>{p.name}</strong><small>{p.code} · {p.category}</small></span></button> },
+    { title: "开发人", dataIndex: "submitterId", width: 90, render: (id) => nameOf(state.users, id) },
+    { title: "建议售价", width: 100, render: (_, p) => p.suggestedPrice == null ? "—" : `$${p.suggestedPrice.toFixed(2)}` },
+    { title: "利润率", width: 90, render: (_, p) => p.profitMargin == null ? "—" : <Text style={{ color: p.profitMargin >= 20 ? "#12a47d" : "#d48806" }}>{p.profitMargin.toFixed(1)}%</Text> },
+    { title: "当前轮次", width: 90, render: (_, p) => `第 ${p.reviews.length + (p.status === "pending_review" ? 1 : 0)} 轮` },
+    { title: "状态", dataIndex: "status", width: 110, render: (value) => <StatusTag status={value} /> },
+    { title: "提交时间", dataIndex: "submitTime", width: 150 },
+    { title: "操作", key: "action", width: 100, align: "right", render: (_, p) => tab === "todo" ? <Button type="link" onClick={() => setReviewProduct(p)}>开始审核</Button> : <Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button> },
+  ];
   return (
     <>
       <PageHeading title="审核中心" description="处理待审选品与开发异议，所有审核意见自动留痕" />
@@ -914,8 +980,23 @@ function UsersPage(ctx: PageContext) {
 
 function StatsPage(ctx: PageContext) {
   const { state } = ctx;
-  const completed = state.products.filter((p) => ["approved", "rejected"].includes(p.status));
+  const submitted = state.products.filter((p) => p.status !== "draft");
+  const completed = submitted.filter((p) => ["approved", "rejected"].includes(p.status));
   const passRate = completed.length ? Math.round(completed.filter((p) => p.status === "approved").length / completed.length * 100) : 0;
+  const rejectionRate = completed.length ? Math.round(completed.filter((p) => p.status === "rejected").length / completed.length * 100) : 0;
+  const reviewedProducts = submitted.filter((p) => p.reviews.length > 0);
+  const reviewDurations = reviewedProducts.flatMap((product) => {
+    const start = parseBusinessDate(product.assignTime || product.submitTime)?.getTime();
+    const end = parseBusinessDate(product.reviews[0]?.createdAt)?.getTime();
+    return start != null && end != null ? [Math.max(0, (end - start) / 3_600_000)] : [];
+  });
+  const averageReviewHours = reviewDurations.length ? reviewDurations.reduce((sum, value) => sum + value, 0) / reviewDurations.length : 0;
+  const averageReviewRounds = reviewedProducts.length ? reviewedProducts.reduce((sum, product) => sum + product.reviews.length, 0) / reviewedProducts.length : 0;
+  const pendingProducts = submitted.filter((p) => ["pending_assign", "pending_review", "objection_pending"].includes(p.status));
+  const pendingHours = pendingProducts.flatMap((product) => { const start = parseBusinessDate(product.assignTime || product.submitTime)?.getTime(); return start == null ? [] : [Math.max(0, (Date.now() - start) / 3_600_000)]; });
+  const averagePendingHours = pendingHours.length ? pendingHours.reduce((sum, value) => sum + value, 0) / pendingHours.length : 0;
+  const healthScore = pendingProducts.length ? Math.max(0, Math.round(100 - Math.min(100, averagePendingHours / 72 * 100))) : 100;
+  const healthLabel = healthScore >= 80 ? "整体流转顺畅" : healthScore >= 60 ? "存在部分超时" : "待办积压需处理";
   const devs = state.users.filter((u) => u.role === "developer").map((u) => {
     const own = state.products.filter((p) => p.submitterId === u.id);
     const margins = own.filter((p) => p.profitMargin != null).map((p) => p.profitMargin!);
@@ -930,14 +1011,15 @@ function StatsPage(ctx: PageContext) {
     <>
       <PageHeading title="数据统计" description="从团队、人员与趋势维度洞察选品审核效率" extra={<Button icon={<ExportOutlined />}>导出 Excel</Button>} />
       <Row gutter={[16, 16]} className="summary-strip">
-        <Col span={6}><Card><Statistic title="总提交数" value={state.products.length} /></Card></Col>
-        <Col span={6}><Card><Statistic title="通过率" value={passRate} suffix="%" styles={{ content: { color: "#12a47d" } }} /></Card></Col>
-        <Col span={6}><Card><Statistic title="平均审核时长" value={7.6} suffix="小时" /></Card></Col>
-        <Col span={6}><Card><Statistic title="平均审核轮次" value={1.3} suffix="轮" /></Card></Col>
+        <Col span={5}><Card><Statistic title="总提交数" value={submitted.length} /></Card></Col>
+        <Col span={5}><Card><Statistic title="通过率" value={passRate} suffix="%" styles={{ content: { color: "#12a47d" } }} /></Card></Col>
+        <Col span={5}><Card><Statistic title="驳回率" value={rejectionRate} suffix="%" styles={{ content: { color: rejectionRate > 30 ? "#cf1322" : "#d48806" } }} /></Card></Col>
+        <Col span={5}><Card><Statistic title="平均首审时长" value={averageReviewHours} precision={1} suffix="小时" /></Card></Col>
+        <Col span={4}><Card><Statistic title="平均审核轮次" value={averageReviewRounds} precision={1} suffix="轮" /></Card></Col>
       </Row>
       <Row gutter={[16, 16]}>
-        <Col span={16}><Card title="提交与审核完成趋势"><TrendChart /></Card></Col>
-        <Col span={8}><Card title="流程健康度" className="health-card"><Progress type="dashboard" percent={82} strokeColor={{ "0%": "#5d7be8", "100%": "#12a47d" }} /><Text strong>整体流转顺畅</Text><Text type="secondary">待办均值低于 24 小时</Text></Card></Col>
+        <Col span={16}><Card title="近 6 个月提交与审核完成趋势"><TrendChart products={submitted} monthly /></Card></Col>
+        <Col span={8}><Card title="流程健康度" className="health-card"><Progress type="dashboard" percent={healthScore} strokeColor={{ "0%": "#5d7be8", "100%": "#12a47d" }} /><Text strong>{healthLabel}</Text><Text type="secondary">{pendingProducts.length ? `当前 ${pendingProducts.length} 项待办，平均等待 ${averagePendingHours.toFixed(1)} 小时` : "当前没有待处理选品"}</Text></Card></Col>
         <Col span={24}><Card title="开发人员表现"><Table rowKey="key" dataSource={devs} pagination={false} columns={[{ title: "开发人员", dataIndex: "name" }, { title: "提交数", dataIndex: "count" }, { title: "通过数", dataIndex: "approved" }, { title: "通过率", dataIndex: "rate", render: (v: number) => <Space><Progress percent={v} showInfo={false} size="small" style={{ width: 120 }} />{v}%</Space> }, { title: "平均利润率", dataIndex: "avgMargin", render: (v: string) => v === "—" ? v : `${v}%` }, { title: "平均审核轮次", dataIndex: "rounds" }]} /></Card></Col>
         <Col span={24}><Card title="运营审核表现"><Table rowKey="key" dataSource={operators} pagination={false} columns={[{ title: "运营人员", dataIndex: "name" }, { title: "已审核选品", dataIndex: "count" }, { title: "通过选品", dataIndex: "approved" }, { title: "当前待审", dataIndex: "pending" }, { title: "平均首审时长", dataIndex: "avgHours", render: (v: string) => v === "—" ? v : `${v} 小时` }]} /></Card></Col>
       </Row>
@@ -1010,7 +1092,7 @@ function SettingsPage(ctx: PageContext) {
   );
 }
 
-function ProductDrawer({ product, users, currentUser, onClose, onReview, onObjection }: { product: Product | null; users: User[]; currentUser: User; onClose: () => void; onReview: (p: Product) => void; onObjection: (p: Product) => void }) {
+function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReview, onObjection }: { product: Product | null; users: User[]; currentUser: User; onClose: () => void; onEdit: (p: Product) => void; onReview: (p: Product) => void; onObjection: (p: Product) => void }) {
   if (!product) return null;
   const timeline = [
     { key: "submit", time: product.submitTime, title: "提交选品", content: `${nameOf(users, product.submitterId)} 提交了选品资料`, color: "blue" },
@@ -1024,6 +1106,7 @@ function ProductDrawer({ product, users, currentUser, onClose, onReview, onObjec
   ];
   const canReview = ["admin", "operator"].includes(currentUser.role) && product.status === "pending_review";
   const canObject = currentUser.role === "developer" && product.submitterId === currentUser.id && product.status === "objection_pending";
+  const canEdit = product.status === "draft" && (currentUser.role === "admin" || (currentUser.role === "developer" && product.submitterId === currentUser.id));
   const show = (value: unknown) => value === undefined || value === null || value === "" ? "—" : String(value);
   const analysisItems = [
     ["季节性产品判断", product.seasonality], ["产品主要使用场景", product.usageScenario], ["迭代方案及卖点分析", product.iterationPlan], ["目标人群", product.targetAudience],
@@ -1049,7 +1132,7 @@ function ProductDrawer({ product, users, currentUser, onClose, onReview, onObjec
         ]} />
         <Divider />
         <Title level={5}>规格与利润核算</Title>
-        <Row gutter={[12, 12]} className="calculation-panel compact"><Col span={6}><Statistic title="包装尺寸" value={`${product.lengthCm || 0} × ${product.widthCm || 0} × ${product.heightCm || 0} cm`} /></Col><Col span={6}><Statistic title="重量" value={product.weightG || 0} suffix="g" /></Col><Col span={6}><Statistic title="FBA 分段" value={product.fbaSizeTier || "—"} /></Col><Col span={6}><Statistic title="FBA 费用" value={product.fbaFee || 0} prefix="$" precision={2} /></Col><Col span={6}><Statistic title="计费重" value={product.billingWeightLb || 0} suffix="lb" precision={3} /></Col><Col span={6}><Statistic title="佣金比例" value={(product.commissionRate || 0) * 100} suffix="%" /></Col><Col span={6}><Statistic title="利润额" value={product.profitAmount || 0} prefix="$" precision={2} /></Col><Col span={6}><Statistic title="利润率" value={product.profitMargin || 0} suffix="%" precision={2} /></Col></Row>
+        <Row gutter={[12, 12]} className="calculation-panel compact"><Col span={6}><Statistic title="包装尺寸" value={`${product.lengthCm || 0} × ${product.widthCm || 0} × ${product.heightCm || 0} cm`} /></Col><Col span={6}><Statistic title="重量" value={product.weightG || 0} suffix="g" /></Col><Col span={6}><Statistic title="FBA 分段" value={product.fbaSizeTier || "—"} /></Col><Col span={6}><Statistic title="FBA 费用" value={product.fbaFee || 0} prefix="$" precision={2} /></Col><Col span={6}><Statistic title="计费重" value={product.billingWeightLb || 0} suffix="lb" precision={3} /></Col><Col span={6}><Statistic title="佣金比例" value={(product.commissionRate || 0) * 100} suffix="%" /></Col><Col span={6}><Statistic title="利润额" value={product.profitAmount || 0} prefix="$" precision={2} /></Col><Col span={6}><Statistic title="利润率" value={product.profitMargin || 0} suffix="%" precision={2} /></Col><Col span={6}><Statistic title="库存数量" value={product.inventoryQuantity ?? product.suggestedQuantity ?? 0} /></Col><Col span={6}><Statistic title="库存货值" value={product.inventoryValue || 0} prefix="¥" precision={2} /></Col></Row>
         <Divider />
         <Title level={5}>资料附件 <Text type="secondary" className="small-text">({product.attachments.length})</Text></Title>
         {product.attachments.length ? <div className="attachment-list">{product.attachments.map((file) => <div key={file.id}><FileSearchOutlined /><span><strong>{file.name}</strong><small>{attachmentLabel[file.attachmentType || "data_screenshot"]} · {Math.max(file.size / 1024, 1).toFixed(0)} KB</small></span><Button type="link" href={productionMode ? `/api/files/${file.id}` : undefined} target="_blank">{productionMode ? "下载" : "预览"}</Button></div>)}</div> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无附件" />}
@@ -1058,7 +1141,7 @@ function ProductDrawer({ product, users, currentUser, onClose, onReview, onObjec
         <Timeline items={timeline.slice().reverse().map((item) => ({ color: item.color, children: <div className="timeline-item"><div><strong>{item.title}</strong><Text type="secondary">{item.time}</Text></div><Paragraph>{item.content}</Paragraph></div> }))} />
         {product.finalDecision && <><Divider /><Descriptions title="最终审核结果" bordered column={2} items={[{ key: "decision", label: "运营选择", children: <Tag color={decisionMeta[product.finalDecision].color}>{decisionMeta[product.finalDecision].label}</Tag> }, { key: "launch", label: "上架日期", children: show(product.launchDate) }, { key: "batch", label: "首批发货数量", children: show(product.firstBatchQuantity) }, { key: "reason", label: "不上架/决策原因", children: show(product.rejectionReason) }, { key: "market", label: "市场体量和切入难度", span: 2, children: show(product.marketAnalysis) }, { key: "competition", label: "现+1分方案竞争力", span: 2, children: show(product.competitivenessAnalysis) }, { key: "alternative", label: "其他方案设想", span: 2, children: show(product.alternativeSuggestions) }]} /></>}
       </div>
-      {(canReview || canObject) && <div className="drawer-footer"><Button onClick={onClose}>关闭</Button>{canReview && <Button type="primary" icon={<SafetyCertificateOutlined />} onClick={() => onReview(product)}>开始审核</Button>}{canObject && <Button type="primary" icon={<ExclamationCircleOutlined />} onClick={() => onObjection(product)}>提交异议</Button>}</div>}
+      {(canEdit || canReview || canObject) && <div className="drawer-footer"><Button onClick={onClose}>关闭</Button>{canEdit && <Button type="primary" onClick={() => onEdit(product)}>继续编辑</Button>}{canReview && <Button type="primary" icon={<SafetyCertificateOutlined />} onClick={() => onReview(product)}>开始审核</Button>}{canObject && <Button type="primary" icon={<ExclamationCircleOutlined />} onClick={() => onObjection(product)}>提交异议</Button>}</div>}
     </Drawer>
   );
 }
