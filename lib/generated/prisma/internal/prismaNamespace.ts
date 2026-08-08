@@ -1057,6 +1057,7 @@ export const ProductScalarFieldEnum = {
   submitterId: 'submitterId',
   reviewerId: 'reviewerId',
   status: 'status',
+  revision: 'revision',
   submitTime: 'submitTime',
   assignTime: 'assignTime',
   latestReviewTime: 'latestReviewTime',
@@ -1080,7 +1081,9 @@ export const ReviewRoundScalarFieldEnum = {
   competitivenessAnalysis: 'competitivenessAnalysis',
   alternativeSuggestions: 'alternativeSuggestions',
   improvementSuggestions: 'improvementSuggestions',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  editCount: 'editCount'
 } as const
 
 export type ReviewRoundScalarFieldEnum = (typeof ReviewRoundScalarFieldEnum)[keyof typeof ReviewRoundScalarFieldEnum]
@@ -1297,7 +1300,6 @@ export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'AttachmentType'
  */
 export type EnumAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentType'>
-
 
 
 /**

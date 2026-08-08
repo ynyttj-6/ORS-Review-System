@@ -48,6 +48,7 @@ export type ProductAvgAggregateOutputType = {
   inventoryQuantity: number | null
   inventoryValue: runtime.Decimal | null
   firstBatchQuantity: number | null
+  revision: number | null
 }
 
 export type ProductSumAggregateOutputType = {
@@ -72,6 +73,7 @@ export type ProductSumAggregateOutputType = {
   inventoryQuantity: number | null
   inventoryValue: runtime.Decimal | null
   firstBatchQuantity: number | null
+  revision: number | null
 }
 
 export type ProductMinAggregateOutputType = {
@@ -136,6 +138,7 @@ export type ProductMinAggregateOutputType = {
   submitterId: string | null
   reviewerId: string | null
   status: $Enums.ProductStatus | null
+  revision: number | null
   submitTime: Date | null
   assignTime: Date | null
   latestReviewTime: Date | null
@@ -205,6 +208,7 @@ export type ProductMaxAggregateOutputType = {
   submitterId: string | null
   reviewerId: string | null
   status: $Enums.ProductStatus | null
+  revision: number | null
   submitTime: Date | null
   assignTime: Date | null
   latestReviewTime: Date | null
@@ -274,6 +278,7 @@ export type ProductCountAggregateOutputType = {
   submitterId: number
   reviewerId: number
   status: number
+  revision: number
   submitTime: number
   assignTime: number
   latestReviewTime: number
@@ -305,6 +310,7 @@ export type ProductAvgAggregateInputType = {
   inventoryQuantity?: true
   inventoryValue?: true
   firstBatchQuantity?: true
+  revision?: true
 }
 
 export type ProductSumAggregateInputType = {
@@ -329,6 +335,7 @@ export type ProductSumAggregateInputType = {
   inventoryQuantity?: true
   inventoryValue?: true
   firstBatchQuantity?: true
+  revision?: true
 }
 
 export type ProductMinAggregateInputType = {
@@ -393,6 +400,7 @@ export type ProductMinAggregateInputType = {
   submitterId?: true
   reviewerId?: true
   status?: true
+  revision?: true
   submitTime?: true
   assignTime?: true
   latestReviewTime?: true
@@ -462,6 +470,7 @@ export type ProductMaxAggregateInputType = {
   submitterId?: true
   reviewerId?: true
   status?: true
+  revision?: true
   submitTime?: true
   assignTime?: true
   latestReviewTime?: true
@@ -531,6 +540,7 @@ export type ProductCountAggregateInputType = {
   submitterId?: true
   reviewerId?: true
   status?: true
+  revision?: true
   submitTime?: true
   assignTime?: true
   latestReviewTime?: true
@@ -687,6 +697,7 @@ export type ProductGroupByOutputType = {
   submitterId: string
   reviewerId: string | null
   status: $Enums.ProductStatus
+  revision: number
   submitTime: Date
   assignTime: Date | null
   latestReviewTime: Date | null
@@ -779,6 +790,7 @@ export type ProductWhereInput = {
   submitterId?: Prisma.UuidFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
+  revision?: Prisma.IntFilter<"Product"> | number
   submitTime?: Prisma.DateTimeFilter<"Product"> | Date | string
   assignTime?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   latestReviewTime?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -854,6 +866,7 @@ export type ProductOrderByWithRelationInput = {
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   submitTime?: Prisma.SortOrder
   assignTime?: Prisma.SortOrderInput | Prisma.SortOrder
   latestReviewTime?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -932,6 +945,7 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   submitterId?: Prisma.UuidFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
+  revision?: Prisma.IntFilter<"Product"> | number
   submitTime?: Prisma.DateTimeFilter<"Product"> | Date | string
   assignTime?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   latestReviewTime?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -1007,6 +1021,7 @@ export type ProductOrderByWithAggregationInput = {
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   submitTime?: Prisma.SortOrder
   assignTime?: Prisma.SortOrderInput | Prisma.SortOrder
   latestReviewTime?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1084,6 +1099,7 @@ export type ProductScalarWhereWithAggregatesInput = {
   submitterId?: Prisma.UuidWithAggregatesFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableWithAggregatesFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
+  revision?: Prisma.IntWithAggregatesFilter<"Product"> | number
   submitTime?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   assignTime?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
   latestReviewTime?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
@@ -1151,6 +1167,7 @@ export type ProductCreateInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -1226,6 +1243,7 @@ export type ProductUncheckedCreateInput = {
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -1297,6 +1315,7 @@ export type ProductUpdateInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1372,6 +1391,7 @@ export type ProductUncheckedUpdateInput = {
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1445,6 +1465,7 @@ export type ProductCreateManyInput = {
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -1512,6 +1533,7 @@ export type ProductUpdateManyMutationInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1581,6 +1603,7 @@ export type ProductUncheckedUpdateManyInput = {
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1660,6 +1683,7 @@ export type ProductCountOrderByAggregateInput = {
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   submitTime?: Prisma.SortOrder
   assignTime?: Prisma.SortOrder
   latestReviewTime?: Prisma.SortOrder
@@ -1689,6 +1713,7 @@ export type ProductAvgOrderByAggregateInput = {
   inventoryQuantity?: Prisma.SortOrder
   inventoryValue?: Prisma.SortOrder
   firstBatchQuantity?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
 }
 
 export type ProductMaxOrderByAggregateInput = {
@@ -1753,6 +1778,7 @@ export type ProductMaxOrderByAggregateInput = {
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   submitTime?: Prisma.SortOrder
   assignTime?: Prisma.SortOrder
   latestReviewTime?: Prisma.SortOrder
@@ -1822,6 +1848,7 @@ export type ProductMinOrderByAggregateInput = {
   submitterId?: Prisma.SortOrder
   reviewerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
   submitTime?: Prisma.SortOrder
   assignTime?: Prisma.SortOrder
   latestReviewTime?: Prisma.SortOrder
@@ -1851,6 +1878,7 @@ export type ProductSumOrderByAggregateInput = {
   inventoryQuantity?: Prisma.SortOrder
   inventoryValue?: Prisma.SortOrder
   firstBatchQuantity?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
 }
 
 export type ProductScalarRelationFilter = {
@@ -1978,6 +2006,14 @@ export type EnumProductStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProductStatus
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ProductCreateNestedOneWithoutReviewsInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutReviewsInput, Prisma.ProductUncheckedCreateWithoutReviewsInput>
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReviewsInput
@@ -2094,6 +2130,7 @@ export type ProductCreateWithoutSubmitterInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2167,6 +2204,7 @@ export type ProductUncheckedCreateWithoutSubmitterInput = {
   alternativeSuggestions?: string | null
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2248,6 +2286,7 @@ export type ProductCreateWithoutReviewerInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2321,6 +2360,7 @@ export type ProductUncheckedCreateWithoutReviewerInput = {
   alternativeSuggestions?: string | null
   submitterId: string
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2423,6 +2463,7 @@ export type ProductScalarWhereInput = {
   submitterId?: Prisma.UuidFilter<"Product"> | string
   reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
+  revision?: Prisma.IntFilter<"Product"> | number
   submitTime?: Prisma.DateTimeFilter<"Product"> | Date | string
   assignTime?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   latestReviewTime?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -2506,6 +2547,7 @@ export type ProductCreateWithoutReviewsInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2580,6 +2622,7 @@ export type ProductUncheckedCreateWithoutReviewsInput = {
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2666,6 +2709,7 @@ export type ProductUpdateWithoutReviewsInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2740,6 +2784,7 @@ export type ProductUncheckedUpdateWithoutReviewsInput = {
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2810,6 +2855,7 @@ export type ProductCreateWithoutObjectionsInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2884,6 +2930,7 @@ export type ProductUncheckedCreateWithoutObjectionsInput = {
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -2970,6 +3017,7 @@ export type ProductUpdateWithoutObjectionsInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3044,6 +3092,7 @@ export type ProductUncheckedUpdateWithoutObjectionsInput = {
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3114,6 +3163,7 @@ export type ProductCreateWithoutAttachmentsInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -3188,6 +3238,7 @@ export type ProductUncheckedCreateWithoutAttachmentsInput = {
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -3274,6 +3325,7 @@ export type ProductUpdateWithoutAttachmentsInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3348,6 +3400,7 @@ export type ProductUncheckedUpdateWithoutAttachmentsInput = {
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3418,6 +3471,7 @@ export type ProductCreateWithoutAuditLogsInput = {
   competitivenessAnalysis?: string | null
   alternativeSuggestions?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -3492,6 +3546,7 @@ export type ProductUncheckedCreateWithoutAuditLogsInput = {
   submitterId: string
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -3578,6 +3633,7 @@ export type ProductUpdateWithoutAuditLogsInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3652,6 +3708,7 @@ export type ProductUncheckedUpdateWithoutAuditLogsInput = {
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3723,6 +3780,7 @@ export type ProductCreateManySubmitterInput = {
   alternativeSuggestions?: string | null
   reviewerId?: string | null
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -3791,6 +3849,7 @@ export type ProductCreateManyReviewerInput = {
   alternativeSuggestions?: string | null
   submitterId: string
   status?: $Enums.ProductStatus
+  revision?: number
   submitTime?: Date | string
   assignTime?: Date | string | null
   latestReviewTime?: Date | string | null
@@ -3858,6 +3917,7 @@ export type ProductUpdateWithoutSubmitterInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3931,6 +3991,7 @@ export type ProductUncheckedUpdateWithoutSubmitterInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4003,6 +4064,7 @@ export type ProductUncheckedUpdateManyWithoutSubmitterInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4070,6 +4132,7 @@ export type ProductUpdateWithoutReviewerInput = {
   competitivenessAnalysis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4143,6 +4206,7 @@ export type ProductUncheckedUpdateWithoutReviewerInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4215,6 +4279,7 @@ export type ProductUncheckedUpdateManyWithoutReviewerInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   submitterId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
   submitTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latestReviewTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4342,6 +4407,7 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
+  revision?: boolean
   submitTime?: boolean
   assignTime?: boolean
   latestReviewTime?: boolean
@@ -4418,6 +4484,7 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
+  revision?: boolean
   submitTime?: boolean
   assignTime?: boolean
   latestReviewTime?: boolean
@@ -4489,6 +4556,7 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
+  revision?: boolean
   submitTime?: boolean
   assignTime?: boolean
   latestReviewTime?: boolean
@@ -4560,6 +4628,7 @@ export type ProductSelectScalar = {
   submitterId?: boolean
   reviewerId?: boolean
   status?: boolean
+  revision?: boolean
   submitTime?: boolean
   assignTime?: boolean
   latestReviewTime?: boolean
@@ -4567,7 +4636,7 @@ export type ProductSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "category" | "sourceUrl" | "expectedPrice" | "notes" | "competitorLink" | "competitorAsins" | "coreKeyword" | "priceRange" | "topCompetitorLink" | "seasonality" | "usageScenario" | "iterationPlan" | "targetAudience" | "certification" | "patentStatus" | "trademarkStatus" | "competitorReviewsAnalysis" | "visualUpgradeDirection" | "copyrightCheck" | "troCheck" | "phraseTrademarkCheck" | "packaging" | "supplyChainAdvantage" | "suggestedQuantity" | "suggestedPrice" | "minPrice" | "productCostCny" | "supplierName" | "moq" | "unitPrice" | "productionTime" | "supplierLink" | "supplierRemark" | "lengthCm" | "widthCm" | "heightCm" | "weightG" | "volumetricWeightKg" | "billingWeightLb" | "fbaSizeTier" | "fbaFee" | "commissionRate" | "exchangeRate" | "shippingCost" | "profitMargin" | "profitAmount" | "inventoryQuantity" | "inventoryValue" | "finalDecision" | "launchDate" | "rejectionReason" | "firstBatchQuantity" | "marketAnalysis" | "competitivenessAnalysis" | "alternativeSuggestions" | "submitterId" | "reviewerId" | "status" | "submitTime" | "assignTime" | "latestReviewTime" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "category" | "sourceUrl" | "expectedPrice" | "notes" | "competitorLink" | "competitorAsins" | "coreKeyword" | "priceRange" | "topCompetitorLink" | "seasonality" | "usageScenario" | "iterationPlan" | "targetAudience" | "certification" | "patentStatus" | "trademarkStatus" | "competitorReviewsAnalysis" | "visualUpgradeDirection" | "copyrightCheck" | "troCheck" | "phraseTrademarkCheck" | "packaging" | "supplyChainAdvantage" | "suggestedQuantity" | "suggestedPrice" | "minPrice" | "productCostCny" | "supplierName" | "moq" | "unitPrice" | "productionTime" | "supplierLink" | "supplierRemark" | "lengthCm" | "widthCm" | "heightCm" | "weightG" | "volumetricWeightKg" | "billingWeightLb" | "fbaSizeTier" | "fbaFee" | "commissionRate" | "exchangeRate" | "shippingCost" | "profitMargin" | "profitAmount" | "inventoryQuantity" | "inventoryValue" | "finalDecision" | "launchDate" | "rejectionReason" | "firstBatchQuantity" | "marketAnalysis" | "competitivenessAnalysis" | "alternativeSuggestions" | "submitterId" | "reviewerId" | "status" | "revision" | "submitTime" | "assignTime" | "latestReviewTime" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   submitter?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.Product$reviewerArgs<ExtArgs>
@@ -4658,6 +4727,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     submitterId: string
     reviewerId: string | null
     status: $Enums.ProductStatus
+    revision: number
     submitTime: Date
     assignTime: Date | null
     latestReviewTime: Date | null
@@ -5153,6 +5223,7 @@ export interface ProductFieldRefs {
   readonly submitterId: Prisma.FieldRef<"Product", 'String'>
   readonly reviewerId: Prisma.FieldRef<"Product", 'String'>
   readonly status: Prisma.FieldRef<"Product", 'ProductStatus'>
+  readonly revision: Prisma.FieldRef<"Product", 'Int'>
   readonly submitTime: Prisma.FieldRef<"Product", 'DateTime'>
   readonly assignTime: Prisma.FieldRef<"Product", 'DateTime'>
   readonly latestReviewTime: Prisma.FieldRef<"Product", 'DateTime'>

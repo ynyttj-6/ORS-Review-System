@@ -16,7 +16,7 @@ export async function POST(_: Request, { params }: { params: Promise<{ id: strin
     createProductSchema.parse({ ...serializeProduct(existing), action: "submit" });
     const product = await db.$transaction(async (tx) => {
       const updated = await tx.product.update({ where: { id }, data: { status: "pending_assign", submitTime: new Date() }, include: productInclude });
-      await tx.auditLog.create({ data: { productId: id, operatorId: user.id, action: "submit", detail: { code: existing.code, name: existing.name } } });
+      await tx.auditLog.create({ data: { productId: id, operatorId: user.id, action: "submit", detail: { code: existing.code, name: existing.name, revision: existing.revision } } });
       return updated;
     });
     return ok(serializeProduct(product));

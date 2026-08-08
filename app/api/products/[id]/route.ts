@@ -33,10 +33,11 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
     const user = await requireUser(["admin", "developer"]);
     const { id } = await params;
     const db = getPrisma();
-    const existing = await db.product.findUnique({ where: { id } });
+    const existing = await db.product.findUnique({ where: { id }, include: { _count: { select: { reviews: true } } } });
     if (!existing) throw new ApiError(404, "选品不存在");
     if (user.role === "developer" && existing.submitterId !== user.id) throw new ApiError(403, "只能删除自己的草稿");
     if (existing.status !== "draft") throw new ApiError(409, "只有草稿可以删除");
+    if (existing.revision > 1 || existing._count.reviews > 0) throw new ApiError(409, "历史选品草稿不能删除，请修改后重新提交");
     await db.product.delete({ where: { id } });
     return ok({ id, deleted: true });
   } catch (error) { return handleApiError(error); }

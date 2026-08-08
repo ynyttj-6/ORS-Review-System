@@ -38,6 +38,8 @@ export interface ReviewRound {
   decision: Decision;
   comment: string;
   createdAt: string;
+  updatedAt?: string;
+  editCount?: number;
   launchDate?: string;
   firstBatchQuantity?: number;
   marketAnalysis?: string;
@@ -117,6 +119,7 @@ export interface Product {
   submitterId: string;
   reviewerId?: string;
   status: ProductStatus;
+  revision?: number;
   submitTime: string;
   assignTime?: string;
   latestReviewTime?: string;

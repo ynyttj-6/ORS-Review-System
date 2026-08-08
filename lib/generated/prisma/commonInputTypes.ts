@@ -237,6 +237,17 @@ export type EnumProductStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductStatusFilter<$PrismaModel> | $Enums.ProductStatus
 }
 
+export type IntFilter<$PrismaModel = never> = {
+  equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
+  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>
+  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>
+  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
+  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedIntFilter<$PrismaModel> | number
+}
+
 export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel> | null
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null
@@ -334,24 +345,6 @@ export type EnumProductStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumProductStatusFilter<$PrismaModel>
 }
 
-export type IntFilter<$PrismaModel = never> = {
-  equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
-  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
-  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
-  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>
-  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>
-  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
-  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedIntFilter<$PrismaModel> | number
-}
-
-export type EnumDecisionFilter<$PrismaModel = never> = {
-  equals?: $Enums.Decision | Prisma.EnumDecisionFieldRefInput<$PrismaModel>
-  in?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDecisionFilter<$PrismaModel> | $Enums.Decision
-}
-
 export type IntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -366,6 +359,13 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedIntFilter<$PrismaModel>
   _max?: Prisma.NestedIntFilter<$PrismaModel>
+}
+
+export type EnumDecisionFilter<$PrismaModel = never> = {
+  equals?: $Enums.Decision | Prisma.EnumDecisionFieldRefInput<$PrismaModel>
+  in?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDecisionFilter<$PrismaModel> | $Enums.Decision
 }
 
 export type EnumDecisionWithAggregatesFilter<$PrismaModel = never> = {
@@ -775,13 +775,6 @@ export type NestedEnumProductStatusWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumProductStatusFilter<$PrismaModel>
 }
 
-export type NestedEnumDecisionFilter<$PrismaModel = never> = {
-  equals?: $Enums.Decision | Prisma.EnumDecisionFieldRefInput<$PrismaModel>
-  in?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
-  notIn?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumDecisionFilter<$PrismaModel> | $Enums.Decision
-}
-
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -807,6 +800,13 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumDecisionFilter<$PrismaModel = never> = {
+  equals?: $Enums.Decision | Prisma.EnumDecisionFieldRefInput<$PrismaModel>
+  in?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Decision[] | Prisma.ListEnumDecisionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDecisionFilter<$PrismaModel> | $Enums.Decision
 }
 
 export type NestedEnumDecisionWithAggregatesFilter<$PrismaModel = never> = {

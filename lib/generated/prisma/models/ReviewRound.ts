@@ -29,11 +29,13 @@ export type AggregateReviewRound = {
 export type ReviewRoundAvgAggregateOutputType = {
   roundNumber: number | null
   firstBatchQuantity: number | null
+  editCount: number | null
 }
 
 export type ReviewRoundSumAggregateOutputType = {
   roundNumber: number | null
   firstBatchQuantity: number | null
+  editCount: number | null
 }
 
 export type ReviewRoundMinAggregateOutputType = {
@@ -50,6 +52,8 @@ export type ReviewRoundMinAggregateOutputType = {
   alternativeSuggestions: string | null
   improvementSuggestions: string | null
   createdAt: Date | null
+  updatedAt: Date | null
+  editCount: number | null
 }
 
 export type ReviewRoundMaxAggregateOutputType = {
@@ -66,6 +70,8 @@ export type ReviewRoundMaxAggregateOutputType = {
   alternativeSuggestions: string | null
   improvementSuggestions: string | null
   createdAt: Date | null
+  updatedAt: Date | null
+  editCount: number | null
 }
 
 export type ReviewRoundCountAggregateOutputType = {
@@ -82,6 +88,8 @@ export type ReviewRoundCountAggregateOutputType = {
   alternativeSuggestions: number
   improvementSuggestions: number
   createdAt: number
+  updatedAt: number
+  editCount: number
   _all: number
 }
 
@@ -89,11 +97,13 @@ export type ReviewRoundCountAggregateOutputType = {
 export type ReviewRoundAvgAggregateInputType = {
   roundNumber?: true
   firstBatchQuantity?: true
+  editCount?: true
 }
 
 export type ReviewRoundSumAggregateInputType = {
   roundNumber?: true
   firstBatchQuantity?: true
+  editCount?: true
 }
 
 export type ReviewRoundMinAggregateInputType = {
@@ -110,6 +120,8 @@ export type ReviewRoundMinAggregateInputType = {
   alternativeSuggestions?: true
   improvementSuggestions?: true
   createdAt?: true
+  updatedAt?: true
+  editCount?: true
 }
 
 export type ReviewRoundMaxAggregateInputType = {
@@ -126,6 +138,8 @@ export type ReviewRoundMaxAggregateInputType = {
   alternativeSuggestions?: true
   improvementSuggestions?: true
   createdAt?: true
+  updatedAt?: true
+  editCount?: true
 }
 
 export type ReviewRoundCountAggregateInputType = {
@@ -142,6 +156,8 @@ export type ReviewRoundCountAggregateInputType = {
   alternativeSuggestions?: true
   improvementSuggestions?: true
   createdAt?: true
+  updatedAt?: true
+  editCount?: true
   _all?: true
 }
 
@@ -245,6 +261,8 @@ export type ReviewRoundGroupByOutputType = {
   alternativeSuggestions: string | null
   improvementSuggestions: string | null
   createdAt: Date
+  updatedAt: Date
+  editCount: number
   _count: ReviewRoundCountAggregateOutputType | null
   _avg: ReviewRoundAvgAggregateOutputType | null
   _sum: ReviewRoundSumAggregateOutputType | null
@@ -284,6 +302,8 @@ export type ReviewRoundWhereInput = {
   alternativeSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   improvementSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
+  editCount?: Prisma.IntFilter<"ReviewRound"> | number
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   reviewer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   objections?: Prisma.ObjectionListRelationFilter
@@ -304,6 +324,8 @@ export type ReviewRoundOrderByWithRelationInput = {
   alternativeSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   improvementSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   reviewer?: Prisma.UserOrderByWithRelationInput
   objections?: Prisma.ObjectionOrderByRelationAggregateInput
@@ -328,6 +350,8 @@ export type ReviewRoundWhereUniqueInput = Prisma.AtLeast<{
   alternativeSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   improvementSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
+  editCount?: Prisma.IntFilter<"ReviewRound"> | number
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   reviewer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   objections?: Prisma.ObjectionListRelationFilter
@@ -348,6 +372,8 @@ export type ReviewRoundOrderByWithAggregationInput = {
   alternativeSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   improvementSuggestions?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
   _count?: Prisma.ReviewRoundCountOrderByAggregateInput
   _avg?: Prisma.ReviewRoundAvgOrderByAggregateInput
   _max?: Prisma.ReviewRoundMaxOrderByAggregateInput
@@ -372,6 +398,8 @@ export type ReviewRoundScalarWhereWithAggregatesInput = {
   alternativeSuggestions?: Prisma.StringNullableWithAggregatesFilter<"ReviewRound"> | string | null
   improvementSuggestions?: Prisma.StringNullableWithAggregatesFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ReviewRound"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ReviewRound"> | Date | string
+  editCount?: Prisma.IntWithAggregatesFilter<"ReviewRound"> | number
 }
 
 export type ReviewRoundCreateInput = {
@@ -386,6 +414,8 @@ export type ReviewRoundCreateInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
   objections?: Prisma.ObjectionCreateNestedManyWithoutRoundInput
@@ -406,6 +436,8 @@ export type ReviewRoundUncheckedCreateInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
 }
@@ -422,6 +454,8 @@ export type ReviewRoundUpdateInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   objections?: Prisma.ObjectionUpdateManyWithoutRoundNestedInput
@@ -442,6 +476,8 @@ export type ReviewRoundUncheckedUpdateInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
 }
@@ -460,6 +496,8 @@ export type ReviewRoundCreateManyInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
 }
 
 export type ReviewRoundUpdateManyMutationInput = {
@@ -474,6 +512,8 @@ export type ReviewRoundUpdateManyMutationInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ReviewRoundUncheckedUpdateManyInput = {
@@ -490,6 +530,8 @@ export type ReviewRoundUncheckedUpdateManyInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ReviewRoundListRelationFilter = {
@@ -521,11 +563,14 @@ export type ReviewRoundCountOrderByAggregateInput = {
   alternativeSuggestions?: Prisma.SortOrder
   improvementSuggestions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
 }
 
 export type ReviewRoundAvgOrderByAggregateInput = {
   roundNumber?: Prisma.SortOrder
   firstBatchQuantity?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
 }
 
 export type ReviewRoundMaxOrderByAggregateInput = {
@@ -542,6 +587,8 @@ export type ReviewRoundMaxOrderByAggregateInput = {
   alternativeSuggestions?: Prisma.SortOrder
   improvementSuggestions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
 }
 
 export type ReviewRoundMinOrderByAggregateInput = {
@@ -558,11 +605,14 @@ export type ReviewRoundMinOrderByAggregateInput = {
   alternativeSuggestions?: Prisma.SortOrder
   improvementSuggestions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
 }
 
 export type ReviewRoundSumOrderByAggregateInput = {
   roundNumber?: Prisma.SortOrder
   firstBatchQuantity?: Prisma.SortOrder
+  editCount?: Prisma.SortOrder
 }
 
 export type ReviewRoundScalarRelationFilter = {
@@ -659,14 +709,6 @@ export type ReviewRoundUncheckedUpdateManyWithoutProductNestedInput = {
   deleteMany?: Prisma.ReviewRoundScalarWhereInput | Prisma.ReviewRoundScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type EnumDecisionFieldUpdateOperationsInput = {
   set?: $Enums.Decision
 }
@@ -713,6 +755,8 @@ export type ReviewRoundCreateWithoutReviewerInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   objections?: Prisma.ObjectionCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutRoundInput
@@ -731,6 +775,8 @@ export type ReviewRoundUncheckedCreateWithoutReviewerInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
 }
@@ -778,6 +824,8 @@ export type ReviewRoundScalarWhereInput = {
   alternativeSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   improvementSuggestions?: Prisma.StringNullableFilter<"ReviewRound"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ReviewRound"> | Date | string
+  editCount?: Prisma.IntFilter<"ReviewRound"> | number
 }
 
 export type ReviewRoundCreateWithoutProductInput = {
@@ -792,6 +840,8 @@ export type ReviewRoundCreateWithoutProductInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
   objections?: Prisma.ObjectionCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutRoundInput
@@ -810,6 +860,8 @@ export type ReviewRoundUncheckedCreateWithoutProductInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
 }
@@ -852,6 +904,8 @@ export type ReviewRoundCreateWithoutObjectionsInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutRoundInput
@@ -871,6 +925,8 @@ export type ReviewRoundUncheckedCreateWithoutObjectionsInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutRoundInput
 }
 
@@ -902,6 +958,8 @@ export type ReviewRoundUpdateWithoutObjectionsInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutRoundNestedInput
@@ -921,6 +979,8 @@ export type ReviewRoundUncheckedUpdateWithoutObjectionsInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
 }
 
@@ -936,6 +996,8 @@ export type ReviewRoundCreateWithoutAttachmentsInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   product: Prisma.ProductCreateNestedOneWithoutReviewsInput
   reviewer: Prisma.UserCreateNestedOneWithoutReviewsInput
   objections?: Prisma.ObjectionCreateNestedManyWithoutRoundInput
@@ -955,6 +1017,8 @@ export type ReviewRoundUncheckedCreateWithoutAttachmentsInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
   objections?: Prisma.ObjectionUncheckedCreateNestedManyWithoutRoundInput
 }
 
@@ -986,6 +1050,8 @@ export type ReviewRoundUpdateWithoutAttachmentsInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   objections?: Prisma.ObjectionUpdateManyWithoutRoundNestedInput
@@ -1005,6 +1071,8 @@ export type ReviewRoundUncheckedUpdateWithoutAttachmentsInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
 }
 
@@ -1021,6 +1089,8 @@ export type ReviewRoundCreateManyReviewerInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
 }
 
 export type ReviewRoundUpdateWithoutReviewerInput = {
@@ -1035,6 +1105,8 @@ export type ReviewRoundUpdateWithoutReviewerInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneRequiredWithoutReviewsNestedInput
   objections?: Prisma.ObjectionUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutRoundNestedInput
@@ -1053,6 +1125,8 @@ export type ReviewRoundUncheckedUpdateWithoutReviewerInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
 }
@@ -1070,6 +1144,8 @@ export type ReviewRoundUncheckedUpdateManyWithoutReviewerInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ReviewRoundCreateManyProductInput = {
@@ -1085,6 +1161,8 @@ export type ReviewRoundCreateManyProductInput = {
   alternativeSuggestions?: string | null
   improvementSuggestions?: string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
+  editCount?: number
 }
 
 export type ReviewRoundUpdateWithoutProductInput = {
@@ -1099,6 +1177,8 @@ export type ReviewRoundUpdateWithoutProductInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   reviewer?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
   objections?: Prisma.ObjectionUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutRoundNestedInput
@@ -1117,6 +1197,8 @@ export type ReviewRoundUncheckedUpdateWithoutProductInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
   objections?: Prisma.ObjectionUncheckedUpdateManyWithoutRoundNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutRoundNestedInput
 }
@@ -1134,6 +1216,8 @@ export type ReviewRoundUncheckedUpdateManyWithoutProductInput = {
   alternativeSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvementSuggestions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editCount?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -1190,6 +1274,8 @@ export type ReviewRoundSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   alternativeSuggestions?: boolean
   improvementSuggestions?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  editCount?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   objections?: boolean | Prisma.ReviewRound$objectionsArgs<ExtArgs>
@@ -1211,6 +1297,8 @@ export type ReviewRoundSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   alternativeSuggestions?: boolean
   improvementSuggestions?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  editCount?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewRound"]>
@@ -1229,6 +1317,8 @@ export type ReviewRoundSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   alternativeSuggestions?: boolean
   improvementSuggestions?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  editCount?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviewRound"]>
@@ -1247,9 +1337,11 @@ export type ReviewRoundSelectScalar = {
   alternativeSuggestions?: boolean
   improvementSuggestions?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
+  editCount?: boolean
 }
 
-export type ReviewRoundOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundNumber" | "reviewerId" | "decision" | "comment" | "launchDate" | "firstBatchQuantity" | "marketAnalysis" | "competitivenessAnalysis" | "alternativeSuggestions" | "improvementSuggestions" | "createdAt", ExtArgs["result"]["reviewRound"]>
+export type ReviewRoundOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundNumber" | "reviewerId" | "decision" | "comment" | "launchDate" | "firstBatchQuantity" | "marketAnalysis" | "competitivenessAnalysis" | "alternativeSuggestions" | "improvementSuggestions" | "createdAt" | "updatedAt" | "editCount", ExtArgs["result"]["reviewRound"]>
 export type ReviewRoundInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1288,6 +1380,8 @@ export type $ReviewRoundPayload<ExtArgs extends runtime.Types.Extensions.Interna
     alternativeSuggestions: string | null
     improvementSuggestions: string | null
     createdAt: Date
+    updatedAt: Date
+    editCount: number
   }, ExtArgs["result"]["reviewRound"]>
   composites: {}
 }
@@ -1728,6 +1822,8 @@ export interface ReviewRoundFieldRefs {
   readonly alternativeSuggestions: Prisma.FieldRef<"ReviewRound", 'String'>
   readonly improvementSuggestions: Prisma.FieldRef<"ReviewRound", 'String'>
   readonly createdAt: Prisma.FieldRef<"ReviewRound", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"ReviewRound", 'DateTime'>
+  readonly editCount: Prisma.FieldRef<"ReviewRound", 'Int'>
 }
     
 

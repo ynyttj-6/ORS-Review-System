@@ -120,6 +120,7 @@ model Product {
   submitterId      String        @map("submitter_id") @db.Uuid
   reviewerId       String?       @map("reviewer_id") @db.Uuid
   status           ProductStatus @default(pending_assign)
+  revision         Int           @default(1)
   submitTime       DateTime      @default(now()) @map("submit_time")
   assignTime       DateTime?     @map("assign_time")
   latestReviewTime DateTime?     @map("latest_review_time")
@@ -152,6 +153,8 @@ model ReviewRound {
   alternativeSuggestions String? @map("alternative_suggestions")
   improvementSuggestions String? @map("improvement_suggestions")
   createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  editCount   Int      @default(0) @map("edit_count")
   product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   reviewer    User     @relation(fields: [reviewerId], references: [id])
   objections  Objection[]

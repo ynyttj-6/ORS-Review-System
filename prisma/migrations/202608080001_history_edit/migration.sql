@@ -1,0 +1,6 @@
+-- 历史选品重新提交与历史审核结果修改的追踪字段
+ALTER TABLE "products" ADD COLUMN "revision" INTEGER NOT NULL DEFAULT 1;
+
+ALTER TABLE "review_rounds"
+  ADD COLUMN "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  ADD COLUMN "edit_count" INTEGER NOT NULL DEFAULT 0;

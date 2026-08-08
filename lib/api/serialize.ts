@@ -76,11 +76,12 @@ export function serializeProduct(product: ProductRecord) {
     submitterId: product.submitterId,
     reviewerId: product.reviewerId || undefined,
     status: product.status,
+    revision: product.revision,
     submitTime: dateTime(product.submitTime)!,
     assignTime: dateTime(product.assignTime),
     latestReviewTime: dateTime(product.latestReviewTime),
     attachments: product.attachments.map((item) => ({ id: item.id, name: item.fileName, size: item.fileSize, type: item.fileType, path: item.filePath, attachmentType: item.attachmentType, roundId: item.roundId || undefined, objectionId: item.objectionId || undefined })),
-    reviews: product.reviews.map((item) => ({ id: item.id, round: item.roundNumber, reviewerId: item.reviewerId, decision: item.decision, comment: item.comment, launchDate: date(item.launchDate), firstBatchQuantity: item.firstBatchQuantity ?? undefined, marketAnalysis: item.marketAnalysis || undefined, competitivenessAnalysis: item.competitivenessAnalysis || undefined, alternativeSuggestions: item.alternativeSuggestions || undefined, improvementSuggestions: item.improvementSuggestions || undefined, createdAt: dateTime(item.createdAt)! })),
+    reviews: product.reviews.map((item) => ({ id: item.id, round: item.roundNumber, reviewerId: item.reviewerId, decision: item.decision, comment: item.comment, launchDate: date(item.launchDate), firstBatchQuantity: item.firstBatchQuantity ?? undefined, marketAnalysis: item.marketAnalysis || undefined, competitivenessAnalysis: item.competitivenessAnalysis || undefined, alternativeSuggestions: item.alternativeSuggestions || undefined, improvementSuggestions: item.improvementSuggestions || undefined, createdAt: dateTime(item.createdAt)!, updatedAt: dateTime(item.updatedAt), editCount: item.editCount })),
     objections: product.objections.map((item) => ({ id: item.id, roundId: item.roundId, submitterId: item.submitterId, hasObjection: item.hasObjection, content: item.content, createdAt: dateTime(item.createdAt)! })),
   };
 }

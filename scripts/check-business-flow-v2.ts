@@ -79,21 +79,45 @@ async function main() {
     stage = "分配运营";
     await expectData(await jsonRequest(`/api/products/${productId}/assign`, adminCookie, { reviewerId: operatorId }));
     stage = "首轮驳回";
-    const returned = await expectData<{ status: string }>(await jsonRequest(`/api/products/${productId}/review`, operatorCookie, { decision: "redevelop", comment: "需要补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }));
+    const returned = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review`, operatorCookie, { decision: "redevelop", comment: "需要补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }));
+    const firstReviewId = returned.reviews.at(-1)?.id;
+    if (!firstReviewId) throw new Error("首轮审核没有返回审核记录");
+    stage = "阻止开发修改审核";
+    const developerReviewAttempt = await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, developerCookie, { decision: "rejected", comment: "开发人员无权修改审核结果" }, "PATCH");
+    stage = "修改历史审核结果";
+    const corrected = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, operatorCookie, { decision: "rejected", comment: "复核后调整为不通过，资料依据暂不充分" }, "PATCH"));
+    stage = "恢复审核结果";
+    const restored = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, operatorCookie, { decision: "redevelop", comment: "再次核对后仍需补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }, "PATCH"));
     stage = "提交异议";
     const objected = await expectData<{ status: string }>(await jsonRequest(`/api/products/${productId}/objection`, developerCookie, { hasObjection: true, content: "已补充供应商打样结果与四个竞品差评的对应改进数据。" }));
     stage = "复审通过";
     const approved = await expectData<{ status: string; launchDate?: string; firstBatchQuantity?: number }>(await jsonRequest(`/api/products/${productId}/review`, operatorCookie, { decision: "approved", comment: "补充资料完整，同意进入上架流程", launchDate: "2026-09-01", firstBatchQuantity: 80, marketAnalysis: "市场体量稳定", competitivenessAnalysis: "改进方案具备竞争力", alternativeSuggestions: "首批小批量验证" }));
+    stage = "阻止运营撤回选品";
+    const operatorReopenAttempt = await request(`/api/products/${productId}/reopen`, operatorCookie, { method: "POST" });
+    stage = "撤回历史选品";
+    const reopened = await expectData<{ status: string; revision?: number; reviewerId?: string; reviews: unknown[]; objections: unknown[] }>(await request(`/api/products/${productId}/reopen`, developerCookie, { method: "POST" }));
+    stage = "修改历史选品";
+    const historicalEdit = await expectData<{ status: string; revision?: number; notes?: string }>(await jsonRequest(`/api/products/${productId}`, developerCookie, { notes: "历史选品修改后重新提交" }, "PATCH"));
+    stage = "重新提交历史选品";
+    const resubmitted = await expectData<{ status: string; revision?: number; notes?: string; reviews: unknown[]; objections: unknown[] }>(await request(`/api/products/${productId}/submit`, developerCookie, { method: "POST" }));
 
-    const stored = await getPrisma().product.findUnique({ where: { id: productId }, include: { reviews: true, objections: true } });
+    const stored = await getPrisma().product.findUnique({ where: { id: productId }, include: { reviews: true, objections: true, auditLogs: true } });
     const status = {
       draftCreated: draft.status === "draft",
       savedDraftCanBeEdited: editedDraft.id === draft.id && editedDraft.status === "draft" && editedDraft.name === "v2全链路验收选品-草稿已编辑",
       submittedAndCalculated: submitted.status === "pending_assign" && Number(submitted.fbaFee) > 0 && typeof submitted.profitMargin === "number",
       redevelopWaitsForDeveloper: returned.status === "objection_pending",
+      developerCannotEditReview: developerReviewAttempt.status === 403,
+      reviewResultCanBeEdited: corrected.status === "rejected" && corrected.reviews.at(-1)?.decision === "rejected" && corrected.reviews.at(-1)?.editCount === 1,
+      reviewResultCanBeCorrectedAgain: restored.status === "objection_pending" && restored.reviews.at(-1)?.decision === "redevelop" && restored.reviews.at(-1)?.editCount === 2,
       objectionReturnsToReview: objected.status === "pending_review",
       finalApprovalStored: approved.status === "approved" && approved.launchDate === "2026-09-01" && approved.firstBatchQuantity === 80,
-      completeHistoryStored: stored?.reviews.length === 2 && stored.objections.length === 1 && stored.finalDecision === "approved",
+      operatorCannotReopenProduct: operatorReopenAttempt.status === 403,
+      historicalProductCanBeReopened: reopened.status === "draft" && reopened.revision === 2 && !reopened.reviewerId && reopened.reviews.length === 2 && reopened.objections.length === 1,
+      historicalProductCanBeEdited: historicalEdit.status === "draft" && historicalEdit.revision === 2 && historicalEdit.notes === "历史选品修改后重新提交",
+      historicalProductCanBeResubmitted: resubmitted.status === "pending_assign" && resubmitted.revision === 2 && resubmitted.notes === "历史选品修改后重新提交",
+      completeHistoryStored: stored?.reviews.length === 2 && stored.objections.length === 1 && stored.finalDecision === null && resubmitted.reviews.length === 2 && resubmitted.objections.length === 1,
+      changeAuditStored: stored?.auditLogs.filter((log) => log.action === "review_update").length === 2 && stored.auditLogs.some((log) => log.action === "reopen_for_resubmit"),
       productAnalysisStored: stored?.competitorReviewsAnalysis?.includes("四个竞品") === true && stored.packaging === "定制开窗彩盒",
     };
     stage = "结果校验";

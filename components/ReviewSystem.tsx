@@ -287,6 +287,7 @@ function ReviewSystemInner() {
   const [productStep, setProductStep] = useState(0);
   const [draftSavedVersion, setDraftSavedVersion] = useState(0);
   const [reviewProduct, setReviewProduct] = useState<Product | null>(null);
+  const [editingReviewRoundId, setEditingReviewRoundId] = useState<string | null>(null);
   const [objectionProduct, setObjectionProduct] = useState<Product | null>(null);
   const [assignProduct, setAssignProduct] = useState<Product | null>(null);
   const [userModal, setUserModal] = useState<User | "new" | null>(null);
@@ -380,6 +381,45 @@ function ReviewSystemInner() {
     setNewProductOpen(true);
   };
 
+  const startReview = (product: Product) => {
+    setEditingReviewRoundId(null);
+    reviewForm.resetFields();
+    setReviewProduct(product);
+  };
+
+  const editLatestReview = (product: Product) => {
+    const latest = product.reviews.at(-1);
+    if (!latest) return;
+    setEditingReviewRoundId(latest.id);
+    reviewForm.resetFields();
+    reviewForm.setFieldsValue({
+      decision: latest.decision,
+      comment: latest.comment,
+      launchDate: latest.launchDate,
+      firstBatchQuantity: latest.firstBatchQuantity,
+      marketAnalysis: latest.marketAnalysis,
+      competitivenessAnalysis: latest.competitivenessAnalysis,
+      alternativeSuggestions: latest.alternativeSuggestions,
+      improvementSuggestions: latest.improvementSuggestions,
+    });
+    setReviewProduct(product);
+  };
+
+  const reopenProductForEdit = async (product: Product) => {
+    try {
+      let reopened: Product;
+      if (productionMode) {
+        reopened = await apiRequest<Product>(`/api/products/${product.id}/reopen`, { method: "POST" });
+      } else {
+        reopened = { ...product, status: "draft", revision: (product.revision || 1) + 1, reviewerId: undefined, assignTime: undefined, latestReviewTime: undefined, finalDecision: undefined, launchDate: undefined, rejectionReason: undefined, firstBatchQuantity: undefined, marketAnalysis: undefined, competitivenessAnalysis: undefined, alternativeSuggestions: undefined };
+      }
+      setState((old) => ({ ...old, products: old.products.map((item) => item.id === reopened.id ? reopened : item) }));
+      setSelectedProduct(null);
+      openProductEditor(reopened);
+      appMessage.success(`已创建第 ${reopened.revision || 1} 版草稿，修改后请重新提交审核`);
+    } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
+  };
+
   const createProduct = async (action: "draft" | "submit") => {
     try {
       const values = action === "submit" ? await productForm.validateFields() : productForm.getFieldsValue(true);
@@ -438,15 +478,22 @@ function ReviewSystemInner() {
     try {
       const values = await reviewForm.validateFields();
       if (productionMode) {
-        const product = await apiRequest<Product>(`/api/products/${reviewProduct.id}/review`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
+        const url = editingReviewRoundId ? `/api/products/${reviewProduct.id}/review/${editingReviewRoundId}` : `/api/products/${reviewProduct.id}/review`;
+        const product = await apiRequest<Product>(url, { method: editingReviewRoundId ? "PATCH" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
         setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
       } else {
         const now = formatTime();
-        const round = { id: `r-${Date.now()}`, round: reviewProduct.reviews.length + 1, reviewerId: currentUser.id, decision: values.decision as Decision, comment: values.comment, launchDate: values.launchDate, firstBatchQuantity: values.firstBatchQuantity, marketAnalysis: values.marketAnalysis, competitivenessAnalysis: values.competitivenessAnalysis, alternativeSuggestions: values.alternativeSuggestions, improvementSuggestions: values.improvementSuggestions, createdAt: now };
-        updateProduct(reviewProduct.id, (product) => ({ ...product, status: values.decision === "redevelop" ? "objection_pending" : values.decision, finalDecision: values.decision === "redevelop" ? undefined : values.decision, launchDate: values.launchDate, firstBatchQuantity: values.firstBatchQuantity, rejectionReason: values.decision === "approved" ? undefined : values.comment, marketAnalysis: values.marketAnalysis, competitivenessAnalysis: values.competitivenessAnalysis, alternativeSuggestions: values.alternativeSuggestions, latestReviewTime: now, reviews: [...product.reviews, round] }));
+        const reviewValues = { decision: values.decision as Decision, comment: values.comment, launchDate: values.decision === "approved" ? values.launchDate : undefined, firstBatchQuantity: values.decision === "approved" ? values.firstBatchQuantity : undefined, marketAnalysis: values.marketAnalysis, competitivenessAnalysis: values.competitivenessAnalysis, alternativeSuggestions: values.alternativeSuggestions, improvementSuggestions: values.decision === "redevelop" ? values.improvementSuggestions : undefined };
+        updateProduct(reviewProduct.id, (product) => {
+          const reviews = editingReviewRoundId
+            ? product.reviews.map((review) => review.id === editingReviewRoundId ? { ...review, ...reviewValues, updatedAt: now, editCount: (review.editCount || 0) + 1 } : review)
+            : [...product.reviews, { id: `r-${Date.now()}`, round: product.reviews.length + 1, reviewerId: currentUser.id, ...reviewValues, createdAt: now, updatedAt: now, editCount: 0 }];
+          return { ...product, status: values.decision === "redevelop" ? "objection_pending" : values.decision, finalDecision: values.decision === "redevelop" ? undefined : values.decision, launchDate: values.decision === "approved" ? values.launchDate : undefined, firstBatchQuantity: values.decision === "approved" ? values.firstBatchQuantity : undefined, rejectionReason: values.decision === "approved" ? undefined : values.comment, marketAnalysis: values.marketAnalysis, competitivenessAnalysis: values.competitivenessAnalysis, alternativeSuggestions: values.alternativeSuggestions, latestReviewTime: now, reviews };
+        });
         pushNotice(nameOf(state.users, reviewProduct.submitterId), "审核结果", `选品「${reviewProduct.name}」审核结果：${decisionMeta[values.decision as Decision].label}`);
       }
-      setReviewProduct(null); reviewForm.resetFields(); appMessage.success("审核结果已提交");
+      const wasEditing = Boolean(editingReviewRoundId);
+      setReviewProduct(null); setEditingReviewRoundId(null); reviewForm.resetFields(); appMessage.success(wasEditing ? "历史审核结果已修改并留痕" : "审核结果已提交");
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
 
@@ -506,7 +553,7 @@ function ReviewSystemInner() {
 
   const renderPage = () => {
     const page = pathname === "/" ? "dashboard" : pathname.split("/").filter(Boolean)[0] || "dashboard";
-    const context = { state, currentUser, operators, setSelectedProduct, setNewProductOpen, openProductEditor, setReviewProduct, setObjectionProduct, setAssignProduct, setUserModal, userForm, setState, appMessage, reloadProduction: loadProduction, draftSavedVersion };
+    const context = { state, currentUser, operators, setSelectedProduct, setNewProductOpen, openProductEditor, reopenProductForEdit, setReviewProduct: startReview, editLatestReview, setObjectionProduct, setAssignProduct, setUserModal, userForm, setState, appMessage, reloadProduction: loadProduction, draftSavedVersion };
     if (!canRenderSelectedPage) return <DashboardPage {...context} />;
     switch (page) {
       case "products": return <ProductsPage {...context} />;
@@ -571,18 +618,19 @@ function ReviewSystemInner() {
         <Content className="app-content">{renderPage()}</Content>
       </Layout>
 
-      <ProductDrawer product={selectedProduct ? state.products.find((p) => p.id === selectedProduct.id) || selectedProduct : null} users={state.users} currentUser={currentUser} onClose={() => setSelectedProduct(null)} onEdit={(p) => { setSelectedProduct(null); openProductEditor(p); }} onReview={(p) => { setSelectedProduct(null); setReviewProduct(p); }} onObjection={(p) => { setSelectedProduct(null); setObjectionProduct(p); }} />
+      <ProductDrawer product={selectedProduct ? state.products.find((p) => p.id === selectedProduct.id) || selectedProduct : null} users={state.users} currentUser={currentUser} onClose={() => setSelectedProduct(null)} onEdit={(p) => { setSelectedProduct(null); openProductEditor(p); }} onReopen={reopenProductForEdit} onReview={(p) => { setSelectedProduct(null); startReview(p); }} onObjection={(p) => { setSelectedProduct(null); setObjectionProduct(p); }} />
 
       <Modal title={editingProduct ? `继续编辑 · ${editingProduct.name}` : "新建选品"} open={newProductOpen} onCancel={() => { setNewProductOpen(false); setEditingProduct(null); productForm.resetFields(); }} width={980} footer={<div className="wizard-footer"><Button onClick={() => createProduct("draft")}>保存草稿</Button><span className="wizard-footer-spacer" />{productStep > 0 && <Button onClick={() => setProductStep((value) => value - 1)}>上一步</Button>}{productStep < 5 ? <Button type="primary" onClick={() => setProductStep((value) => value + 1)}>下一步</Button> : <Button type="primary" icon={<SendOutlined />} onClick={() => createProduct("submit")}>确认提交审核</Button>}</div>}>
         <Steps size="small" current={productStep} onChange={setProductStep} items={[{ title: "基本信息" }, { title: "产品分析" }, { title: "成本供应商" }, { title: "规格与利润" }, { title: "附件" }, { title: "预览提交" }]} />
         <Form form={productForm} layout="vertical" className="modal-form product-wizard"><ProductWizardContent form={productForm} step={productStep} /></Form>
       </Modal>
 
-      <Modal title={reviewProduct ? `审核 · ${reviewProduct.name}` : "提交审核"} open={!!reviewProduct} onCancel={() => setReviewProduct(null)} onOk={submitReview} okText="确认提交" width={620}>
-        {reviewProduct && <ReviewSummary product={reviewProduct} users={state.users} />}
+      <Modal title={reviewProduct ? `${editingReviewRoundId ? "修改审核结果" : "审核"} · ${reviewProduct.name}` : "提交审核"} open={!!reviewProduct} onCancel={() => { setReviewProduct(null); setEditingReviewRoundId(null); reviewForm.resetFields(); }} onOk={submitReview} okText={editingReviewRoundId ? "保存修改" : "确认提交"} width={620}>
+        {editingReviewRoundId && <Alert type="warning" showIcon title="正在修改最新一轮审核结果" description="保存后会同步更新选品状态和最终结论，并在审计日志中保留修改前后的内容。" style={{ marginBottom: 14 }} />}
+        {reviewProduct && <ReviewSummary product={reviewProduct} users={state.users} editing={Boolean(editingReviewRoundId)} />}
         <Form form={reviewForm} layout="vertical" className="modal-form">
           <Form.Item label="运营选择" name="decision" rules={[{ required: true, message: "请选择审核决策" }]}>
-            <Select size="large" options={(["approved", "rejected", "redevelop"] as Decision[]).filter((value) => value !== "redevelop" || (reviewProduct?.reviews.length || 0) < 2).map((value) => ({ value, label: decisionMeta[value].label }))} placeholder="通过-上架 / 不通过 / 驳回-二次开发" />
+            <Select size="large" options={(["approved", "rejected", "redevelop"] as Decision[]).filter((value) => value !== "redevelop" || (editingReviewRoundId ? (reviewProduct?.reviews.at(-1)?.round || 0) : (reviewProduct?.reviews.length || 0) + 1) < 3).map((value) => ({ value, label: decisionMeta[value].label }))} placeholder="通过-上架 / 不通过 / 驳回-二次开发" />
           </Form.Item>
           <Form.Item label={reviewDecision === "approved" ? "审核意见" : reviewDecision === "rejected" ? "不上架原因" : "驳回原因"} name="comment" rules={[{ required: true, message: "请填写具体审核意见" }, { min: 5, message: "请至少填写 5 个字" }]}>
             <Input.TextArea rows={4} showCount maxLength={2000} placeholder="说明判断依据、风险或决策理由" />
@@ -641,7 +689,9 @@ type PageContext = {
   setSelectedProduct: (product: Product) => void;
   setNewProductOpen: (open: boolean) => void;
   openProductEditor: (product?: Product) => void;
+  reopenProductForEdit: (product: Product) => Promise<void>;
   setReviewProduct: (product: Product) => void;
+  editLatestReview: (product: Product) => void;
   setObjectionProduct: (product: Product) => void;
   setAssignProduct: (product: Product) => void;
   setUserModal: (user: User | "new" | null) => void;
@@ -741,7 +791,7 @@ function productColumns(users: User[], open: (p: Product) => void, action?: (p: 
 }
 
 function ProductsPage(ctx: PageContext) {
-  const { state, currentUser, setSelectedProduct, openProductEditor, setObjectionProduct, setState, appMessage, draftSavedVersion } = ctx;
+  const { state, currentUser, setSelectedProduct, openProductEditor, reopenProductForEdit, setObjectionProduct, setState, appMessage, draftSavedVersion } = ctx;
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<string>(currentUser.role === "developer" ? "submitted" : "all");
   useEffect(() => {
@@ -759,7 +809,7 @@ function ProductsPage(ctx: PageContext) {
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
   const columns: TableColumnsType<Product> = [
-    { title: "选品", dataIndex: "name", key: "name", render: (_, p) => <button className="product-cell" onClick={() => setSelectedProduct(p)}><span className="product-thumb"><ProductOutlined /></span><span><strong>{p.name}</strong><small>{p.code} · {p.category}</small></span></button> },
+    { title: "选品", dataIndex: "name", key: "name", render: (_, p) => <button className="product-cell" onClick={() => setSelectedProduct(p)}><span className="product-thumb"><ProductOutlined /></span><span><strong>{p.name}</strong><small>{p.code} · {p.category} · 第 {p.revision || 1} 版</small></span></button> },
     { title: "竞品链接", key: "competitorLink", width: 110, render: (_, p) => { const link = p.competitorLink || p.sourceUrl; return link ? <a href={link} target="_blank" rel="noreferrer">打开竞品</a> : "—"; } },
     { title: "提交人", dataIndex: "submitterId", width: 90, render: (id) => nameOf(state.users, id) },
     { title: "审核人", dataIndex: "reviewerId", width: 90, render: (id) => nameOf(state.users, id) },
@@ -771,7 +821,7 @@ function ProductsPage(ctx: PageContext) {
     ] : []),
     { title: "状态", dataIndex: "status", width: 110, render: (value) => <StatusTag status={value} /> },
     { title: "提交时间", dataIndex: "submitTime", width: 150 },
-    { title: "操作", key: "action", width: 190, align: "right", render: (_, p) => <Space size={2}>{p.status === "draft" && (currentUser.role === "admin" || (currentUser.role === "developer" && p.submitterId === currentUser.id)) && <><Button type="link" onClick={() => openProductEditor(p)}>继续编辑</Button><Popconfirm title="删除这份草稿？" onConfirm={() => removeDraft(p)}><Button type="link" danger>删除</Button></Popconfirm></>}{currentUser.role === "developer" && p.status === "objection_pending" && <Button type="link" onClick={() => setObjectionProduct(p)}>提交异议</Button>}<Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button></Space> },
+    { title: "操作", key: "action", width: 250, align: "right", render: (_, p) => <Space size={2}>{p.status === "draft" && (currentUser.role === "admin" || (currentUser.role === "developer" && p.submitterId === currentUser.id)) && <><Button type="link" onClick={() => openProductEditor(p)}>继续编辑</Button>{(p.revision || 1) === 1 && !p.reviews.length && <Popconfirm title="删除这份草稿？" onConfirm={() => removeDraft(p)}><Button type="link" danger>删除</Button></Popconfirm>}</>}{currentUser.role === "developer" && p.submitterId === currentUser.id && p.status !== "draft" && <Popconfirm title="将该历史选品撤回修改？" description="当前审核状态和分配将清空，历史审核记录会保留；修改后需要重新提交。" onConfirm={() => reopenProductForEdit(p)}><Button type="link">修改并重提</Button></Popconfirm>}{currentUser.role === "developer" && p.status === "objection_pending" && <Button type="link" onClick={() => setObjectionProduct(p)}>提交异议</Button>}<Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button></Space> },
   ];
   return (
     <>
@@ -813,10 +863,11 @@ function AssignPage(ctx: PageContext) {
 }
 
 function ReviewPage(ctx: PageContext) {
-  const { state, currentUser, setSelectedProduct, setReviewProduct } = ctx;
+  const { state, currentUser, setSelectedProduct, setReviewProduct, editLatestReview } = ctx;
   const [tab, setTab] = useState("todo");
-  const own = currentUser.role === "admin" ? state.products.filter((p) => !!p.reviewerId) : state.products.filter((p) => p.reviewerId === currentUser.id);
-  const data = tab === "todo" ? own.filter((p) => p.status === "pending_review") : own.filter((p) => p.reviews.length > 0);
+  const todo = currentUser.role === "admin" ? state.products.filter((p) => p.status === "pending_review") : state.products.filter((p) => p.status === "pending_review" && p.reviewerId === currentUser.id);
+  const history = currentUser.role === "admin" ? state.products.filter((p) => p.reviews.length > 0) : state.products.filter((p) => p.reviews.some((review) => review.reviewerId === currentUser.id));
+  const data = tab === "todo" ? todo : history;
   const columns: TableColumnsType<Product> = [
     { title: "选品", dataIndex: "name", key: "name", render: (_, p) => <button className="product-cell" onClick={() => setSelectedProduct(p)}><span className="product-thumb"><ProductOutlined /></span><span><strong>{p.name}</strong><small>{p.code} · {p.category}</small></span></button> },
     { title: "开发人", dataIndex: "submitterId", width: 90, render: (id) => nameOf(state.users, id) },
@@ -825,13 +876,18 @@ function ReviewPage(ctx: PageContext) {
     { title: "当前轮次", width: 90, render: (_, p) => `第 ${p.reviews.length + (p.status === "pending_review" ? 1 : 0)} 轮` },
     { title: "状态", dataIndex: "status", width: 110, render: (value) => <StatusTag status={value} /> },
     { title: "提交时间", dataIndex: "submitTime", width: 150 },
-    { title: "操作", key: "action", width: 100, align: "right", render: (_, p) => tab === "todo" ? <Button type="link" onClick={() => setReviewProduct(p)}>开始审核</Button> : <Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button> },
+    { title: "操作", key: "action", width: 170, align: "right", render: (_, p) => {
+      const latest = p.reviews.at(-1);
+      const hasObjection = Boolean(latest && p.objections.some((item) => item.roundId === latest.id));
+      const canEditResult = Boolean(latest && !["draft", "pending_assign"].includes(p.status) && !hasObjection && (currentUser.role === "admin" || latest.reviewerId === currentUser.id));
+      return tab === "todo" ? <Button type="link" onClick={() => setReviewProduct(p)}>开始审核</Button> : <Space size={2}>{canEditResult && <Button type="link" onClick={() => editLatestReview(p)}>修改结果</Button>}<Button type="link" onClick={() => setSelectedProduct(p)}>详情</Button></Space>;
+    } },
   ];
   return (
     <>
       <PageHeading title="审核中心" description="处理待审选品与开发异议，所有审核意见自动留痕" />
       <Card>
-        <Tabs activeKey={tab} onChange={setTab} items={[{ key: "todo", label: <Badge count={own.filter((p) => p.status === "pending_review").length} offset={[12, -3]}>待我审核</Badge> }, { key: "history", label: "历史审核" }]} />
+        <Tabs activeKey={tab} onChange={setTab} items={[{ key: "todo", label: <Badge count={todo.length} offset={[12, -3]}>待我审核</Badge> }, { key: "history", label: "历史审核" }]} />
         <Table rowKey="id" dataSource={data} columns={columns} pagination={{ pageSize: 8, showSizeChanger: false }} />
       </Card>
     </>
@@ -1092,14 +1148,14 @@ function SettingsPage(ctx: PageContext) {
   );
 }
 
-function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReview, onObjection }: { product: Product | null; users: User[]; currentUser: User; onClose: () => void; onEdit: (p: Product) => void; onReview: (p: Product) => void; onObjection: (p: Product) => void }) {
+function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReopen, onReview, onObjection }: { product: Product | null; users: User[]; currentUser: User; onClose: () => void; onEdit: (p: Product) => void; onReopen: (p: Product) => Promise<void>; onReview: (p: Product) => void; onObjection: (p: Product) => void }) {
   if (!product) return null;
   const timeline = [
     { key: "submit", time: product.submitTime, title: "提交选品", content: `${nameOf(users, product.submitterId)} 提交了选品资料`, color: "blue" },
     ...(product.assignTime ? [{ key: "assign", time: product.assignTime, title: "分配审核", content: `分配给 ${nameOf(users, product.reviewerId)}`, color: "blue" }] : []),
     ...product.reviews.flatMap((review) => {
       const objection = product.objections.find((item) => item.roundId === review.id);
-      const items = [{ key: review.id, time: review.createdAt, title: `第 ${review.round} 轮审核 · ${decisionMeta[review.decision].label}`, content: review.comment, color: review.decision === "approved" ? "green" : review.decision === "rejected" ? "red" : "orange" }];
+      const items = [{ key: review.id, time: review.updatedAt || review.createdAt, title: `第 ${review.round} 轮审核 · ${decisionMeta[review.decision].label}${review.editCount ? ` · 已修改 ${review.editCount} 次` : ""}`, content: review.comment, color: review.decision === "approved" ? "green" : review.decision === "rejected" ? "red" : "orange" }];
       if (objection) items.push({ key: objection.id, time: objection.createdAt, title: "开发提交异议", content: objection.content, color: "cyan" });
       return items;
     }),
@@ -1107,6 +1163,7 @@ function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReview,
   const canReview = ["admin", "operator"].includes(currentUser.role) && product.status === "pending_review";
   const canObject = currentUser.role === "developer" && product.submitterId === currentUser.id && product.status === "objection_pending";
   const canEdit = product.status === "draft" && (currentUser.role === "admin" || (currentUser.role === "developer" && product.submitterId === currentUser.id));
+  const canReopen = currentUser.role === "developer" && product.submitterId === currentUser.id && product.status !== "draft";
   const show = (value: unknown) => value === undefined || value === null || value === "" ? "—" : String(value);
   const analysisItems = [
     ["季节性产品判断", product.seasonality], ["产品主要使用场景", product.usageScenario], ["迭代方案及卖点分析", product.iterationPlan], ["目标人群", product.targetAudience],
@@ -1117,7 +1174,7 @@ function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReview,
   const attachmentLabel = { product_image: "产品主图", competitor_screenshot: "竞品数据", data_screenshot: "支撑数据", supplier_info: "供应商资料" } as const;
   return (
     <Drawer title={null} open={!!product} onClose={onClose} size={980} styles={{ body: { padding: 0 } }}>
-      <div className="drawer-hero"><div className="drawer-code"><Tag>{product.code}</Tag><StatusTag status={product.status} /></div><Title level={3}>{product.name}</Title><Text type="secondary">{product.category} · 由 {nameOf(users, product.submitterId)} 于 {product.submitTime} 提交</Text></div>
+      <div className="drawer-hero"><div className="drawer-code"><Tag>{product.code}</Tag><Tag color="blue">第 {product.revision || 1} 版</Tag><StatusTag status={product.status} /></div><Title level={3}>{product.name}</Title><Text type="secondary">{product.category} · 由 {nameOf(users, product.submitterId)} 于 {product.submitTime} 提交</Text></div>
       <div className="drawer-content">
         <Descriptions title="基本信息与竞品" bordered column={2} size="small" items={[{ key: "category", label: "产品类目", children: product.category }, { key: "keyword", label: "核心关键词", children: show(product.coreKeyword) }, { key: "asins", label: "其他竞品 ASIN", children: show(product.competitorAsins) }, { key: "range", label: "市场价格区间", children: show(product.priceRange) }, { key: "url", label: "竞品链接", span: 2, children: product.competitorLink ? <a href={product.competitorLink} target="_blank" rel="noreferrer">打开竞品页面</a> : "—" }, { key: "top", label: "市场最高价链接", span: 2, children: product.topCompetitorLink ? <a href={product.topCompetitorLink} target="_blank" rel="noreferrer">打开对标页面</a> : "—" }]} />
         <Divider />
@@ -1141,12 +1198,13 @@ function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReview,
         <Timeline items={timeline.slice().reverse().map((item) => ({ color: item.color, children: <div className="timeline-item"><div><strong>{item.title}</strong><Text type="secondary">{item.time}</Text></div><Paragraph>{item.content}</Paragraph></div> }))} />
         {product.finalDecision && <><Divider /><Descriptions title="最终审核结果" bordered column={2} items={[{ key: "decision", label: "运营选择", children: <Tag color={decisionMeta[product.finalDecision].color}>{decisionMeta[product.finalDecision].label}</Tag> }, { key: "launch", label: "上架日期", children: show(product.launchDate) }, { key: "batch", label: "首批发货数量", children: show(product.firstBatchQuantity) }, { key: "reason", label: "不上架/决策原因", children: show(product.rejectionReason) }, { key: "market", label: "市场体量和切入难度", span: 2, children: show(product.marketAnalysis) }, { key: "competition", label: "现+1分方案竞争力", span: 2, children: show(product.competitivenessAnalysis) }, { key: "alternative", label: "其他方案设想", span: 2, children: show(product.alternativeSuggestions) }]} /></>}
       </div>
-      {(canEdit || canReview || canObject) && <div className="drawer-footer"><Button onClick={onClose}>关闭</Button>{canEdit && <Button type="primary" onClick={() => onEdit(product)}>继续编辑</Button>}{canReview && <Button type="primary" icon={<SafetyCertificateOutlined />} onClick={() => onReview(product)}>开始审核</Button>}{canObject && <Button type="primary" icon={<ExclamationCircleOutlined />} onClick={() => onObjection(product)}>提交异议</Button>}</div>}
+      {(canEdit || canReopen || canReview || canObject) && <div className="drawer-footer"><Button onClick={onClose}>关闭</Button>{canEdit && <Button type="primary" onClick={() => onEdit(product)}>继续编辑</Button>}{canReopen && <Popconfirm title="将该历史选品撤回修改？" description="当前审核状态和分配将清空，历史审核记录会保留；修改后需要重新提交。" onConfirm={() => onReopen(product)}><Button type="primary">修改并重新提交</Button></Popconfirm>}{canReview && <Button type="primary" icon={<SafetyCertificateOutlined />} onClick={() => onReview(product)}>开始审核</Button>}{canObject && <Button type="primary" icon={<ExclamationCircleOutlined />} onClick={() => onObjection(product)}>提交异议</Button>}</div>}
     </Drawer>
   );
 }
 
-function ReviewSummary({ product, users }: { product: Product; users: User[] }) {
+function ReviewSummary({ product, users, editing = false }: { product: Product; users: User[]; editing?: boolean }) {
   const objection = product.objections.at(-1);
-  return <div className="review-summary"><Space separator={<Divider orientation="vertical" />}><span><Text type="secondary">提交人</Text><strong>{nameOf(users, product.submitterId)}</strong></span><span><Text type="secondary">当前轮次</Text><strong>第 {product.reviews.length + 1} 轮</strong></span><span><Text type="secondary">附件</Text><strong>{product.attachments.length} 个</strong></span></Space>{objection && <Alert type="warning" showIcon message="开发人员最新异议" description={objection.content} />}</div>;
+  const round = editing ? product.reviews.at(-1)?.round || product.reviews.length : product.reviews.length + 1;
+  return <div className="review-summary"><Space separator={<Divider orientation="vertical" />}><span><Text type="secondary">提交人</Text><strong>{nameOf(users, product.submitterId)}</strong></span><span><Text type="secondary">当前轮次</Text><strong>第 {round} 轮</strong></span><span><Text type="secondary">附件</Text><strong>{product.attachments.length} 个</strong></span></Space>{objection && <Alert type="warning" showIcon message="开发人员最新异议" description={objection.content} />}</div>;
 }
