@@ -24,6 +24,7 @@ async function main() {
   const password = `FlowV2-${randomUUID()}!Aa1`;
   let developerId: string | undefined;
   let operatorId: string | undefined;
+  let replacementOperatorId: string | undefined;
   let productId: string | undefined;
   let stage = "初始化";
 
@@ -59,8 +60,12 @@ async function main() {
     stage = "创建运营账号";
     const operator = await expectData<{ id: string; account: string }>(await jsonRequest("/api/users", adminCookie, { name: "v2流程运营", account: `flow-op-${suffix}`, password, role: "operator" }));
     operatorId = operator.id;
+    stage = "创建接替运营账号";
+    const replacementOperator = await expectData<{ id: string; account: string }>(await jsonRequest("/api/users", adminCookie, { name: "v2流程接替运营", account: `flow-op2-${suffix}`, password, role: "operator" }));
+    replacementOperatorId = replacementOperator.id;
     const developerCookie = await login(developer.account);
     const operatorCookie = await login(operator.account);
+    const replacementOperatorCookie = await login(replacementOperator.account);
 
     stage = "创建草稿";
     const draft = await expectData<{ id: string; status: string }>(await jsonRequest("/api/products", developerCookie, { name: "v2全链路验收选品", action: "draft" }));
@@ -78,20 +83,26 @@ async function main() {
     const submitted = await expectData<{ status: string; fbaFee?: number; profitMargin?: number }>(await request(`/api/products/${productId}/submit`, developerCookie, { method: "POST" }));
     stage = "分配运营";
     await expectData(await jsonRequest(`/api/products/${productId}/assign`, adminCookie, { reviewerId: operatorId }));
+    stage = "更改已分配审核人";
+    const reassigned = await expectData<{ status: string; reviewerId?: string }>(await jsonRequest(`/api/products/${productId}/assign`, adminCookie, { reviewerId: replacementOperatorId }));
+    stage = "阻止重复指定相同审核人";
+    const sameReviewerAttempt = await jsonRequest(`/api/products/${productId}/assign`, adminCookie, { reviewerId: replacementOperatorId });
+    stage = "阻止原审核人继续审核";
+    const previousReviewerAttempt = await jsonRequest(`/api/products/${productId}/review`, operatorCookie, { decision: "redevelop", comment: "原审核人不应再能审核该选品" });
     stage = "首轮驳回";
-    const returned = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review`, operatorCookie, { decision: "redevelop", comment: "需要补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }));
+    const returned = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review`, replacementOperatorCookie, { decision: "redevelop", comment: "需要补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }));
     const firstReviewId = returned.reviews.at(-1)?.id;
     if (!firstReviewId) throw new Error("首轮审核没有返回审核记录");
     stage = "阻止开发修改审核";
     const developerReviewAttempt = await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, developerCookie, { decision: "rejected", comment: "开发人员无权修改审核结果" }, "PATCH");
     stage = "修改历史审核结果";
-    const corrected = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, operatorCookie, { decision: "rejected", comment: "复核后调整为不通过，资料依据暂不充分" }, "PATCH"));
+    const corrected = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, replacementOperatorCookie, { decision: "rejected", comment: "复核后调整为不通过，资料依据暂不充分" }, "PATCH"));
     stage = "恢复审核结果";
-    const restored = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, operatorCookie, { decision: "redevelop", comment: "再次核对后仍需补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }, "PATCH"));
+    const restored = await expectData<{ status: string; reviews: Array<{ id: string; decision: string; editCount?: number }> }>(await jsonRequest(`/api/products/${productId}/review/${firstReviewId}`, replacementOperatorCookie, { decision: "redevelop", comment: "再次核对后仍需补充材料和价格竞争力依据", improvementSuggestions: "补充供应商打样与差评对应关系" }, "PATCH"));
     stage = "提交异议";
     const objected = await expectData<{ status: string }>(await jsonRequest(`/api/products/${productId}/objection`, developerCookie, { hasObjection: true, content: "已补充供应商打样结果与四个竞品差评的对应改进数据。" }));
     stage = "复审通过";
-    const approved = await expectData<{ status: string; launchDate?: string; firstBatchQuantity?: number }>(await jsonRequest(`/api/products/${productId}/review`, operatorCookie, { decision: "approved", comment: "补充资料完整，同意进入上架流程", launchDate: "2026-09-01", firstBatchQuantity: 80, marketAnalysis: "市场体量稳定", competitivenessAnalysis: "改进方案具备竞争力", alternativeSuggestions: "首批小批量验证" }));
+    const approved = await expectData<{ status: string; launchDate?: string; firstBatchQuantity?: number }>(await jsonRequest(`/api/products/${productId}/review`, replacementOperatorCookie, { decision: "approved", comment: "补充资料完整，同意进入上架流程", launchDate: "2026-09-01", firstBatchQuantity: 80, marketAnalysis: "市场体量稳定", competitivenessAnalysis: "改进方案具备竞争力", alternativeSuggestions: "首批小批量验证" }));
     stage = "阻止运营撤回选品";
     const operatorReopenAttempt = await request(`/api/products/${productId}/reopen`, operatorCookie, { method: "POST" });
     stage = "撤回历史选品";
@@ -106,6 +117,9 @@ async function main() {
       draftCreated: draft.status === "draft",
       savedDraftCanBeEdited: editedDraft.id === draft.id && editedDraft.status === "draft" && editedDraft.name === "v2全链路验收选品-草稿已编辑",
       submittedAndCalculated: submitted.status === "pending_assign" && Number(submitted.fbaFee) > 0 && typeof submitted.profitMargin === "number",
+      assignedReviewerCanBeChanged: reassigned.status === "pending_review" && reassigned.reviewerId === replacementOperatorId,
+      sameReviewerCannotBeAssignedAgain: sameReviewerAttempt.status === 409,
+      previousReviewerLosesAccess: previousReviewerAttempt.status === 403,
       redevelopWaitsForDeveloper: returned.status === "objection_pending",
       developerCannotEditReview: developerReviewAttempt.status === 403,
       reviewResultCanBeEdited: corrected.status === "rejected" && corrected.reviews.at(-1)?.decision === "rejected" && corrected.reviews.at(-1)?.editCount === 1,
@@ -117,7 +131,7 @@ async function main() {
       historicalProductCanBeEdited: historicalEdit.status === "draft" && historicalEdit.revision === 2 && historicalEdit.notes === "历史选品修改后重新提交",
       historicalProductCanBeResubmitted: resubmitted.status === "pending_assign" && resubmitted.revision === 2 && resubmitted.notes === "历史选品修改后重新提交",
       completeHistoryStored: stored?.reviews.length === 2 && stored.objections.length === 1 && stored.finalDecision === null && resubmitted.reviews.length === 2 && resubmitted.objections.length === 1,
-      changeAuditStored: stored?.auditLogs.filter((log) => log.action === "review_update").length === 2 && stored.auditLogs.some((log) => log.action === "reopen_for_resubmit"),
+      changeAuditStored: stored?.auditLogs.filter((log) => log.action === "review_update").length === 2 && stored.auditLogs.some((log) => log.action === "reopen_for_resubmit") && stored.auditLogs.some((log) => log.action === "reassign"),
       productAnalysisStored: stored?.competitorReviewsAnalysis?.includes("四个竞品") === true && stored.packaging === "定制开窗彩盒",
     };
     stage = "结果校验";
@@ -131,6 +145,7 @@ async function main() {
     if (productId) await getPrisma().product.delete({ where: { id: productId } }).catch(() => undefined);
     if (developerId) await request(`/api/users/${developerId}`, adminCookie, { method: "DELETE" }).catch(() => undefined);
     if (operatorId) await request(`/api/users/${operatorId}`, adminCookie, { method: "DELETE" }).catch(() => undefined);
+    if (replacementOperatorId) await request(`/api/users/${replacementOperatorId}`, adminCookie, { method: "DELETE" }).catch(() => undefined);
     await adminClient.auth.signOut({ scope: "local" }).catch(() => undefined);
     await getPrisma().$disconnect().catch(() => undefined);
   }

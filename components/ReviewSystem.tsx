@@ -387,6 +387,12 @@ function ReviewSystemInner() {
     setReviewProduct(product);
   };
 
+  const openAssignment = (product: Product) => {
+    setAssignProduct(product);
+    assignForm.resetFields();
+    assignForm.setFieldsValue({ reviewerId: product.reviewerId });
+  };
+
   const editLatestReview = (product: Product) => {
     const latest = product.reviews.at(-1);
     if (!latest) return;
@@ -462,14 +468,17 @@ function ReviewSystemInner() {
     try {
       const { reviewerId } = await assignForm.validateFields();
       const reviewer = state.users.find((user) => user.id === reviewerId)!;
+      const previousReviewer = assignProduct.reviewerId ? state.users.find((user) => user.id === assignProduct.reviewerId) : undefined;
+      const isReassignment = Boolean(previousReviewer);
       if (productionMode) {
         const product = await apiRequest<Product>(`/api/products/${assignProduct.id}/assign`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reviewerId }) });
         setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
       } else {
-        updateProduct(assignProduct.id, (product) => ({ ...product, reviewerId, status: "pending_review", assignTime: formatTime() }));
-        pushNotice(reviewer.name, "分配通知", `你有一个新选品待审核：${assignProduct.name}`);
+        updateProduct(assignProduct.id, (product) => ({ ...product, reviewerId, status: product.status === "pending_assign" ? "pending_review" : product.status, assignTime: formatTime() }));
+        if (previousReviewer) pushNotice(previousReviewer.name, "任务转交通知", `选品「${assignProduct.name}」已转交给 ${reviewer.name} 审核`);
+        pushNotice(reviewer.name, isReassignment ? "审核任务转入" : "分配通知", `你有一个${isReassignment ? "转交的" : "新的"}选品待审核：${assignProduct.name}`);
       }
-      setAssignProduct(null); assignForm.resetFields(); appMessage.success(`已分配给 ${reviewer.name}`);
+      setAssignProduct(null); assignForm.resetFields(); appMessage.success(isReassignment ? `审核人已由 ${previousReviewer?.name} 更改为 ${reviewer.name}` : `已分配给 ${reviewer.name}`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
 
@@ -553,7 +562,7 @@ function ReviewSystemInner() {
 
   const renderPage = () => {
     const page = pathname === "/" ? "dashboard" : pathname.split("/").filter(Boolean)[0] || "dashboard";
-    const context = { state, currentUser, operators, setSelectedProduct, setNewProductOpen, openProductEditor, reopenProductForEdit, setReviewProduct: startReview, editLatestReview, setObjectionProduct, setAssignProduct, setUserModal, userForm, setState, appMessage, reloadProduction: loadProduction, draftSavedVersion };
+    const context = { state, currentUser, operators, setSelectedProduct, setNewProductOpen, openProductEditor, reopenProductForEdit, setReviewProduct: startReview, editLatestReview, setObjectionProduct, setAssignProduct: openAssignment, setUserModal, userForm, setState, appMessage, reloadProduction: loadProduction, draftSavedVersion };
     if (!canRenderSelectedPage) return <DashboardPage {...context} />;
     switch (page) {
       case "products": return <ProductsPage {...context} />;
@@ -652,9 +661,10 @@ function ReviewSystemInner() {
         </Form>
       </Modal>
 
-      <Modal title={assignProduct ? `分配运营 · ${assignProduct.name}` : "分配运营"} open={!!assignProduct} onCancel={() => setAssignProduct(null)} onOk={assign} okText="确认分配">
+      <Modal title={assignProduct ? `${assignProduct.reviewerId ? "更改审核人" : "分配运营"} · ${assignProduct.name}` : "分配运营"} open={!!assignProduct} onCancel={() => { setAssignProduct(null); assignForm.resetFields(); }} onOk={assign} okText={assignProduct?.reviewerId ? "确认更改" : "确认分配"}>
+        {assignProduct?.reviewerId && <Alert type="warning" showIcon title={`当前审核人：${nameOf(state.users, assignProduct.reviewerId)}`} description="更改后，该选品会从原审核人的待办中移除并转入新审核人的队列；已有审核记录不会改变。" style={{ marginBottom: 16 }} />}
         <Form form={assignForm} layout="vertical" className="modal-form">
-          <Form.Item label="审核负责人" name="reviewerId" rules={[{ required: true, message: "请选择运营人员" }]}>
+          <Form.Item label="审核负责人" name="reviewerId" rules={[{ required: true, message: "请选择运营人员" }, { validator: (_, value) => assignProduct?.reviewerId && value === assignProduct.reviewerId ? Promise.reject(new Error("请选择不同于当前审核人的运营人员")) : Promise.resolve() }]}>
             <Select size="large" placeholder="选择运营审核人" options={operators.map((user) => ({ value: user.id, label: `${user.name} · 当前待审 ${state.products.filter((p) => p.reviewerId === user.id && ["pending_review", "objection_pending"].includes(p.status)).length} 项` }))} />
           </Form.Item>
         </Form>
@@ -786,7 +796,7 @@ function productColumns(users: User[], open: (p: Product) => void, action?: (p: 
     { title: "审核人", dataIndex: "reviewerId", width: 100, render: (id) => nameOf(users, id) },
     { title: "状态", dataIndex: "status", width: 110, render: (status) => <StatusTag status={status} /> },
     { title: "提交时间", dataIndex: "submitTime", width: 150 },
-    { title: "", key: "action", width: 96, align: "right", render: (_, p) => action && actionLabel ? <Button type="link" onClick={() => action(p)}>{actionLabel}</Button> : <Button type="text" icon={<MoreOutlined />} onClick={() => open(p)} /> },
+    { title: "", key: "action", width: 120, align: "right", render: (_, p) => action && actionLabel ? <Button type="link" onClick={() => action(p)}>{actionLabel}</Button> : <Button type="text" icon={<MoreOutlined />} onClick={() => open(p)} /> },
   ];
 }
 
@@ -838,25 +848,31 @@ function ProductsPage(ctx: PageContext) {
 function AssignPage(ctx: PageContext) {
   const { state, operators, setSelectedProduct, setAssignProduct, setState, appMessage, reloadProduction } = ctx;
   const [selected, setSelected] = useState<React.Key[]>([]);
-  const data = state.products.filter((p) => p.status === "pending_assign");
+  const [queue, setQueue] = useState("pending");
+  const pending = state.products.filter((p) => p.status === "pending_assign");
+  const assigned = state.products.filter((p) => Boolean(p.reviewerId) && ["pending_review", "objection_pending"].includes(p.status));
+  const data = queue === "pending" ? pending : assigned;
   const autoAssign = async () => {
-    if (!data.length || !operators.length) return;
+    if (!pending.length || !operators.length) return;
     try {
       if (productionMode) { await apiRequest("/api/products/batch-assign", { method: "POST" }); await reloadProduction(); }
       else setState((old) => ({ ...old, products: old.products.map((product, index) => product.status === "pending_assign" ? { ...product, status: "pending_review", reviewerId: operators[index % operators.length].id, assignTime: formatTime() } : product) }));
-      setSelected([]); appMessage.success(`已按轮询规则分配 ${data.length} 项选品`);
+      setSelected([]); appMessage.success(`已按轮询规则分配 ${pending.length} 项选品`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
   return (
     <>
-      <PageHeading title="分配管理" description="将新提交的选品分配给合适的运营审核人员" extra={<Button icon={<SwapOutlined />} onClick={autoAssign} disabled={!data.length}>一键轮询分配</Button>} />
+      <PageHeading title="分配管理" description="分配新提交的选品，并管理处理中选品的审核负责人" extra={<Button icon={<SwapOutlined />} onClick={autoAssign} disabled={!pending.length}>一键轮询分配</Button>} />
       <Row gutter={[16, 16]} className="summary-strip">
-        <Col span={8}><Card><Statistic title="等待分配" value={data.length} prefix={<ClockCircleOutlined />} /></Card></Col>
-        <Col span={8}><Card><Statistic title="在岗运营" value={operators.length} prefix={<TeamOutlined />} /></Card></Col>
-        <Col span={8}><Card><Statistic title="今日已分配" value={state.products.filter((p) => p.assignTime?.startsWith(formatChinaDate())).length} prefix={<CheckCircleOutlined />} /></Card></Col>
+        <Col span={6}><Card><Statistic title="等待分配" value={pending.length} prefix={<ClockCircleOutlined />} /></Card></Col>
+        <Col span={6}><Card><Statistic title="已分配处理中" value={assigned.length} prefix={<SafetyCertificateOutlined />} /></Card></Col>
+        <Col span={6}><Card><Statistic title="在岗运营" value={operators.length} prefix={<TeamOutlined />} /></Card></Col>
+        <Col span={6}><Card><Statistic title="今日分配/调整" value={state.products.filter((p) => p.assignTime?.startsWith(formatChinaDate())).length} prefix={<CheckCircleOutlined />} /></Card></Col>
       </Row>
-      <Card title="待分配队列" extra={<Text type="secondary">已选择 {selected.length} 项</Text>}>
-        <Table rowKey="id" rowSelection={{ selectedRowKeys: selected, onChange: setSelected }} dataSource={data} columns={productColumns(state.users, setSelectedProduct, setAssignProduct, "分配")} pagination={false} locale={{ emptyText: <Empty description="所有选品均已分配" /> }} />
+      <Card>
+        <Tabs activeKey={queue} onChange={(value) => { setQueue(value); setSelected([]); }} items={[{ key: "pending", label: <Badge count={pending.length} offset={[10, -2]}>待分配队列</Badge> }, { key: "assigned", label: <Badge count={assigned.length} offset={[10, -2]}>已分配队列</Badge> }]} />
+        {queue === "pending" && <div className="table-toolbar"><Text type="secondary">选择待分配选品后可使用一键轮询分配</Text><Text type="secondary">已选择 {selected.length} 项</Text></div>}
+        <Table rowKey="id" rowSelection={queue === "pending" ? { selectedRowKeys: selected, onChange: setSelected } : undefined} dataSource={data} columns={productColumns(state.users, setSelectedProduct, setAssignProduct, queue === "pending" ? "分配" : "更改审核人")} pagination={{ pageSize: 8, showSizeChanger: false }} locale={{ emptyText: <Empty description={queue === "pending" ? "所有选品均已分配" : "暂无已分配且处理中的选品"} /> }} />
       </Card>
     </>
   );
