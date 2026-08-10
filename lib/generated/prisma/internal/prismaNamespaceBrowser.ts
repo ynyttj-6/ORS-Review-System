@@ -57,7 +57,8 @@ export const ModelName = {
   Objection: 'Objection',
   Attachment: 'Attachment',
   AuditLog: 'AuditLog',
-  NotificationLog: 'NotificationLog'
+  NotificationLog: 'NotificationLog',
+  LoginRateLimit: 'LoginRateLimit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -239,6 +240,17 @@ export const NotificationLogScalarFieldEnum = {
 } as const
 
 export type NotificationLogScalarFieldEnum = (typeof NotificationLogScalarFieldEnum)[keyof typeof NotificationLogScalarFieldEnum]
+
+
+export const LoginRateLimitScalarFieldEnum = {
+  key: 'key',
+  attempts: 'attempts',
+  windowStart: 'windowStart',
+  blockedUntil: 'blockedUntil',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoginRateLimitScalarFieldEnum = (typeof LoginRateLimitScalarFieldEnum)[keyof typeof LoginRateLimitScalarFieldEnum]
 
 
 export const SortOrder = {

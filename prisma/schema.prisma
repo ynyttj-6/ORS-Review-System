@@ -224,3 +224,14 @@ model NotificationLog {
   @@index([createdAt])
   @@map("notification_log")
 }
+
+model LoginRateLimit {
+  key          String    @id @db.VarChar(64)
+  attempts     Int       @default(0)
+  windowStart  DateTime  @default(now()) @map("window_start")
+  blockedUntil DateTime? @map("blocked_until")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@index([blockedUntil])
+  @@map("login_rate_limits")
+}

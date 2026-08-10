@@ -308,7 +308,10 @@ function ReviewSystemInner() {
 
   useEffect(() => {
     if (productionMode) {
-      loadProduction().catch((error) => appMessage.error(error.message)).finally(() => setReady(true));
+      loadProduction().catch((error) => {
+        if (error instanceof Error && error.message.includes("双重验证")) router.replace("/mfa");
+        else appMessage.error(error instanceof Error ? error.message : "系统加载失败");
+      }).finally(() => setReady(true));
       return;
     }
     try {

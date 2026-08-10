@@ -23,9 +23,9 @@ export default function LoginPage() {
     setLoading(true); setError("");
     try {
       const response = await fetch("/api/auth/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ account, password }) });
-      const payload = await response.json().catch(() => ({})) as { error?: string };
+      const payload = await response.json().catch(() => ({})) as { error?: string; data?: { mfaRequired?: boolean } };
       if (!response.ok) throw new Error(payload.error || "登录失败，请检查账号和密码");
-      router.replace("/dashboard");
+      router.replace(payload.data?.mfaRequired ? "/mfa" : "/dashboard");
       router.refresh();
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "登录失败，请检查账号和密码");

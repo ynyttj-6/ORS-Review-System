@@ -35,7 +35,11 @@
     "flow-v2:check": "tsx scripts/check-business-flow-v2.ts",
     "timezone:check": "tsx scripts/check-timezone.ts",
     "supabase:setup": "tsx scripts/setup-supabase.ts",
-    "production:check": "tsx scripts/check-production.ts"
+    "production:check": "tsx scripts/check-production.ts",
+    "security:check": "npm audit --omit=dev --audit-level=high",
+    "security:flow:check": "tsx scripts/check-security-hardening.ts",
+    "backup:create": "tsx scripts/backup-production.ts",
+    "backup:verify": "tsx scripts/verify-backup.ts"
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.2",
@@ -63,7 +67,8 @@
     "typescript": "^5.7.2"
   },
   "overrides": {
-    "postcss": "^8.5.18",
+    "postcss": "^8.5.26",
+    "nanoid": "^3.3.18",
     "sharp": "^0.35.0"
   }
 }

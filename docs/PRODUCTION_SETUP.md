@@ -44,6 +44,10 @@ DATABASE_URL=...transaction pooler...
 DIRECT_URL=...direct connection 或 5432 session pooler...
 SUPABASE_STORAGE_BUCKET=product-attachments
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_REQUIRE_ADMIN_MFA=false
+AUTH_CUSTOM_SMTP_CONFIGURED=false
+BACKUP_POLICY_CONFIGURED=false
+PRODUCTION_READINESS_STRICT=false
 ```
 
 注意：数据库密码包含 `@`、`#`、`%` 等字符时必须进行 URL 编码。
@@ -74,7 +78,7 @@ npm run supabase:setup
 该脚本会创建：
 
 - 私有桶 `product-attachments`
-- 单文件 1MB 限制
+- 单文件 10MB 限制（与服务端上传校验保持一致）
 - JPG、PNG、PDF 类型限制
 - 为全部业务表启用 RLS，并撤销 `anon` / `authenticated` 的直接表权限
 
@@ -115,6 +119,15 @@ npm run rbac:check
 
 首次登录后应立即在 Supabase Auth 中更新临时密码。后续普通用户通过系统“用户管理”发送 Supabase 邀请邮件创建。
 
+### 管理员 MFA 与企业 SMTP
+
+1. 先保持 `NEXT_PUBLIC_REQUIRE_ADMIN_MFA=false`，管理员登录后访问 `/mfa` 完成 TOTP 绑定。
+2. 所有管理员完成绑定后，把 `NEXT_PUBLIC_REQUIRE_ADMIN_MFA` 改为 `true` 并重新部署。
+3. 在 Supabase Authentication → Emails → SMTP Settings 配置公司的 SMTP 服务，关闭邮件链接追踪，并完成真实邀请和密码重置测试。
+4. 验证成功后设置 `AUTH_CUSTOM_SMTP_CONFIGURED=true`。
+
+详细安全清单见 [`docs/SECURITY_HARDENING.md`](SECURITY_HARDENING.md)。
+
 完成提示语：`步骤 5 已完成，首个管理员可以登录。`
 
 ## 步骤 6：接入飞书通知（可选）
@@ -138,6 +151,7 @@ FEISHU_APP_SECRET=xxx
 
 ```powershell
 npm run production:check
+npm run security:check
 npm run build
 npm run dev
 ```
@@ -150,6 +164,10 @@ npm run dev
 4. 运营只能审核分配给自己的选品
 5. 附件可上传，并通过短时签名地址下载
 6. 驳回 → 异议 → 复审可以完成多轮流转
+7. 管理员访问 `/mfa` 可以绑定并验证 TOTP
+8. 企业 SMTP 的邀请邮件与密码重置邮件可以到达
+
+数据库与附件备份按 [`docs/BACKUP_RUNBOOK.md`](BACKUP_RUNBOOK.md) 执行。首次备份和恢复演练通过后设置 `BACKUP_POLICY_CONFIGURED=true`。正式上线前再设置 `PRODUCTION_READINESS_STRICT=true`，确保任何未完成项都会使自检失败。
 
 完成提示语：`步骤 7 已完成，生产自检和核心流程验收通过。`
 

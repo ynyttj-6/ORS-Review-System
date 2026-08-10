@@ -9,11 +9,16 @@ const productionSchema = z.object({
   DIRECT_URL: z.string().startsWith("postgres"),
   SUPABASE_STORAGE_BUCKET: z.string().min(3).default("product-attachments"),
   NEXT_PUBLIC_APP_URL: z.url(),
+  NEXT_PUBLIC_REQUIRE_ADMIN_MFA: z.enum(["true", "false"]).default("false"),
+  AUTH_CUSTOM_SMTP_CONFIGURED: z.enum(["true", "false"]).default("false"),
+  BACKUP_POLICY_CONFIGURED: z.enum(["true", "false"]).default("false"),
+  PRODUCTION_READINESS_STRICT: z.enum(["true", "false"]).default("false"),
   FEISHU_APP_ID: z.string().optional(),
   FEISHU_APP_SECRET: z.string().optional(),
 });
 
 export const isProductionMode = () => process.env.NEXT_PUBLIC_APP_MODE === "production";
+export const isAdminMfaRequired = () => process.env.NEXT_PUBLIC_REQUIRE_ADMIN_MFA === "true";
 
 export function productionEnv() {
   const parsed = productionSchema.safeParse(process.env);

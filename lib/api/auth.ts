@@ -2,6 +2,7 @@ import type { Role, User } from "@/lib/generated/prisma/client";
 import { getPrisma } from "@/lib/db";
 import { createClient, getSessionFingerprint } from "@/lib/supabase/server";
 import { ApiError } from "@/lib/api/response";
+import { isAdminMfaRequired } from "@/lib/env";
 
 const USER_CACHE_TTL_MS = 30_000;
 const SESSION_CACHE_TTL_MS = 60_000;
@@ -69,6 +70,11 @@ export async function requireUser(roles?: Role[]): Promise<User> {
   if (!user || !user.isActive) throw new ApiError(403, "账号未启用或尚未加入系统");
   cacheAuthenticatedUser(user);
   if (roles && !roles.includes(user.role)) throw new ApiError(403, "当前角色无权执行此操作");
+  if (user.role === "admin" && isAdminMfaRequired()) {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (error || data.currentLevel !== "aal2") throw new ApiError(403, "管理员需要完成双重验证");
+  }
   return user;
 }
 

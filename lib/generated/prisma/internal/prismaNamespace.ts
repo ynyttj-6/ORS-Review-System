@@ -403,7 +403,8 @@ export const ModelName = {
   Objection: 'Objection',
   Attachment: 'Attachment',
   AuditLog: 'AuditLog',
-  NotificationLog: 'NotificationLog'
+  NotificationLog: 'NotificationLog',
+  LoginRateLimit: 'LoginRateLimit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "product" | "reviewRound" | "objection" | "attachment" | "auditLog" | "notificationLog"
+    modelProps: "user" | "product" | "reviewRound" | "objection" | "attachment" | "auditLog" | "notificationLog" | "loginRateLimit"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -941,6 +942,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LoginRateLimit: {
+      payload: Prisma.$LoginRateLimitPayload<ExtArgs>
+      fields: Prisma.LoginRateLimitFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LoginRateLimitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LoginRateLimitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>
+        }
+        findFirst: {
+          args: Prisma.LoginRateLimitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LoginRateLimitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>
+        }
+        findMany: {
+          args: Prisma.LoginRateLimitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>[]
+        }
+        create: {
+          args: Prisma.LoginRateLimitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>
+        }
+        createMany: {
+          args: Prisma.LoginRateLimitCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LoginRateLimitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>[]
+        }
+        delete: {
+          args: Prisma.LoginRateLimitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>
+        }
+        update: {
+          args: Prisma.LoginRateLimitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>
+        }
+        deleteMany: {
+          args: Prisma.LoginRateLimitDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LoginRateLimitUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LoginRateLimitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>[]
+        }
+        upsert: {
+          args: Prisma.LoginRateLimitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginRateLimitPayload>
+        }
+        aggregate: {
+          args: Prisma.LoginRateLimitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLoginRateLimit>
+        }
+        groupBy: {
+          args: Prisma.LoginRateLimitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoginRateLimitGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LoginRateLimitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoginRateLimitCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1145,6 +1220,17 @@ export const NotificationLogScalarFieldEnum = {
 export type NotificationLogScalarFieldEnum = (typeof NotificationLogScalarFieldEnum)[keyof typeof NotificationLogScalarFieldEnum]
 
 
+export const LoginRateLimitScalarFieldEnum = {
+  key: 'key',
+  attempts: 'attempts',
+  windowStart: 'windowStart',
+  blockedUntil: 'blockedUntil',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoginRateLimitScalarFieldEnum = (typeof LoginRateLimitScalarFieldEnum)[keyof typeof LoginRateLimitScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1293,7 +1379,6 @@ export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'ProductStatus[]'
  */
 export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus[]'>
-
 
 
 /**
@@ -1494,6 +1579,7 @@ export type GlobalOmitConfig = {
   attachment?: Prisma.AttachmentOmit
   auditLog?: Prisma.AuditLogOmit
   notificationLog?: Prisma.NotificationLogOmit
+  loginRateLimit?: Prisma.LoginRateLimitOmit
 }
 
 /* Types for Logging */

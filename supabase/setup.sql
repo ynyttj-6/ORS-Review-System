@@ -6,7 +6,7 @@ values (
   'product-attachments',
   'product-attachments',
   false,
-  1048576,
+  10485760,
   array['image/jpeg', 'image/png', 'application/pdf']
 )
 on conflict (id) do update set
@@ -23,6 +23,7 @@ alter table public.objections enable row level security;
 alter table public.attachments enable row level security;
 alter table public.audit_log enable row level security;
 alter table public.notification_log enable row level security;
+alter table public.login_rate_limits enable row level security;
 
 revoke all on table public.users from anon, authenticated;
 revoke all on table public.products from anon, authenticated;
@@ -31,3 +32,4 @@ revoke all on table public.objections from anon, authenticated;
 revoke all on table public.attachments from anon, authenticated;
 revoke all on table public.audit_log from anon, authenticated;
 revoke all on table public.notification_log from anon, authenticated;
+revoke all on table public.login_rate_limits from anon, authenticated;
