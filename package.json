@@ -39,7 +39,8 @@
     "security:check": "npm audit --omit=dev --audit-level=high",
     "security:flow:check": "tsx scripts/check-security-hardening.ts",
     "backup:create": "tsx scripts/backup-production.ts",
-    "backup:verify": "tsx scripts/verify-backup.ts"
+    "backup:verify": "tsx scripts/verify-backup.ts",
+    "backup:restore:staging": "tsx scripts/restore-backup-staging.ts"
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.2",
