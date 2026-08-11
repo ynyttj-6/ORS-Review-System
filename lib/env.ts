@@ -10,6 +10,7 @@ const productionSchema = z.object({
   SUPABASE_STORAGE_BUCKET: z.string().min(3).default("product-attachments"),
   NEXT_PUBLIC_APP_URL: z.url(),
   NEXT_PUBLIC_REQUIRE_ADMIN_MFA: z.enum(["true", "false"]).default("false"),
+  AUTH_EMAIL_DELIVERY_REQUIRED: z.enum(["true", "false"]).default("false"),
   AUTH_CUSTOM_SMTP_CONFIGURED: z.enum(["true", "false"]).default("false"),
   BACKUP_POLICY_CONFIGURED: z.enum(["true", "false"]).default("false"),
   PRODUCTION_READINESS_STRICT: z.enum(["true", "false"]).default("false"),

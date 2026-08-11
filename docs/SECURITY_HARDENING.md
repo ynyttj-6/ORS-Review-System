@@ -26,13 +26,20 @@
 - Vercel Preview 与 Production 使用不同 Supabase 项目和不同密钥。
 - 配置错误率、健康检查、数据库容量、连接数与备份失败告警。
 
+## 内部账号发放策略
+
+- 仅内部使用时设置 `AUTH_EMAIL_DELIVERY_REQUIRED=false`，由管理员在“用户管理”中直接创建账号并设置至少 12 位初始密码。
+- 账号与初始密码应通过公司认可的安全渠道分别发放，不得使用共享账号或在群聊中明文发送密码。
+- 如果以后启用邀请邮件或密码重置邮件，将 `AUTH_EMAIL_DELIVERY_REQUIRED=true`，并在 Supabase 配置企业 SMTP 后设置 `AUTH_CUSTOM_SMTP_CONFIGURED=true`。
+
 ## 严格上线门禁
 
-完成企业 SMTP、MFA 和备份演练后设置：
+完成账号发放策略确认、MFA 和备份演练后设置。以下示例适用于不使用邮件的内部账号模式：
 
 ```env
 NEXT_PUBLIC_REQUIRE_ADMIN_MFA=true
-AUTH_CUSTOM_SMTP_CONFIGURED=true
+AUTH_EMAIL_DELIVERY_REQUIRED=false
+AUTH_CUSTOM_SMTP_CONFIGURED=false
 BACKUP_POLICY_CONFIGURED=true
 PRODUCTION_READINESS_STRICT=true
 ```

@@ -45,6 +45,7 @@ DIRECT_URL=...direct connection 或 5432 session pooler...
 SUPABASE_STORAGE_BUCKET=product-attachments
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_REQUIRE_ADMIN_MFA=false
+AUTH_EMAIL_DELIVERY_REQUIRED=false
 AUTH_CUSTOM_SMTP_CONFIGURED=false
 BACKUP_POLICY_CONFIGURED=false
 PRODUCTION_READINESS_STRICT=false
@@ -117,14 +118,14 @@ npm run rbac:check
 
 `rbac:check` 会验证开发人员无法访问管理员用户 API、只能访问允许的产品 API，并确认引导数据不会暴露无关用户邮箱。测试凭据不得配置到正式部署环境。
 
-首次登录后应立即在 Supabase Auth 中更新临时密码。后续普通用户通过系统“用户管理”发送 Supabase 邀请邮件创建。
+首次登录后应立即更换管理员临时密码。后续普通用户由管理员通过系统“用户管理”直接创建账号并设置至少 12 位初始密码，无需发送邀请邮件。
 
-### 管理员 MFA 与企业 SMTP
+### 管理员 MFA 与账号发放策略
 
 1. 先保持 `NEXT_PUBLIC_REQUIRE_ADMIN_MFA=false`，管理员登录后访问 `/mfa` 完成 TOTP 绑定。
 2. 所有管理员完成绑定后，把 `NEXT_PUBLIC_REQUIRE_ADMIN_MFA` 改为 `true` 并重新部署。
-3. 在 Supabase Authentication → Emails → SMTP Settings 配置公司的 SMTP 服务，关闭邮件链接追踪，并完成真实邀请和密码重置测试。
-4. 验证成功后设置 `AUTH_CUSTOM_SMTP_CONFIGURED=true`。
+3. 仅内部使用且由管理员直接发放账号时，保持 `AUTH_EMAIL_DELIVERY_REQUIRED=false` 和 `AUTH_CUSTOM_SMTP_CONFIGURED=false`。
+4. 如果以后启用邀请或密码重置邮件，将 `AUTH_EMAIL_DELIVERY_REQUIRED=true`，在 Supabase Authentication → Emails → SMTP Settings 配置企业 SMTP，验证邮件可达后设置 `AUTH_CUSTOM_SMTP_CONFIGURED=true`。
 
 详细安全清单见 [`docs/SECURITY_HARDENING.md`](SECURITY_HARDENING.md)。
 
@@ -165,7 +166,7 @@ npm run dev
 5. 附件可上传，并通过短时签名地址下载
 6. 驳回 → 异议 → 复审可以完成多轮流转
 7. 管理员访问 `/mfa` 可以绑定并验证 TOTP
-8. 企业 SMTP 的邀请邮件与密码重置邮件可以到达
+8. 管理员可以直接创建账号、设置初始密码，并由新账号成功登录；如启用邮件流程，还需验证邀请与密码重置邮件可达
 
 数据库与附件备份按 [`docs/BACKUP_RUNBOOK.md`](BACKUP_RUNBOOK.md) 执行。首次备份和恢复演练通过后设置 `BACKUP_POLICY_CONFIGURED=true`。正式上线前再设置 `PRODUCTION_READINESS_STRICT=true`，确保任何未完成项都会使自检失败。
 

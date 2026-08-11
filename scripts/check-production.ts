@@ -28,9 +28,15 @@ async function main() {
   if (env.NEXT_PUBLIC_REQUIRE_ADMIN_MFA === "true") console.log("      ✓ 已强制管理员使用 TOTP 双重验证");
   else { console.log("      ! 管理员 MFA 尚未强制启用"); blockers.push("管理员 MFA 尚未强制启用"); }
 
-  console.log("[6/7] 检查企业 SMTP...");
-  if (env.AUTH_CUSTOM_SMTP_CONFIGURED === "true") console.log("      ✓ 已确认 Supabase Auth 使用企业 SMTP");
-  else { console.log("      ! 尚未确认企业 SMTP"); blockers.push("企业 SMTP 尚未确认"); }
+  console.log("[6/7] 检查账号发放与邮件策略...");
+  if (env.AUTH_EMAIL_DELIVERY_REQUIRED === "false") {
+    console.log("      ✓ 使用管理员直接创建账号与初始密码的内部发放模式，无需 SMTP");
+  } else if (env.AUTH_CUSTOM_SMTP_CONFIGURED === "true") {
+    console.log("      ✓ 已启用邮件发放流程，并确认 Supabase Auth 使用企业 SMTP");
+  } else {
+    console.log("      ! 已启用邮件发放流程，但尚未确认企业 SMTP");
+    blockers.push("邮件发放流程需要企业 SMTP");
+  }
 
   console.log("[7/7] 检查备份策略...");
   if (env.BACKUP_POLICY_CONFIGURED === "true") console.log("      ✓ 已确认数据库与附件备份策略");
