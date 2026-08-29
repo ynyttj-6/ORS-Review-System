@@ -32,15 +32,15 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.3.2",
-    "@prisma/adapter-better-sqlite3": "7.9.1",
-    "@prisma/client": "7.9.1",
-    "antd": "^6.5.3",
-    "better-sqlite3": "12.6.2",
-    "dayjs": "^1.11.13",
-    "next": "^16.2.12",
+    "@prisma/adapter-better-sqlite3": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "antd": "^6.6.1",
+    "better-sqlite3": "13.0.3",
+    "dayjs": "^1.11.23",
+    "next": "^16.3.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "read-excel-file": "^9.3.5",
+    "read-excel-file": "^9.3.10",
     "zod": "^4.4.3"
   },
   "devDependencies": {
