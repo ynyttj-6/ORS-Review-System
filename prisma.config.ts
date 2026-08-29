@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { defineConfig } from "prisma/config";
+import { sqliteUrl } from "./lib/self-hosted/paths";
 
 config({ path: ".env.local" });
 config();
@@ -11,6 +12,6 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    url: process.env.DIRECT_URL || "postgresql://demo:demo@127.0.0.1:5432/ors_demo",
+    url: process.env.DATABASE_URL || sqliteUrl(),
   },
 });

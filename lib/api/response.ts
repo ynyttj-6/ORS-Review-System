@@ -16,6 +16,7 @@ export function handleApiError(error: unknown) {
   if (error instanceof ZodError) {
     return NextResponse.json({ error: "提交数据不符合要求", details: error.issues }, { status: 400 });
   }
+  if (error instanceof SyntaxError) return NextResponse.json({ error: "请求正文不是有效的 JSON" }, { status: 400 });
   console.error("[ORS API]", error);
   return NextResponse.json({ error: "服务器处理失败，请稍后重试" }, { status: 500 });
 }

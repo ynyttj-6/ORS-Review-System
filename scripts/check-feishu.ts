@@ -3,18 +3,18 @@ import "./load-env";
 import process from "node:process";
 
 import { getPrisma } from "../lib/db";
-import { productionEnv } from "../lib/env";
 
 async function main() {
-  const env = productionEnv();
-  if (!env.FEISHU_APP_ID || !env.FEISHU_APP_SECRET) {
+  const appId = process.env.FEISHU_APP_ID;
+  const appSecret = process.env.FEISHU_APP_SECRET;
+  if (!appId || !appSecret) {
     throw new Error("FEISHU_APP_ID or FEISHU_APP_SECRET is missing");
   }
 
   const tokenResponse = await fetch("https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal", {
     method: "POST",
     headers: { "Content-Type": "application/json; charset=utf-8" },
-    body: JSON.stringify({ app_id: env.FEISHU_APP_ID, app_secret: env.FEISHU_APP_SECRET }),
+    body: JSON.stringify({ app_id: appId, app_secret: appSecret }),
   });
   const tokenData = await tokenResponse.json() as {
     code: number;
@@ -59,13 +59,13 @@ async function main() {
     }),
     process.env.INVITE_TEST_EMAIL
       ? getPrisma().user.findFirst({
-          where: { OR: [{ loginName: process.env.INVITE_TEST_EMAIL }, { authEmail: process.env.INVITE_TEST_EMAIL }] },
+          where: { loginName: process.env.INVITE_TEST_EMAIL },
           select: { feishuUserId: true },
         })
       : null,
     process.env.OPERATOR_TEST_EMAIL
       ? getPrisma().user.findFirst({
-          where: { OR: [{ loginName: process.env.OPERATOR_TEST_EMAIL }, { authEmail: process.env.OPERATOR_TEST_EMAIL }] },
+          where: { loginName: process.env.OPERATOR_TEST_EMAIL },
           select: { feishuUserId: true },
         })
       : null,

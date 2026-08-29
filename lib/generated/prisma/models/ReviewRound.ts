@@ -289,10 +289,10 @@ export type ReviewRoundWhereInput = {
   AND?: Prisma.ReviewRoundWhereInput | Prisma.ReviewRoundWhereInput[]
   OR?: Prisma.ReviewRoundWhereInput[]
   NOT?: Prisma.ReviewRoundWhereInput | Prisma.ReviewRoundWhereInput[]
-  id?: Prisma.UuidFilter<"ReviewRound"> | string
-  productId?: Prisma.UuidFilter<"ReviewRound"> | string
+  id?: Prisma.StringFilter<"ReviewRound"> | string
+  productId?: Prisma.StringFilter<"ReviewRound"> | string
   roundNumber?: Prisma.IntFilter<"ReviewRound"> | number
-  reviewerId?: Prisma.UuidFilter<"ReviewRound"> | string
+  reviewerId?: Prisma.StringFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringFilter<"ReviewRound"> | string
   launchDate?: Prisma.DateTimeNullableFilter<"ReviewRound"> | Date | string | null
@@ -338,9 +338,9 @@ export type ReviewRoundWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ReviewRoundWhereInput | Prisma.ReviewRoundWhereInput[]
   OR?: Prisma.ReviewRoundWhereInput[]
   NOT?: Prisma.ReviewRoundWhereInput | Prisma.ReviewRoundWhereInput[]
-  productId?: Prisma.UuidFilter<"ReviewRound"> | string
+  productId?: Prisma.StringFilter<"ReviewRound"> | string
   roundNumber?: Prisma.IntFilter<"ReviewRound"> | number
-  reviewerId?: Prisma.UuidFilter<"ReviewRound"> | string
+  reviewerId?: Prisma.StringFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringFilter<"ReviewRound"> | string
   launchDate?: Prisma.DateTimeNullableFilter<"ReviewRound"> | Date | string | null
@@ -385,10 +385,10 @@ export type ReviewRoundScalarWhereWithAggregatesInput = {
   AND?: Prisma.ReviewRoundScalarWhereWithAggregatesInput | Prisma.ReviewRoundScalarWhereWithAggregatesInput[]
   OR?: Prisma.ReviewRoundScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReviewRoundScalarWhereWithAggregatesInput | Prisma.ReviewRoundScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ReviewRound"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"ReviewRound"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ReviewRound"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"ReviewRound"> | string
   roundNumber?: Prisma.IntWithAggregatesFilter<"ReviewRound"> | number
-  reviewerId?: Prisma.UuidWithAggregatesFilter<"ReviewRound"> | string
+  reviewerId?: Prisma.StringWithAggregatesFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionWithAggregatesFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringWithAggregatesFilter<"ReviewRound"> | string
   launchDate?: Prisma.DateTimeNullableWithAggregatesFilter<"ReviewRound"> | Date | string | null
@@ -788,7 +788,6 @@ export type ReviewRoundCreateOrConnectWithoutReviewerInput = {
 
 export type ReviewRoundCreateManyReviewerInputEnvelope = {
   data: Prisma.ReviewRoundCreateManyReviewerInput | Prisma.ReviewRoundCreateManyReviewerInput[]
-  skipDuplicates?: boolean
 }
 
 export type ReviewRoundUpsertWithWhereUniqueWithoutReviewerInput = {
@@ -811,10 +810,10 @@ export type ReviewRoundScalarWhereInput = {
   AND?: Prisma.ReviewRoundScalarWhereInput | Prisma.ReviewRoundScalarWhereInput[]
   OR?: Prisma.ReviewRoundScalarWhereInput[]
   NOT?: Prisma.ReviewRoundScalarWhereInput | Prisma.ReviewRoundScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ReviewRound"> | string
-  productId?: Prisma.UuidFilter<"ReviewRound"> | string
+  id?: Prisma.StringFilter<"ReviewRound"> | string
+  productId?: Prisma.StringFilter<"ReviewRound"> | string
   roundNumber?: Prisma.IntFilter<"ReviewRound"> | number
-  reviewerId?: Prisma.UuidFilter<"ReviewRound"> | string
+  reviewerId?: Prisma.StringFilter<"ReviewRound"> | string
   decision?: Prisma.EnumDecisionFilter<"ReviewRound"> | $Enums.Decision
   comment?: Prisma.StringFilter<"ReviewRound"> | string
   launchDate?: Prisma.DateTimeNullableFilter<"ReviewRound"> | Date | string | null
@@ -873,7 +872,6 @@ export type ReviewRoundCreateOrConnectWithoutProductInput = {
 
 export type ReviewRoundCreateManyProductInputEnvelope = {
   data: Prisma.ReviewRoundCreateManyProductInput | Prisma.ReviewRoundCreateManyProductInput[]
-  skipDuplicates?: boolean
 }
 
 export type ReviewRoundUpsertWithWhereUniqueWithoutProductInput = {
@@ -2058,7 +2056,6 @@ export type ReviewRoundCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * The data used to create many ReviewRounds.
    */
   data: Prisma.ReviewRoundCreateManyInput | Prisma.ReviewRoundCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -2077,7 +2074,6 @@ export type ReviewRoundCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * The data used to create many ReviewRounds.
    */
   data: Prisma.ReviewRoundCreateManyInput | Prisma.ReviewRoundCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

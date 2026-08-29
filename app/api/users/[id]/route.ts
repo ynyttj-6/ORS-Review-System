@@ -1,9 +1,9 @@
 import { getPrisma } from "@/lib/db";
-import { cacheAuthenticatedUser, invalidateAuthenticatedUser, requireUser } from "@/lib/api/auth";
+import { invalidateAuthenticatedUser, requireUser } from "@/lib/api/auth";
 import { updateUserSchema } from "@/lib/api/schemas";
 import { ApiError, handleApiError, ok } from "@/lib/api/response";
 import { serializeUser } from "@/lib/api/serialize";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { hashPassword } from "@/lib/security/password";
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -19,11 +19,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       const conflict = await getPrisma().user.findFirst({ where: { loginName: account, id: { not: id } }, select: { id: true } });
       if (conflict) throw new ApiError(409, "该登录账号已存在");
     }
-    const profileInput = { ...restInput, ...(account ? { loginName: account } : {}) };
-    if (password) {
-      const { error } = await createAdminClient().auth.admin.updateUserById(id, { password, email_confirm: true });
-      if (error) throw new ApiError(502, "登录密码更新失败，请稍后重试");
-    }
+    const profileInput = { ...restInput, ...(account ? { loginName: account } : {}), ...(password ? { passwordHash: await hashPassword(password), mustChangePassword: true, passwordChangedAt: null } : {}) };
 
     const user = Object.keys(profileInput).length
       ? await getPrisma().user.update({
@@ -36,7 +32,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
           },
         })
       : existing;
-    cacheAuthenticatedUser(user);
+    if (password || input.isActive === false) await invalidateAuthenticatedUser(id);
     return ok(serializeUser(user));
   } catch (error) { return handleApiError(error); }
 }
@@ -58,11 +54,8 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     const relatedRecords = Object.values(user._count).reduce((total, count) => total + count, 0);
     if (relatedRecords > 0) throw new ApiError(409, "该用户已有业务或审计记录，不能永久删除；请改为停用账号");
 
-    const { error } = await createAdminClient().auth.admin.deleteUser(id);
-    const authUserMissing = error?.message.toLowerCase().includes("not found");
-    if (error && !authUserMissing) throw new ApiError(502, "认证账号删除失败，请稍后重试");
     await db.user.delete({ where: { id } });
-    invalidateAuthenticatedUser(id);
+    await invalidateAuthenticatedUser(id);
     return ok({ id, deleted: true });
   } catch (error) { return handleApiError(error); }
 }

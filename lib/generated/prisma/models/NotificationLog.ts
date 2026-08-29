@@ -198,8 +198,8 @@ export type NotificationLogWhereInput = {
   AND?: Prisma.NotificationLogWhereInput | Prisma.NotificationLogWhereInput[]
   OR?: Prisma.NotificationLogWhereInput[]
   NOT?: Prisma.NotificationLogWhereInput | Prisma.NotificationLogWhereInput[]
-  id?: Prisma.UuidFilter<"NotificationLog"> | string
-  recipientId?: Prisma.UuidNullableFilter<"NotificationLog"> | string | null
+  id?: Prisma.StringFilter<"NotificationLog"> | string
+  recipientId?: Prisma.StringNullableFilter<"NotificationLog"> | string | null
   channel?: Prisma.StringFilter<"NotificationLog"> | string
   event?: Prisma.StringFilter<"NotificationLog"> | string
   content?: Prisma.StringFilter<"NotificationLog"> | string
@@ -226,7 +226,7 @@ export type NotificationLogWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.NotificationLogWhereInput | Prisma.NotificationLogWhereInput[]
   OR?: Prisma.NotificationLogWhereInput[]
   NOT?: Prisma.NotificationLogWhereInput | Prisma.NotificationLogWhereInput[]
-  recipientId?: Prisma.UuidNullableFilter<"NotificationLog"> | string | null
+  recipientId?: Prisma.StringNullableFilter<"NotificationLog"> | string | null
   channel?: Prisma.StringFilter<"NotificationLog"> | string
   event?: Prisma.StringFilter<"NotificationLog"> | string
   content?: Prisma.StringFilter<"NotificationLog"> | string
@@ -254,8 +254,8 @@ export type NotificationLogScalarWhereWithAggregatesInput = {
   AND?: Prisma.NotificationLogScalarWhereWithAggregatesInput | Prisma.NotificationLogScalarWhereWithAggregatesInput[]
   OR?: Prisma.NotificationLogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.NotificationLogScalarWhereWithAggregatesInput | Prisma.NotificationLogScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"NotificationLog"> | string
-  recipientId?: Prisma.UuidNullableWithAggregatesFilter<"NotificationLog"> | string | null
+  id?: Prisma.StringWithAggregatesFilter<"NotificationLog"> | string
+  recipientId?: Prisma.StringNullableWithAggregatesFilter<"NotificationLog"> | string | null
   channel?: Prisma.StringWithAggregatesFilter<"NotificationLog"> | string
   event?: Prisma.StringWithAggregatesFilter<"NotificationLog"> | string
   content?: Prisma.StringWithAggregatesFilter<"NotificationLog"> | string
@@ -452,7 +452,6 @@ export type NotificationLogCreateOrConnectWithoutRecipientInput = {
 
 export type NotificationLogCreateManyRecipientInputEnvelope = {
   data: Prisma.NotificationLogCreateManyRecipientInput | Prisma.NotificationLogCreateManyRecipientInput[]
-  skipDuplicates?: boolean
 }
 
 export type NotificationLogUpsertWithWhereUniqueWithoutRecipientInput = {
@@ -475,8 +474,8 @@ export type NotificationLogScalarWhereInput = {
   AND?: Prisma.NotificationLogScalarWhereInput | Prisma.NotificationLogScalarWhereInput[]
   OR?: Prisma.NotificationLogScalarWhereInput[]
   NOT?: Prisma.NotificationLogScalarWhereInput | Prisma.NotificationLogScalarWhereInput[]
-  id?: Prisma.UuidFilter<"NotificationLog"> | string
-  recipientId?: Prisma.UuidNullableFilter<"NotificationLog"> | string | null
+  id?: Prisma.StringFilter<"NotificationLog"> | string
+  recipientId?: Prisma.StringNullableFilter<"NotificationLog"> | string | null
   channel?: Prisma.StringFilter<"NotificationLog"> | string
   event?: Prisma.StringFilter<"NotificationLog"> | string
   content?: Prisma.StringFilter<"NotificationLog"> | string
@@ -1265,7 +1264,6 @@ export type NotificationLogCreateManyArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many NotificationLogs.
    */
   data: Prisma.NotificationLogCreateManyInput | Prisma.NotificationLogCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1284,7 +1282,6 @@ export type NotificationLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    * The data used to create many NotificationLogs.
    */
   data: Prisma.NotificationLogCreateManyInput | Prisma.NotificationLogCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

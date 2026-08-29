@@ -180,9 +180,9 @@ export type AuditLogWhereInput = {
   AND?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
   OR?: Prisma.AuditLogWhereInput[]
   NOT?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
-  id?: Prisma.UuidFilter<"AuditLog"> | string
-  productId?: Prisma.UuidFilter<"AuditLog"> | string
-  operatorId?: Prisma.UuidFilter<"AuditLog"> | string
+  id?: Prisma.StringFilter<"AuditLog"> | string
+  productId?: Prisma.StringFilter<"AuditLog"> | string
+  operatorId?: Prisma.StringFilter<"AuditLog"> | string
   action?: Prisma.StringFilter<"AuditLog"> | string
   detail?: Prisma.JsonFilter<"AuditLog">
   createdAt?: Prisma.DateTimeFilter<"AuditLog"> | Date | string
@@ -206,8 +206,8 @@ export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
   OR?: Prisma.AuditLogWhereInput[]
   NOT?: Prisma.AuditLogWhereInput | Prisma.AuditLogWhereInput[]
-  productId?: Prisma.UuidFilter<"AuditLog"> | string
-  operatorId?: Prisma.UuidFilter<"AuditLog"> | string
+  productId?: Prisma.StringFilter<"AuditLog"> | string
+  operatorId?: Prisma.StringFilter<"AuditLog"> | string
   action?: Prisma.StringFilter<"AuditLog"> | string
   detail?: Prisma.JsonFilter<"AuditLog">
   createdAt?: Prisma.DateTimeFilter<"AuditLog"> | Date | string
@@ -231,9 +231,9 @@ export type AuditLogScalarWhereWithAggregatesInput = {
   AND?: Prisma.AuditLogScalarWhereWithAggregatesInput | Prisma.AuditLogScalarWhereWithAggregatesInput[]
   OR?: Prisma.AuditLogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AuditLogScalarWhereWithAggregatesInput | Prisma.AuditLogScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"AuditLog"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"AuditLog"> | string
-  operatorId?: Prisma.UuidWithAggregatesFilter<"AuditLog"> | string
+  id?: Prisma.StringWithAggregatesFilter<"AuditLog"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"AuditLog"> | string
+  operatorId?: Prisma.StringWithAggregatesFilter<"AuditLog"> | string
   action?: Prisma.StringWithAggregatesFilter<"AuditLog"> | string
   detail?: Prisma.JsonWithAggregatesFilter<"AuditLog">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
@@ -442,7 +442,6 @@ export type AuditLogCreateOrConnectWithoutOperatorInput = {
 
 export type AuditLogCreateManyOperatorInputEnvelope = {
   data: Prisma.AuditLogCreateManyOperatorInput | Prisma.AuditLogCreateManyOperatorInput[]
-  skipDuplicates?: boolean
 }
 
 export type AuditLogUpsertWithWhereUniqueWithoutOperatorInput = {
@@ -465,9 +464,9 @@ export type AuditLogScalarWhereInput = {
   AND?: Prisma.AuditLogScalarWhereInput | Prisma.AuditLogScalarWhereInput[]
   OR?: Prisma.AuditLogScalarWhereInput[]
   NOT?: Prisma.AuditLogScalarWhereInput | Prisma.AuditLogScalarWhereInput[]
-  id?: Prisma.UuidFilter<"AuditLog"> | string
-  productId?: Prisma.UuidFilter<"AuditLog"> | string
-  operatorId?: Prisma.UuidFilter<"AuditLog"> | string
+  id?: Prisma.StringFilter<"AuditLog"> | string
+  productId?: Prisma.StringFilter<"AuditLog"> | string
+  operatorId?: Prisma.StringFilter<"AuditLog"> | string
   action?: Prisma.StringFilter<"AuditLog"> | string
   detail?: Prisma.JsonFilter<"AuditLog">
   createdAt?: Prisma.DateTimeFilter<"AuditLog"> | Date | string
@@ -496,7 +495,6 @@ export type AuditLogCreateOrConnectWithoutProductInput = {
 
 export type AuditLogCreateManyProductInputEnvelope = {
   data: Prisma.AuditLogCreateManyProductInput | Prisma.AuditLogCreateManyProductInput[]
-  skipDuplicates?: boolean
 }
 
 export type AuditLogUpsertWithWhereUniqueWithoutProductInput = {
@@ -1315,7 +1313,6 @@ export type AuditLogCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many AuditLogs.
    */
   data: Prisma.AuditLogCreateManyInput | Prisma.AuditLogCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1334,7 +1331,6 @@ export type AuditLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many AuditLogs.
    */
   data: Prisma.AuditLogCreateManyInput | Prisma.AuditLogCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

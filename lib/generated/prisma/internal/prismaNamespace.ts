@@ -404,7 +404,10 @@ export const ModelName = {
   Attachment: 'Attachment',
   AuditLog: 'AuditLog',
   NotificationLog: 'NotificationLog',
-  LoginRateLimit: 'LoginRateLimit'
+  LoginRateLimit: 'LoginRateLimit',
+  Session: 'Session',
+  SystemSetting: 'SystemSetting',
+  FileCleanupTask: 'FileCleanupTask'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -420,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "product" | "reviewRound" | "objection" | "attachment" | "auditLog" | "notificationLog" | "loginRateLimit"
+    modelProps: "user" | "product" | "reviewRound" | "objection" | "attachment" | "auditLog" | "notificationLog" | "loginRateLimit" | "session" | "systemSetting" | "fileCleanupTask"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1016,6 +1019,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Session: {
+      payload: Prisma.$SessionPayload<ExtArgs>
+      fields: Prisma.SessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        findFirst: {
+          args: Prisma.SessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        findMany: {
+          args: Prisma.SessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>[]
+        }
+        create: {
+          args: Prisma.SessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        createMany: {
+          args: Prisma.SessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>[]
+        }
+        delete: {
+          args: Prisma.SessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        update: {
+          args: Prisma.SessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        aggregate: {
+          args: Prisma.SessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSession>
+        }
+        groupBy: {
+          args: Prisma.SessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    SystemSetting: {
+      payload: Prisma.$SystemSettingPayload<ExtArgs>
+      fields: Prisma.SystemSettingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SystemSettingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SystemSettingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        findFirst: {
+          args: Prisma.SystemSettingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SystemSettingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        findMany: {
+          args: Prisma.SystemSettingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+        }
+        create: {
+          args: Prisma.SystemSettingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        createMany: {
+          args: Prisma.SystemSettingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SystemSettingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+        }
+        delete: {
+          args: Prisma.SystemSettingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        update: {
+          args: Prisma.SystemSettingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        deleteMany: {
+          args: Prisma.SystemSettingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SystemSettingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SystemSettingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+        }
+        upsert: {
+          args: Prisma.SystemSettingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+        }
+        aggregate: {
+          args: Prisma.SystemSettingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSystemSetting>
+        }
+        groupBy: {
+          args: Prisma.SystemSettingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemSettingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SystemSettingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SystemSettingCountAggregateOutputType> | number
+        }
+      }
+    }
+    FileCleanupTask: {
+      payload: Prisma.$FileCleanupTaskPayload<ExtArgs>
+      fields: Prisma.FileCleanupTaskFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FileCleanupTaskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FileCleanupTaskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>
+        }
+        findFirst: {
+          args: Prisma.FileCleanupTaskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FileCleanupTaskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>
+        }
+        findMany: {
+          args: Prisma.FileCleanupTaskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>[]
+        }
+        create: {
+          args: Prisma.FileCleanupTaskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>
+        }
+        createMany: {
+          args: Prisma.FileCleanupTaskCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FileCleanupTaskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>[]
+        }
+        delete: {
+          args: Prisma.FileCleanupTaskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>
+        }
+        update: {
+          args: Prisma.FileCleanupTaskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>
+        }
+        deleteMany: {
+          args: Prisma.FileCleanupTaskDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FileCleanupTaskUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FileCleanupTaskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>[]
+        }
+        upsert: {
+          args: Prisma.FileCleanupTaskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileCleanupTaskPayload>
+        }
+        aggregate: {
+          args: Prisma.FileCleanupTaskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFileCleanupTask>
+        }
+        groupBy: {
+          args: Prisma.FileCleanupTaskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileCleanupTaskGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FileCleanupTaskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileCleanupTaskCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1046,9 +1271,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
  */
 
 export const TransactionIsolationLevel = runtime.makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 } as const)
 
@@ -1059,7 +1281,9 @@ export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   loginName: 'loginName',
-  authEmail: 'authEmail',
+  passwordHash: 'passwordHash',
+  mustChangePassword: 'mustChangePassword',
+  passwordChangedAt: 'passwordChangedAt',
   role: 'role',
   feishuUserId: 'feishuUserId',
   isActive: 'isActive',
@@ -1187,6 +1411,7 @@ export const AttachmentScalarFieldEnum = {
   filePath: 'filePath',
   fileSize: 'fileSize',
   fileType: 'fileType',
+  sha256: 'sha256',
   uploaderId: 'uploaderId',
   createdAt: 'createdAt'
 } as const
@@ -1231,6 +1456,40 @@ export const LoginRateLimitScalarFieldEnum = {
 export type LoginRateLimitScalarFieldEnum = (typeof LoginRateLimitScalarFieldEnum)[keyof typeof LoginRateLimitScalarFieldEnum]
 
 
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  tokenHash: 'tokenHash',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  lastActivityAt: 'lastActivityAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const SystemSettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
+
+
+export const FileCleanupTaskScalarFieldEnum = {
+  id: 'id',
+  relativePath: 'relativePath',
+  reason: 'reason',
+  attempts: 'attempts',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FileCleanupTaskScalarFieldEnum = (typeof FileCleanupTaskScalarFieldEnum)[keyof typeof FileCleanupTaskScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1244,14 +1503,6 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-} as const
-
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const NullsOrder = {
@@ -1271,6 +1522,14 @@ export const JsonNullValueFilter = {
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
 
 /**
  * Field references
@@ -1281,27 +1540,6 @@ export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof Json
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
-
-
-/**
- * Reference to a field of type 'String[]'
- */
-export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-/**
- * Reference to a field of type 'Role'
- */
-export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-/**
- * Reference to a field of type 'Role[]'
- */
-export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
@@ -1320,9 +1558,9 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
- * Reference to a field of type 'DateTime[]'
+ * Reference to a field of type 'Role'
  */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
     
 
 
@@ -1334,23 +1572,9 @@ export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -1362,13 +1586,6 @@ export type EnumDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Decision[]'
- */
-export type ListEnumDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decision[]'>
-    
-
-
-/**
  * Reference to a field of type 'ProductStatus'
  */
 export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus'>
@@ -1376,21 +1593,9 @@ export type EnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
- * Reference to a field of type 'ProductStatus[]'
- */
-export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductStatus[]'>
-
-
-/**
  * Reference to a field of type 'AttachmentType'
  */
 export type EnumAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentType'>
-
-
-/**
- * Reference to a field of type 'AttachmentType[]'
- */
-export type ListEnumAttachmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentType[]'>
     
 
 
@@ -1412,13 +1617,6 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -1580,6 +1778,9 @@ export type GlobalOmitConfig = {
   auditLog?: Prisma.AuditLogOmit
   notificationLog?: Prisma.NotificationLogOmit
   loginRateLimit?: Prisma.LoginRateLimitOmit
+  session?: Prisma.SessionOmit
+  systemSetting?: Prisma.SystemSettingOmit
+  fileCleanupTask?: Prisma.FileCleanupTaskOmit
 }
 
 /* Types for Logging */
@@ -1642,3 +1843,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

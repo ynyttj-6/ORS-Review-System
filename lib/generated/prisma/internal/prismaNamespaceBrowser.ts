@@ -58,7 +58,10 @@ export const ModelName = {
   Attachment: 'Attachment',
   AuditLog: 'AuditLog',
   NotificationLog: 'NotificationLog',
-  LoginRateLimit: 'LoginRateLimit'
+  LoginRateLimit: 'LoginRateLimit',
+  Session: 'Session',
+  SystemSetting: 'SystemSetting',
+  FileCleanupTask: 'FileCleanupTask'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,9 +71,6 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName]
  */
 
 export const TransactionIsolationLevel = runtime.makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 } as const)
 
@@ -81,7 +81,9 @@ export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   loginName: 'loginName',
-  authEmail: 'authEmail',
+  passwordHash: 'passwordHash',
+  mustChangePassword: 'mustChangePassword',
+  passwordChangedAt: 'passwordChangedAt',
   role: 'role',
   feishuUserId: 'feishuUserId',
   isActive: 'isActive',
@@ -209,6 +211,7 @@ export const AttachmentScalarFieldEnum = {
   filePath: 'filePath',
   fileSize: 'fileSize',
   fileType: 'fileType',
+  sha256: 'sha256',
   uploaderId: 'uploaderId',
   createdAt: 'createdAt'
 } as const
@@ -253,6 +256,40 @@ export const LoginRateLimitScalarFieldEnum = {
 export type LoginRateLimitScalarFieldEnum = (typeof LoginRateLimitScalarFieldEnum)[keyof typeof LoginRateLimitScalarFieldEnum]
 
 
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  tokenHash: 'tokenHash',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  lastActivityAt: 'lastActivityAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const SystemSettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
+
+
+export const FileCleanupTaskScalarFieldEnum = {
+  id: 'id',
+  relativePath: 'relativePath',
+  reason: 'reason',
+  attempts: 'attempts',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FileCleanupTaskScalarFieldEnum = (typeof FileCleanupTaskScalarFieldEnum)[keyof typeof FileCleanupTaskScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -266,14 +303,6 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-} as const
-
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const NullsOrder = {
@@ -291,4 +320,12 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 

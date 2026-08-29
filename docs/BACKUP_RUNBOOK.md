@@ -1,57 +1,38 @@
-# ORS 备份与恢复演练手册
+# 备份与恢复手册
 
-## 目标
-
-- 数据库和私有附件必须同时备份；Supabase 数据库备份不包含 Storage 实际文件。
-- 公司需确定 RPO/RTO。建议至少启用 Supabase Pro 每日备份，并把 ORS 加密备份复制到公司受控的异地存储。
-- `ORS_BACKUP_ENCRYPTION_KEY` 必须保存在密码管理器或密钥管理服务中，不能提交到 Git。
-
-## 创建并校验加密备份
-
-生成 32 字节 Base64 密钥并安全保存（只需生成一次，遗失后无法恢复历史备份）：
+## 创建
 
 ```powershell
-$bytes = New-Object byte[] 32
-$rng = [Security.Cryptography.RandomNumberGenerator]::Create()
-$rng.GetBytes($bytes)
-$rng.Dispose()
-[Convert]::ToBase64String($bytes)
-```
-
-在受控终端临时设置：
-
-```powershell
-$env:ORS_BACKUP_OUTPUT_DIR='E:\ORS-Backups'
-$env:ORS_BACKUP_ENCRYPTION_KEY='<从密码管理器读取>'
 npm run backup:create
-npm run backup:verify -- 'E:\ORS-Backups\ors-YYYY-MM-DD...'
 ```
 
-备份目录不能放在代码仓库内。脚本使用 AES-256-GCM 分文件加密并为每个文件生成 SHA-256 校验值。
+脚本使用 SQLite Online Backup API 生成一致性的 `ors.db` 快照，再复制 `uploads`，为每个文件写入大小和 SHA-256 清单。保留策略为最近 7 个日备份、4 个周备份和 12 个按月备份的并集。
 
-## 恢复演练
+建议用 Windows 任务计划程序每天执行，并至少将一份完整备份复制到另一台受控设备或移动硬盘。升级前手工再执行一次。
 
-每季度至少演练一次：
+可在每日备份前运行 `npm run storage:cleanup`，重试删除草稿或回滚上传时记录的待清理附件。
 
-1. 新建一个空的 staging Supabase 项目，禁止指向 production。
-2. 对 staging 执行 `npm run db:deploy` 和 `npm run supabase:setup`。
-3. 运行 `backup:verify` 确认备份未损坏。
-4. 在同一个受控 PowerShell 窗口中设置 staging 专用参数（密钥和连接信息不得发到聊天或写入仓库）：
+## 校验
 
 ```powershell
-$env:ORS_RESTORE_SUPABASE_URL='https://<staging-ref>.supabase.co'
-$env:ORS_RESTORE_SUPABASE_SERVICE_ROLE_KEY='<staging service role>'
-$env:ORS_RESTORE_DATABASE_URL='<staging direct connection URL>'
-$env:ORS_RESTORE_STORAGE_BUCKET='product-attachments'
-$env:ORS_RESTORE_CONFIRM='RESTORE_TO_EMPTY_STAGING:<staging-ref>'
-$env:ORS_BACKUP_ENCRYPTION_KEY='<从密码管理器读取>'
-npm run backup:restore:staging -- 'E:\ORS-Backups\ors-YYYY-MM-DD...'
+npm run backup:verify -- D:\ORS\backups\ors-2026-...
 ```
 
-恢复命令会在写入前强制确认 staging 项目引用、拒绝生产项目、检查所有目标表和附件桶为空，并完整校验、解密后恢复 7 张业务表与私有附件。
+校验包括清单路径边界、文件大小、SHA-256 和 SQLite `PRAGMA integrity_check`。
 
-5. 为 staging 创建独立的测试管理员，使用 staging 环境执行 `npm run production:check`、`npm run rbac:check` 和 `npm run flow-v2:check`。
-6. 对比恢复命令输出的表记录数、附件数与备份清单，抽查产品、审核轮次、异议、审计日志和附件下载。
-7. 记录恢复耗时、缺失数据和改进项，验证是否满足公司 RPO/RTO。
+## 恢复到空目录
 
-禁止直接在 production 上执行恢复演练。
+1. 停止 ORS 服务。
+2. 将原数据目录整体重命名留作安全副本。
+3. 创建空的 `ORS_DATA_DIR`。
+4. 执行：
+
+```powershell
+$env:ORS_SERVICE_STOPPED='true'
+$env:ORS_RESTORE_CONFIRM='RESTORE_TO_EMPTY_DATA_DIR'
+npm run backup:restore -- D:\ORS\backups\ors-2026-...
+```
+
+5. 再运行 `npm run selfhost:check`，启动服务并完成登录、附件下载和关键流程抽查。
+
+恢复脚本拒绝覆盖非空数据目录，避免误伤现有数据。每季度至少执行一次恢复演练。

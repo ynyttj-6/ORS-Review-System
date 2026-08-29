@@ -18,6 +18,7 @@ export interface User {
   role: Role;
   feishuUserId?: string;
   isActive: boolean;
+  mustChangePassword?: boolean;
   createdAt: string;
 }
 

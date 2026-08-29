@@ -44,6 +44,7 @@ export type AttachmentMinAggregateOutputType = {
   filePath: string | null
   fileSize: number | null
   fileType: string | null
+  sha256: string | null
   uploaderId: string | null
   createdAt: Date | null
 }
@@ -58,6 +59,7 @@ export type AttachmentMaxAggregateOutputType = {
   filePath: string | null
   fileSize: number | null
   fileType: string | null
+  sha256: string | null
   uploaderId: string | null
   createdAt: Date | null
 }
@@ -72,6 +74,7 @@ export type AttachmentCountAggregateOutputType = {
   filePath: number
   fileSize: number
   fileType: number
+  sha256: number
   uploaderId: number
   createdAt: number
   _all: number
@@ -96,6 +99,7 @@ export type AttachmentMinAggregateInputType = {
   filePath?: true
   fileSize?: true
   fileType?: true
+  sha256?: true
   uploaderId?: true
   createdAt?: true
 }
@@ -110,6 +114,7 @@ export type AttachmentMaxAggregateInputType = {
   filePath?: true
   fileSize?: true
   fileType?: true
+  sha256?: true
   uploaderId?: true
   createdAt?: true
 }
@@ -124,6 +129,7 @@ export type AttachmentCountAggregateInputType = {
   filePath?: true
   fileSize?: true
   fileType?: true
+  sha256?: true
   uploaderId?: true
   createdAt?: true
   _all?: true
@@ -225,6 +231,7 @@ export type AttachmentGroupByOutputType = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt: Date
   _count: AttachmentCountAggregateOutputType | null
@@ -253,16 +260,17 @@ export type AttachmentWhereInput = {
   AND?: Prisma.AttachmentWhereInput | Prisma.AttachmentWhereInput[]
   OR?: Prisma.AttachmentWhereInput[]
   NOT?: Prisma.AttachmentWhereInput | Prisma.AttachmentWhereInput[]
-  id?: Prisma.UuidFilter<"Attachment"> | string
-  productId?: Prisma.UuidFilter<"Attachment"> | string
-  roundId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
-  objectionId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
+  id?: Prisma.StringFilter<"Attachment"> | string
+  productId?: Prisma.StringFilter<"Attachment"> | string
+  roundId?: Prisma.StringNullableFilter<"Attachment"> | string | null
+  objectionId?: Prisma.StringNullableFilter<"Attachment"> | string | null
   attachmentType?: Prisma.EnumAttachmentTypeFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringFilter<"Attachment"> | string
   filePath?: Prisma.StringFilter<"Attachment"> | string
   fileSize?: Prisma.IntFilter<"Attachment"> | number
   fileType?: Prisma.StringFilter<"Attachment"> | string
-  uploaderId?: Prisma.UuidFilter<"Attachment"> | string
+  sha256?: Prisma.StringFilter<"Attachment"> | string
+  uploaderId?: Prisma.StringFilter<"Attachment"> | string
   createdAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   round?: Prisma.XOR<Prisma.ReviewRoundNullableScalarRelationFilter, Prisma.ReviewRoundWhereInput> | null
@@ -280,6 +288,7 @@ export type AttachmentOrderByWithRelationInput = {
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
+  sha256?: Prisma.SortOrder
   uploaderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
@@ -293,15 +302,16 @@ export type AttachmentWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AttachmentWhereInput | Prisma.AttachmentWhereInput[]
   OR?: Prisma.AttachmentWhereInput[]
   NOT?: Prisma.AttachmentWhereInput | Prisma.AttachmentWhereInput[]
-  productId?: Prisma.UuidFilter<"Attachment"> | string
-  roundId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
-  objectionId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
+  productId?: Prisma.StringFilter<"Attachment"> | string
+  roundId?: Prisma.StringNullableFilter<"Attachment"> | string | null
+  objectionId?: Prisma.StringNullableFilter<"Attachment"> | string | null
   attachmentType?: Prisma.EnumAttachmentTypeFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringFilter<"Attachment"> | string
   filePath?: Prisma.StringFilter<"Attachment"> | string
   fileSize?: Prisma.IntFilter<"Attachment"> | number
   fileType?: Prisma.StringFilter<"Attachment"> | string
-  uploaderId?: Prisma.UuidFilter<"Attachment"> | string
+  sha256?: Prisma.StringFilter<"Attachment"> | string
+  uploaderId?: Prisma.StringFilter<"Attachment"> | string
   createdAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   round?: Prisma.XOR<Prisma.ReviewRoundNullableScalarRelationFilter, Prisma.ReviewRoundWhereInput> | null
@@ -319,6 +329,7 @@ export type AttachmentOrderByWithAggregationInput = {
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
+  sha256?: Prisma.SortOrder
   uploaderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AttachmentCountOrderByAggregateInput
@@ -332,16 +343,17 @@ export type AttachmentScalarWhereWithAggregatesInput = {
   AND?: Prisma.AttachmentScalarWhereWithAggregatesInput | Prisma.AttachmentScalarWhereWithAggregatesInput[]
   OR?: Prisma.AttachmentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AttachmentScalarWhereWithAggregatesInput | Prisma.AttachmentScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Attachment"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"Attachment"> | string
-  roundId?: Prisma.UuidNullableWithAggregatesFilter<"Attachment"> | string | null
-  objectionId?: Prisma.UuidNullableWithAggregatesFilter<"Attachment"> | string | null
+  id?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
+  roundId?: Prisma.StringNullableWithAggregatesFilter<"Attachment"> | string | null
+  objectionId?: Prisma.StringNullableWithAggregatesFilter<"Attachment"> | string | null
   attachmentType?: Prisma.EnumAttachmentTypeWithAggregatesFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   filePath?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   fileSize?: Prisma.IntWithAggregatesFilter<"Attachment"> | number
   fileType?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
-  uploaderId?: Prisma.UuidWithAggregatesFilter<"Attachment"> | string
+  sha256?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
+  uploaderId?: Prisma.StringWithAggregatesFilter<"Attachment"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Attachment"> | Date | string
 }
 
@@ -352,6 +364,7 @@ export type AttachmentCreateInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutAttachmentsInput
   round?: Prisma.ReviewRoundCreateNestedOneWithoutAttachmentsInput
@@ -369,6 +382,7 @@ export type AttachmentUncheckedCreateInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -380,6 +394,7 @@ export type AttachmentUpdateInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutAttachmentsNestedInput
   round?: Prisma.ReviewRoundUpdateOneWithoutAttachmentsNestedInput
@@ -397,6 +412,7 @@ export type AttachmentUncheckedUpdateInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -411,6 +427,7 @@ export type AttachmentCreateManyInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -422,6 +439,7 @@ export type AttachmentUpdateManyMutationInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -435,6 +453,7 @@ export type AttachmentUncheckedUpdateManyInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -459,6 +478,7 @@ export type AttachmentCountOrderByAggregateInput = {
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
+  sha256?: Prisma.SortOrder
   uploaderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -477,6 +497,7 @@ export type AttachmentMaxOrderByAggregateInput = {
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
+  sha256?: Prisma.SortOrder
   uploaderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -491,6 +512,7 @@ export type AttachmentMinOrderByAggregateInput = {
   filePath?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
+  sha256?: Prisma.SortOrder
   uploaderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -678,6 +700,7 @@ export type AttachmentCreateWithoutUploaderInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutAttachmentsInput
   round?: Prisma.ReviewRoundCreateNestedOneWithoutAttachmentsInput
@@ -694,6 +717,7 @@ export type AttachmentUncheckedCreateWithoutUploaderInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
 }
 
@@ -704,7 +728,6 @@ export type AttachmentCreateOrConnectWithoutUploaderInput = {
 
 export type AttachmentCreateManyUploaderInputEnvelope = {
   data: Prisma.AttachmentCreateManyUploaderInput | Prisma.AttachmentCreateManyUploaderInput[]
-  skipDuplicates?: boolean
 }
 
 export type AttachmentUpsertWithWhereUniqueWithoutUploaderInput = {
@@ -727,16 +750,17 @@ export type AttachmentScalarWhereInput = {
   AND?: Prisma.AttachmentScalarWhereInput | Prisma.AttachmentScalarWhereInput[]
   OR?: Prisma.AttachmentScalarWhereInput[]
   NOT?: Prisma.AttachmentScalarWhereInput | Prisma.AttachmentScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Attachment"> | string
-  productId?: Prisma.UuidFilter<"Attachment"> | string
-  roundId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
-  objectionId?: Prisma.UuidNullableFilter<"Attachment"> | string | null
+  id?: Prisma.StringFilter<"Attachment"> | string
+  productId?: Prisma.StringFilter<"Attachment"> | string
+  roundId?: Prisma.StringNullableFilter<"Attachment"> | string | null
+  objectionId?: Prisma.StringNullableFilter<"Attachment"> | string | null
   attachmentType?: Prisma.EnumAttachmentTypeFilter<"Attachment"> | $Enums.AttachmentType
   fileName?: Prisma.StringFilter<"Attachment"> | string
   filePath?: Prisma.StringFilter<"Attachment"> | string
   fileSize?: Prisma.IntFilter<"Attachment"> | number
   fileType?: Prisma.StringFilter<"Attachment"> | string
-  uploaderId?: Prisma.UuidFilter<"Attachment"> | string
+  sha256?: Prisma.StringFilter<"Attachment"> | string
+  uploaderId?: Prisma.StringFilter<"Attachment"> | string
   createdAt?: Prisma.DateTimeFilter<"Attachment"> | Date | string
 }
 
@@ -747,6 +771,7 @@ export type AttachmentCreateWithoutProductInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
   round?: Prisma.ReviewRoundCreateNestedOneWithoutAttachmentsInput
   objection?: Prisma.ObjectionCreateNestedOneWithoutAttachmentsInput
@@ -762,6 +787,7 @@ export type AttachmentUncheckedCreateWithoutProductInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -773,7 +799,6 @@ export type AttachmentCreateOrConnectWithoutProductInput = {
 
 export type AttachmentCreateManyProductInputEnvelope = {
   data: Prisma.AttachmentCreateManyProductInput | Prisma.AttachmentCreateManyProductInput[]
-  skipDuplicates?: boolean
 }
 
 export type AttachmentUpsertWithWhereUniqueWithoutProductInput = {
@@ -799,6 +824,7 @@ export type AttachmentCreateWithoutRoundInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutAttachmentsInput
   objection?: Prisma.ObjectionCreateNestedOneWithoutAttachmentsInput
@@ -814,6 +840,7 @@ export type AttachmentUncheckedCreateWithoutRoundInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -825,7 +852,6 @@ export type AttachmentCreateOrConnectWithoutRoundInput = {
 
 export type AttachmentCreateManyRoundInputEnvelope = {
   data: Prisma.AttachmentCreateManyRoundInput | Prisma.AttachmentCreateManyRoundInput[]
-  skipDuplicates?: boolean
 }
 
 export type AttachmentUpsertWithWhereUniqueWithoutRoundInput = {
@@ -851,6 +877,7 @@ export type AttachmentCreateWithoutObjectionInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutAttachmentsInput
   round?: Prisma.ReviewRoundCreateNestedOneWithoutAttachmentsInput
@@ -866,6 +893,7 @@ export type AttachmentUncheckedCreateWithoutObjectionInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -877,7 +905,6 @@ export type AttachmentCreateOrConnectWithoutObjectionInput = {
 
 export type AttachmentCreateManyObjectionInputEnvelope = {
   data: Prisma.AttachmentCreateManyObjectionInput | Prisma.AttachmentCreateManyObjectionInput[]
-  skipDuplicates?: boolean
 }
 
 export type AttachmentUpsertWithWhereUniqueWithoutObjectionInput = {
@@ -906,6 +933,7 @@ export type AttachmentCreateManyUploaderInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   createdAt?: Date | string
 }
 
@@ -916,6 +944,7 @@ export type AttachmentUpdateWithoutUploaderInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutAttachmentsNestedInput
   round?: Prisma.ReviewRoundUpdateOneWithoutAttachmentsNestedInput
@@ -932,6 +961,7 @@ export type AttachmentUncheckedUpdateWithoutUploaderInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -945,6 +975,7 @@ export type AttachmentUncheckedUpdateManyWithoutUploaderInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -957,6 +988,7 @@ export type AttachmentCreateManyProductInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -968,6 +1000,7 @@ export type AttachmentUpdateWithoutProductInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   round?: Prisma.ReviewRoundUpdateOneWithoutAttachmentsNestedInput
   objection?: Prisma.ObjectionUpdateOneWithoutAttachmentsNestedInput
@@ -983,6 +1016,7 @@ export type AttachmentUncheckedUpdateWithoutProductInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -996,6 +1030,7 @@ export type AttachmentUncheckedUpdateManyWithoutProductInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1009,6 +1044,7 @@ export type AttachmentCreateManyRoundInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -1020,6 +1056,7 @@ export type AttachmentUpdateWithoutRoundInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutAttachmentsNestedInput
   objection?: Prisma.ObjectionUpdateOneWithoutAttachmentsNestedInput
@@ -1035,6 +1072,7 @@ export type AttachmentUncheckedUpdateWithoutRoundInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1048,6 +1086,7 @@ export type AttachmentUncheckedUpdateManyWithoutRoundInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1061,6 +1100,7 @@ export type AttachmentCreateManyObjectionInput = {
   filePath: string
   fileSize: number
   fileType: string
+  sha256: string
   uploaderId: string
   createdAt?: Date | string
 }
@@ -1072,6 +1112,7 @@ export type AttachmentUpdateWithoutObjectionInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutAttachmentsNestedInput
   round?: Prisma.ReviewRoundUpdateOneWithoutAttachmentsNestedInput
@@ -1087,6 +1128,7 @@ export type AttachmentUncheckedUpdateWithoutObjectionInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1100,6 +1142,7 @@ export type AttachmentUncheckedUpdateManyWithoutObjectionInput = {
   filePath?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
+  sha256?: Prisma.StringFieldUpdateOperationsInput | string
   uploaderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1116,6 +1159,7 @@ export type AttachmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   filePath?: boolean
   fileSize?: boolean
   fileType?: boolean
+  sha256?: boolean
   uploaderId?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -1134,6 +1178,7 @@ export type AttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   filePath?: boolean
   fileSize?: boolean
   fileType?: boolean
+  sha256?: boolean
   uploaderId?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -1152,6 +1197,7 @@ export type AttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   filePath?: boolean
   fileSize?: boolean
   fileType?: boolean
+  sha256?: boolean
   uploaderId?: boolean
   createdAt?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -1170,11 +1216,12 @@ export type AttachmentSelectScalar = {
   filePath?: boolean
   fileSize?: boolean
   fileType?: boolean
+  sha256?: boolean
   uploaderId?: boolean
   createdAt?: boolean
 }
 
-export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundId" | "objectionId" | "attachmentType" | "fileName" | "filePath" | "fileSize" | "fileType" | "uploaderId" | "createdAt", ExtArgs["result"]["attachment"]>
+export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "roundId" | "objectionId" | "attachmentType" | "fileName" | "filePath" | "fileSize" | "fileType" | "sha256" | "uploaderId" | "createdAt", ExtArgs["result"]["attachment"]>
 export type AttachmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   round?: boolean | Prisma.Attachment$roundArgs<ExtArgs>
@@ -1212,6 +1259,7 @@ export type $AttachmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     filePath: string
     fileSize: number
     fileType: string
+    sha256: string
     uploaderId: string
     createdAt: Date
   }, ExtArgs["result"]["attachment"]>
@@ -1650,6 +1698,7 @@ export interface AttachmentFieldRefs {
   readonly filePath: Prisma.FieldRef<"Attachment", 'String'>
   readonly fileSize: Prisma.FieldRef<"Attachment", 'Int'>
   readonly fileType: Prisma.FieldRef<"Attachment", 'String'>
+  readonly sha256: Prisma.FieldRef<"Attachment", 'String'>
   readonly uploaderId: Prisma.FieldRef<"Attachment", 'String'>
   readonly createdAt: Prisma.FieldRef<"Attachment", 'DateTime'>
 }
@@ -1886,7 +1935,6 @@ export type AttachmentCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many Attachments.
    */
   data: Prisma.AttachmentCreateManyInput | Prisma.AttachmentCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1905,7 +1953,6 @@ export type AttachmentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many Attachments.
    */
   data: Prisma.AttachmentCreateManyInput | Prisma.AttachmentCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

@@ -1,55 +1,32 @@
 import "./load-env";
 
-import { productionEnv } from "../lib/env";
+import { access, statfs } from "node:fs/promises";
 import { getPrisma } from "../lib/db";
-import { createAdminClient } from "../lib/supabase/admin";
+import { selfHostedPaths } from "../lib/self-hosted/paths";
 
 async function main() {
-  const blockers: string[] = [];
-  console.log("[1/7] 检查环境变量...");
-  const env = productionEnv();
-  console.log("      ✓ 环境变量结构有效（未输出任何密钥）");
-  if (env.PRODUCTION_READINESS_STRICT === "true" && !env.NEXT_PUBLIC_APP_URL.startsWith("https://")) blockers.push("正式地址必须使用 HTTPS");
-
-  console.log("[2/7] 检查 PostgreSQL...");
-  await getPrisma().$queryRaw`SELECT 1`;
-  console.log("      ✓ 数据库可连接");
-
-  console.log("[3/7] 检查 Supabase Storage...");
-  const { data: bucket, error } = await createAdminClient().storage.getBucket(env.SUPABASE_STORAGE_BUCKET);
-  if (error || !bucket) throw new Error(`附件桶不可用：${error?.message || "not found"}`);
-  console.log(`      ✓ 私有附件桶 ${env.SUPABASE_STORAGE_BUCKET} 可用`);
-
-  console.log("[4/7] 检查飞书配置...");
-  if (env.FEISHU_APP_ID && env.FEISHU_APP_SECRET) console.log("      ✓ 已配置飞书凭据，将在业务事件中发送测试外的真实通知");
-  else console.log("      ! 飞书未配置；业务流程可用，通知将记为 skipped");
-
-  console.log("[5/7] 检查管理员 MFA 门禁...");
-  if (env.NEXT_PUBLIC_REQUIRE_ADMIN_MFA === "true") console.log("      ✓ 已强制管理员使用 TOTP 双重验证");
-  else { console.log("      ! 管理员 MFA 尚未强制启用"); blockers.push("管理员 MFA 尚未强制启用"); }
-
-  console.log("[6/7] 检查账号发放与邮件策略...");
-  if (env.AUTH_EMAIL_DELIVERY_REQUIRED === "false") {
-    console.log("      ✓ 使用管理员直接创建账号与初始密码的内部发放模式，无需 SMTP");
-  } else if (env.AUTH_CUSTOM_SMTP_CONFIGURED === "true") {
-    console.log("      ✓ 已启用邮件发放流程，并确认 Supabase Auth 使用企业 SMTP");
-  } else {
-    console.log("      ! 已启用邮件发放流程，但尚未确认企业 SMTP");
-    blockers.push("邮件发放流程需要企业 SMTP");
-  }
-
-  console.log("[7/7] 检查备份策略...");
-  if (env.BACKUP_POLICY_CONFIGURED === "true") console.log("      ✓ 已确认数据库与附件备份策略");
-  else { console.log("      ! 尚未确认备份策略与恢复演练"); blockers.push("备份策略尚未确认"); }
-
+  const paths = selfHostedPaths();
+  console.log("[1/4] 检查 SQLite 与 PRAGMA...");
+  const [integrity] = await getPrisma().$queryRawUnsafe<Array<{ integrity_check: string }>>("PRAGMA integrity_check");
+  if (integrity?.integrity_check !== "ok") throw new Error("SQLite 完整性检查未通过");
+  const [[journal], [foreignKeys], [busyTimeout], [synchronous]] = await Promise.all([
+    getPrisma().$queryRawUnsafe<Array<{ journal_mode: string }>>("PRAGMA journal_mode"),
+    getPrisma().$queryRawUnsafe<Array<{ foreign_keys: bigint }>>("PRAGMA foreign_keys"),
+    getPrisma().$queryRawUnsafe<Array<{ timeout: bigint }>>("PRAGMA busy_timeout"),
+    getPrisma().$queryRawUnsafe<Array<{ synchronous: bigint }>>("PRAGMA synchronous"),
+  ]);
+  if (journal?.journal_mode.toLowerCase() !== "wal" || Number(foreignKeys?.foreign_keys) !== 1 || Number(busyTimeout?.timeout) < 5000 || Number(synchronous?.synchronous) !== 1) throw new Error("SQLite PRAGMA 未按自托管基线生效");
+  console.log("      ✓ 完整性正常，WAL/外键/5秒忙等待/NORMAL 同步均已启用");
+  console.log("[2/4] 检查本机数据目录...");
+  await access(paths.dataDir);
+  const disk = await statfs(paths.dataDir);
+  console.log(`      ✓ 数据目录可访问，剩余 ${Math.round(Number(disk.bavail * disk.bsize) / 1024 ** 3)} GB`);
+  console.log("[3/4] 检查飞书可选配置...");
+  console.log(process.env.FEISHU_APP_ID && process.env.FEISHU_APP_SECRET ? "      ✓ 已配置飞书通知" : "      ✓ 飞书未配置，站内通知仍正常记录");
+  console.log("[4/4] 检查单实例约束...");
+  if (process.env.NODE_APP_INSTANCE && process.env.NODE_APP_INSTANCE !== "0") throw new Error("检测到多实例配置；SQLite 部署只允许单实例");
+  console.log("      ✓ 未检测到多实例配置");
   await getPrisma().$disconnect();
-  if (env.PRODUCTION_READINESS_STRICT === "true" && blockers.length) throw new Error(`严格上线检查未通过：${blockers.join("；")}`);
-  if (blockers.length) console.log(`当前为宽松检查，仍有 ${blockers.length} 个上线阻断项。正式部署前请设置 PRODUCTION_READINESS_STRICT=true。`);
-  console.log("生产接入检查完成。");
 }
 
-main().catch(async (error) => {
-  console.error("生产接入检查失败：", error instanceof Error ? error.message : error);
-  try { await getPrisma().$disconnect(); } catch { /* 环境变量无效时客户端尚未创建 */ }
-  process.exit(1);
-});
+main().catch((error) => { console.error(error instanceof Error ? error.message : error); process.exitCode = 1; });

@@ -12,7 +12,6 @@ export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const production = process.env.NEXT_PUBLIC_APP_MODE === "production";
 
   useEffect(() => {
     const message = new URLSearchParams(window.location.search).get("error");
@@ -23,9 +22,9 @@ export default function LoginPage() {
     setLoading(true); setError("");
     try {
       const response = await fetch("/api/auth/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ account, password }) });
-      const payload = await response.json().catch(() => ({})) as { error?: string; data?: { mfaRequired?: boolean } };
+      const payload = await response.json().catch(() => ({})) as { error?: string; data?: { mustChangePassword?: boolean } };
       if (!response.ok) throw new Error(payload.error || "登录失败，请检查账号和密码");
-      router.replace(payload.data?.mfaRequired ? "/mfa" : "/dashboard");
+      router.replace(payload.data?.mustChangePassword ? "/set-password" : "/dashboard");
       router.refresh();
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "登录失败，请检查账号和密码");
@@ -43,13 +42,11 @@ export default function LoginPage() {
         <section className="login-panel">
           <Card className="login-card">
             <Title level={3}>登录工作台</Title><Text type="secondary">使用管理员发放的账号和密码</Text>
-            {!production && <Alert type="info" showIcon title="当前是演示模式" description="将 NEXT_PUBLIC_APP_MODE 设置为 production 后启用 Supabase 登录。" />}
             {error && <Alert type="error" showIcon title="登录失败" description={error} />}
             <Form layout="vertical" onFinish={submit} requiredMark={false}>
               <Form.Item label="登录账号" name="account" rules={[{ required: true, message: "请输入登录账号" }]}><Input size="large" prefix={<UserOutlined />} autoComplete="username" placeholder="输入管理员发放的账号" /></Form.Item>
               <Form.Item label="密码" name="password" rules={[{ required: true, message: "请输入密码" }]}><Input.Password size="large" prefix={<LockOutlined />} placeholder="输入登录密码" /></Form.Item>
-              <Button type="primary" size="large" htmlType="submit" loading={loading} disabled={!production} block>登录</Button>
-              {!production && <Button size="large" block onClick={() => router.push("/dashboard")}>进入演示系统</Button>}
+              <Button type="primary" size="large" htmlType="submit" loading={loading} block>登录</Button>
             </Form>
           </Card>
         </section>

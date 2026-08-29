@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 enum Role {
@@ -39,99 +39,104 @@ enum AttachmentType {
 }
 
 model User {
-  id           String   @id @db.Uuid
-  name         String   @db.VarChar(50)
-  loginName    String   @unique @map("login_name") @db.VarChar(100)
-  authEmail    String   @unique @map("email") @db.VarChar(100)
-  role         Role
-  feishuUserId String?  @map("feishu_user_id") @db.VarChar(100)
-  isActive     Boolean  @default(true) @map("is_active")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  submissions  Product[] @relation("Submitter")
-  assignments  Product[] @relation("Reviewer")
-  reviews      ReviewRound[]
-  objections   Objection[]
-  auditLogs    AuditLog[]
-  uploads      Attachment[]
-  notifications NotificationLog[]
+  id                 String            @id @default(uuid())
+  name               String
+  loginName          String            @unique @map("login_name")
+  passwordHash       String            @map("password_hash")
+  mustChangePassword Boolean           @default(true) @map("must_change_password")
+  passwordChangedAt  DateTime?         @map("password_changed_at")
+  role               Role
+  feishuUserId       String?           @map("feishu_user_id")
+  isActive           Boolean           @default(true) @map("is_active")
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+  submissions        Product[]         @relation("Submitter")
+  assignments        Product[]         @relation("Reviewer")
+  reviews            ReviewRound[]
+  objections         Objection[]
+  auditLogs          AuditLog[]
+  uploads            Attachment[]
+  notifications      NotificationLog[]
+  sessions           Session[]
+
   @@map("users")
 }
 
 model Product {
-  id               String        @id @default(uuid()) @db.Uuid
-  code             String        @unique @db.VarChar(30)
-  name             String        @db.VarChar(200)
-  category         String?       @db.VarChar(50)
-  sourceUrl        String?       @map("source_url") @db.VarChar(500)
-  expectedPrice    Decimal?      @map("expected_price") @db.Decimal(10, 2)
-  notes            String?
-  competitorLink   String?       @map("competitor_link") @db.VarChar(1000)
-  competitorAsins  String?       @map("competitor_asins") @db.VarChar(1000)
-  coreKeyword      String?       @map("core_keyword") @db.VarChar(300)
-  priceRange       String?       @map("price_range") @db.VarChar(100)
-  topCompetitorLink String?      @map("top_competitor_link") @db.VarChar(1000)
-  seasonality      String?
-  usageScenario    String?       @map("usage_scenario")
-  iterationPlan    String?       @map("iteration_plan")
-  targetAudience   String?       @map("target_audience")
-  certification    String?
-  patentStatus     String?       @map("patent_status")
-  trademarkStatus  String?       @map("trademark_status")
-  competitorReviewsAnalysis String? @map("competitor_reviews_analysis")
-  visualUpgradeDirection String? @map("visual_upgrade_direction")
-  copyrightCheck   String?       @map("copyright_check")
-  troCheck         String?       @map("tro_check")
-  phraseTrademarkCheck String?   @map("phrase_trademark_check")
-  packaging        String?
-  supplyChainAdvantage String?   @map("supply_chain_advantage")
-  suggestedQuantity Int?         @map("suggested_quantity")
-  suggestedPrice   Decimal?      @map("suggested_price") @db.Decimal(10, 2)
-  minPrice         Decimal?      @map("min_price") @db.Decimal(10, 2)
-  productCostCny   Decimal?      @map("product_cost_cny") @db.Decimal(10, 2)
-  supplierName     String?       @map("supplier_name") @db.VarChar(200)
-  moq              Int?
-  unitPrice        String?       @map("unit_price") @db.VarChar(300)
-  productionTime   String?       @map("production_time") @db.VarChar(200)
-  supplierLink     String?       @map("supplier_link") @db.VarChar(1000)
-  supplierRemark   String?       @map("supplier_remark")
-  lengthCm         Decimal?      @map("length_cm") @db.Decimal(10, 2)
-  widthCm          Decimal?      @map("width_cm") @db.Decimal(10, 2)
-  heightCm         Decimal?      @map("height_cm") @db.Decimal(10, 2)
-  weightG          Decimal?      @map("weight_g") @db.Decimal(10, 2)
-  volumetricWeightKg Decimal?    @map("volumetric_weight_kg") @db.Decimal(10, 3)
-  billingWeightLb  Decimal?      @map("billing_weight_lb") @db.Decimal(10, 3)
-  fbaSizeTier      String?       @map("fba_size_tier") @db.VarChar(80)
-  fbaFee           Decimal?      @map("fba_fee") @db.Decimal(10, 2)
-  commissionRate   Decimal       @default(0.15) @map("commission_rate") @db.Decimal(5, 4)
-  exchangeRate     Decimal       @default(7.2) @map("exchange_rate") @db.Decimal(10, 4)
-  shippingCost     Decimal?      @map("shipping_cost") @db.Decimal(10, 2)
-  profitMargin     Decimal?      @map("profit_margin") @db.Decimal(8, 2)
-  profitAmount     Decimal?      @map("profit_amount") @db.Decimal(10, 2)
-  inventoryQuantity Int?        @map("inventory_quantity")
-  inventoryValue   Decimal?      @map("inventory_value") @db.Decimal(12, 2)
-  finalDecision    Decision?     @map("final_decision")
-  launchDate       DateTime?     @map("launch_date") @db.Date
-  rejectionReason  String?      @map("rejection_reason")
-  firstBatchQuantity Int?       @map("first_batch_quantity")
-  marketAnalysis   String?      @map("market_analysis")
-  competitivenessAnalysis String? @map("competitiveness_analysis")
-  alternativeSuggestions String? @map("alternative_suggestions")
-  submitterId      String        @map("submitter_id") @db.Uuid
-  reviewerId       String?       @map("reviewer_id") @db.Uuid
-  status           ProductStatus @default(pending_assign)
-  revision         Int           @default(1)
-  submitTime       DateTime      @default(now()) @map("submit_time")
-  assignTime       DateTime?     @map("assign_time")
-  latestReviewTime DateTime?     @map("latest_review_time")
-  createdAt        DateTime      @default(now()) @map("created_at")
-  updatedAt        DateTime      @updatedAt @map("updated_at")
-  submitter        User          @relation("Submitter", fields: [submitterId], references: [id])
-  reviewer         User?         @relation("Reviewer", fields: [reviewerId], references: [id])
-  reviews          ReviewRound[]
-  objections       Objection[]
-  attachments      Attachment[]
-  auditLogs        AuditLog[]
+  id                        String        @id @default(uuid())
+  code                      String        @unique
+  name                      String
+  category                  String?
+  sourceUrl                 String?       @map("source_url")
+  expectedPrice             Decimal?      @map("expected_price")
+  notes                     String?
+  competitorLink            String?       @map("competitor_link")
+  competitorAsins           String?       @map("competitor_asins")
+  coreKeyword               String?       @map("core_keyword")
+  priceRange                String?       @map("price_range")
+  topCompetitorLink         String?       @map("top_competitor_link")
+  seasonality               String?
+  usageScenario             String?       @map("usage_scenario")
+  iterationPlan             String?       @map("iteration_plan")
+  targetAudience            String?       @map("target_audience")
+  certification             String?
+  patentStatus              String?       @map("patent_status")
+  trademarkStatus           String?       @map("trademark_status")
+  competitorReviewsAnalysis String?       @map("competitor_reviews_analysis")
+  visualUpgradeDirection    String?       @map("visual_upgrade_direction")
+  copyrightCheck            String?       @map("copyright_check")
+  troCheck                  String?       @map("tro_check")
+  phraseTrademarkCheck      String?       @map("phrase_trademark_check")
+  packaging                 String?
+  supplyChainAdvantage      String?       @map("supply_chain_advantage")
+  suggestedQuantity         Int?          @map("suggested_quantity")
+  suggestedPrice            Decimal?      @map("suggested_price")
+  minPrice                  Decimal?      @map("min_price")
+  productCostCny            Decimal?      @map("product_cost_cny")
+  supplierName              String?       @map("supplier_name")
+  moq                       Int?
+  unitPrice                 String?       @map("unit_price")
+  productionTime            String?       @map("production_time")
+  supplierLink              String?       @map("supplier_link")
+  supplierRemark            String?       @map("supplier_remark")
+  lengthCm                  Decimal?      @map("length_cm")
+  widthCm                   Decimal?      @map("width_cm")
+  heightCm                  Decimal?      @map("height_cm")
+  weightG                   Decimal?      @map("weight_g")
+  volumetricWeightKg        Decimal?      @map("volumetric_weight_kg")
+  billingWeightLb           Decimal?      @map("billing_weight_lb")
+  fbaSizeTier               String?       @map("fba_size_tier")
+  fbaFee                    Decimal?      @map("fba_fee")
+  commissionRate            Decimal       @default(0.15) @map("commission_rate")
+  exchangeRate              Decimal       @default(7.2) @map("exchange_rate")
+  shippingCost              Decimal?      @map("shipping_cost")
+  profitMargin              Decimal?      @map("profit_margin")
+  profitAmount              Decimal?      @map("profit_amount")
+  inventoryQuantity         Int?          @map("inventory_quantity")
+  inventoryValue            Decimal?      @map("inventory_value")
+  finalDecision             Decision?     @map("final_decision")
+  launchDate                DateTime?     @map("launch_date")
+  rejectionReason           String?       @map("rejection_reason")
+  firstBatchQuantity        Int?          @map("first_batch_quantity")
+  marketAnalysis            String?       @map("market_analysis")
+  competitivenessAnalysis   String?       @map("competitiveness_analysis")
+  alternativeSuggestions    String?       @map("alternative_suggestions")
+  submitterId               String        @map("submitter_id")
+  reviewerId                String?       @map("reviewer_id")
+  status                    ProductStatus @default(pending_assign)
+  revision                  Int           @default(1)
+  submitTime                DateTime      @default(now()) @map("submit_time")
+  assignTime                DateTime?     @map("assign_time")
+  latestReviewTime          DateTime?     @map("latest_review_time")
+  createdAt                 DateTime      @default(now()) @map("created_at")
+  updatedAt                 DateTime      @updatedAt @map("updated_at")
+  submitter                 User          @relation("Submitter", fields: [submitterId], references: [id])
+  reviewer                  User?         @relation("Reviewer", fields: [reviewerId], references: [id])
+  reviews                   ReviewRound[]
+  objections                Objection[]
+  attachments               Attachment[]
+  auditLogs                 AuditLog[]
+
   @@index([status])
   @@index([submitterId])
   @@index([reviewerId])
@@ -140,93 +145,99 @@ model Product {
 }
 
 model ReviewRound {
-  id          String   @id @default(uuid()) @db.Uuid
-  productId   String   @map("product_id") @db.Uuid
-  roundNumber Int      @map("round_number")
-  reviewerId  String   @map("reviewer_id") @db.Uuid
-  decision    Decision
-  comment     String
-  launchDate  DateTime? @map("launch_date") @db.Date
-  firstBatchQuantity Int? @map("first_batch_quantity")
-  marketAnalysis String? @map("market_analysis")
-  competitivenessAnalysis String? @map("competitiveness_analysis")
-  alternativeSuggestions String? @map("alternative_suggestions")
-  improvementSuggestions String? @map("improvement_suggestions")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  editCount   Int      @default(0) @map("edit_count")
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  reviewer    User     @relation(fields: [reviewerId], references: [id])
-  objections  Objection[]
-  attachments Attachment[]
+  id                      String       @id @default(uuid())
+  productId               String       @map("product_id")
+  roundNumber             Int          @map("round_number")
+  reviewerId              String       @map("reviewer_id")
+  decision                Decision
+  comment                 String
+  launchDate              DateTime?    @map("launch_date")
+  firstBatchQuantity      Int?         @map("first_batch_quantity")
+  marketAnalysis          String?      @map("market_analysis")
+  competitivenessAnalysis String?      @map("competitiveness_analysis")
+  alternativeSuggestions  String?      @map("alternative_suggestions")
+  improvementSuggestions  String?      @map("improvement_suggestions")
+  createdAt               DateTime     @default(now()) @map("created_at")
+  updatedAt               DateTime     @updatedAt @map("updated_at")
+  editCount               Int          @default(0) @map("edit_count")
+  product                 Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  reviewer                User         @relation(fields: [reviewerId], references: [id])
+  objections              Objection[]
+  attachments             Attachment[]
+
   @@unique([productId, roundNumber])
   @@index([productId, createdAt])
   @@map("review_rounds")
 }
 
 model Objection {
-  id          String   @id @default(uuid()) @db.Uuid
-  productId   String   @map("product_id") @db.Uuid
-  roundId     String   @map("round_id") @db.Uuid
-  submitterId String   @map("submitter_id") @db.Uuid
-  content     String
-  hasObjection Boolean @default(true) @map("has_objection")
-  createdAt   DateTime @default(now()) @map("created_at")
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  round       ReviewRound @relation(fields: [roundId], references: [id])
-  submitter   User     @relation(fields: [submitterId], references: [id])
-  attachments Attachment[]
+  id           String       @id @default(uuid())
+  productId    String       @map("product_id")
+  roundId      String       @map("round_id")
+  submitterId  String       @map("submitter_id")
+  content      String
+  hasObjection Boolean      @default(true) @map("has_objection")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  product      Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  round        ReviewRound  @relation(fields: [roundId], references: [id])
+  submitter    User         @relation(fields: [submitterId], references: [id])
+  attachments  Attachment[]
+
   @@map("objections")
 }
 
 model Attachment {
-  id           String   @id @default(uuid()) @db.Uuid
-  productId    String   @map("product_id") @db.Uuid
-  roundId      String?  @map("round_id") @db.Uuid
-  objectionId  String?  @map("objection_id") @db.Uuid
+  id             String         @id @default(uuid())
+  productId      String         @map("product_id")
+  roundId        String?        @map("round_id")
+  objectionId    String?        @map("objection_id")
   attachmentType AttachmentType @default(data_screenshot) @map("attachment_type")
-  fileName     String   @map("file_name") @db.VarChar(255)
-  filePath     String   @map("file_path") @db.VarChar(500)
-  fileSize     Int      @map("file_size")
-  fileType     String   @map("file_type") @db.VarChar(50)
-  uploaderId   String   @map("uploader_id") @db.Uuid
-  createdAt    DateTime @default(now()) @map("created_at")
-  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  round        ReviewRound? @relation(fields: [roundId], references: [id])
-  objection    Objection? @relation(fields: [objectionId], references: [id])
-  uploader     User     @relation(fields: [uploaderId], references: [id])
+  fileName       String         @map("file_name")
+  filePath       String         @map("file_path")
+  fileSize       Int            @map("file_size")
+  fileType       String         @map("file_type")
+  sha256         String
+  uploaderId     String         @map("uploader_id")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  product        Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  round          ReviewRound?   @relation(fields: [roundId], references: [id])
+  objection      Objection?     @relation(fields: [objectionId], references: [id])
+  uploader       User           @relation(fields: [uploaderId], references: [id])
+
   @@index([productId, attachmentType])
   @@map("attachments")
 }
 
 model AuditLog {
-  id         String   @id @default(uuid()) @db.Uuid
-  productId  String   @map("product_id") @db.Uuid
-  operatorId String   @map("operator_id") @db.Uuid
-  action     String   @db.VarChar(50)
+  id         String   @id @default(uuid())
+  productId  String   @map("product_id")
+  operatorId String   @map("operator_id")
+  action     String
   detail     Json
   createdAt  DateTime @default(now()) @map("created_at")
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   operator   User     @relation(fields: [operatorId], references: [id])
+
   @@map("audit_log")
 }
 
 model NotificationLog {
-  id          String   @id @default(uuid()) @db.Uuid
-  recipientId String?  @map("recipient_id") @db.Uuid
-  channel     String   @default("feishu") @db.VarChar(30)
-  event       String   @db.VarChar(50)
+  id          String   @id @default(uuid())
+  recipientId String?  @map("recipient_id")
+  channel     String   @default("internal")
+  event       String
   content     String
-  status      String   @db.VarChar(20)
+  status      String
   error       String?
   createdAt   DateTime @default(now()) @map("created_at")
   recipient   User?    @relation(fields: [recipientId], references: [id])
+
   @@index([createdAt])
   @@map("notification_log")
 }
 
 model LoginRateLimit {
-  key          String    @id @db.VarChar(64)
+  key          String    @id
   attempts     Int       @default(0)
   windowStart  DateTime  @default(now()) @map("window_start")
   blockedUntil DateTime? @map("blocked_until")
@@ -234,4 +245,39 @@ model LoginRateLimit {
 
   @@index([blockedUntil])
   @@map("login_rate_limits")
+}
+
+model Session {
+  id             String   @id @default(uuid())
+  tokenHash      String   @unique @map("token_hash")
+  userId         String   @map("user_id")
+  expiresAt      DateTime @map("expires_at")
+  createdAt      DateTime @default(now()) @map("created_at")
+  lastActivityAt DateTime @default(now()) @map("last_activity_at")
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model SystemSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}
+
+model FileCleanupTask {
+  id           String   @id @default(uuid())
+  relativePath String   @map("relative_path")
+  reason       String
+  attempts     Int      @default(0)
+  lastError    String?  @map("last_error")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([createdAt])
+  @@map("file_cleanup_tasks")
 }

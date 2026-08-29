@@ -16,7 +16,7 @@ async function main() {
   if (!openId.startsWith("ou_")) throw new Error("Feishu Open ID must start with ou_");
 
   const user = await getPrisma().user.findFirst({
-    where: { OR: [{ loginName: email.trim().toLowerCase() }, { authEmail: email.trim().toLowerCase() }] },
+    where: { loginName: email.trim().toLowerCase() },
     select: { id: true, role: true },
   });
   if (!user) throw new Error("The configured test user does not exist");

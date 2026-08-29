@@ -18,7 +18,7 @@ async function main() {
     const health = await fetch(new URL("/api/health", appUrl));
     const csp = health.headers.get("content-security-policy") || "";
     const hsts = health.headers.get("strict-transport-security") || "";
-    if (!health.ok || !csp.includes("frame-ancestors 'none'") || !hsts.includes("max-age=")) throw new Error("安全响应头检查失败");
+    if (!health.ok || !csp.includes("frame-ancestors 'none'") || csp.includes("upgrade-insecure-requests") || hsts) throw new Error("HTTP 内网安全响应头检查失败");
 
     const forged = await fetch(new URL("/api/auth/login", appUrl), { method: "POST", headers: { ...headers, origin: "https://attacker.example" }, body });
     if (forged.status !== 403) throw new Error(`跨站写请求未被阻止：${forged.status}`);
@@ -28,7 +28,7 @@ async function main() {
       statuses.push(response.status);
     }
     if (statuses.slice(0, 5).some((status) => status !== 401) || statuses[5] !== 429) throw new Error(`登录限流结果异常：${statuses.join(",")}`);
-    console.log(JSON.stringify({ securityHeaders: true, crossSiteWriteBlocked: true, loginRateLimit: true }));
+    console.log(JSON.stringify({ securityHeaders: true, httpModeHasNoHsts: true, crossSiteWriteBlocked: true, loginRateLimit: true }));
   } finally {
     const syntheticRequest = new Request(appUrl, { headers: { "x-forwarded-for": testAddress } });
     await getPrisma().loginRateLimit.deleteMany({ where: { key: { in: loginRateKeys(syntheticRequest, account).map(({ key }) => key) } } }).catch(() => undefined);

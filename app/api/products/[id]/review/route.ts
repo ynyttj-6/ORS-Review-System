@@ -16,7 +16,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     if (reviewer.role === "operator" && existing.reviewerId !== reviewer.id) throw new ApiError(403, "该选品未分配给你");
     if (existing.status !== "pending_review") throw new ApiError(409, "该选品当前不可审核");
     if (input.decision === "redevelop" && existing._count.reviews >= 2) throw new ApiError(409, "已达到最多 3 轮审核，请做出通过或不通过的最终决定");
-    // PostgreSQL DATE 不含时区；使用 UTC 午夜避免在驱动序列化时退回前一天。
+    // 统一使用 UTC 午夜写入，避免日期在序列化时因时区退回前一天。
     const launchDate = input.launchDate ? new Date(`${input.launchDate}T00:00:00Z`) : null;
     const nextStatus = input.decision === "redevelop" ? "objection_pending" : input.decision;
     const product = await db.$transaction(async (tx) => {

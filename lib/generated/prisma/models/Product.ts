@@ -729,7 +729,7 @@ export type ProductWhereInput = {
   AND?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
   OR?: Prisma.ProductWhereInput[]
   NOT?: Prisma.ProductWhereInput | Prisma.ProductWhereInput[]
-  id?: Prisma.UuidFilter<"Product"> | string
+  id?: Prisma.StringFilter<"Product"> | string
   code?: Prisma.StringFilter<"Product"> | string
   name?: Prisma.StringFilter<"Product"> | string
   category?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -787,8 +787,8 @@ export type ProductWhereInput = {
   marketAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
   competitivenessAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
   alternativeSuggestions?: Prisma.StringNullableFilter<"Product"> | string | null
-  submitterId?: Prisma.UuidFilter<"Product"> | string
-  reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
+  submitterId?: Prisma.StringFilter<"Product"> | string
+  reviewerId?: Prisma.StringNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   revision?: Prisma.IntFilter<"Product"> | number
   submitTime?: Prisma.DateTimeFilter<"Product"> | Date | string
@@ -942,8 +942,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   marketAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
   competitivenessAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
   alternativeSuggestions?: Prisma.StringNullableFilter<"Product"> | string | null
-  submitterId?: Prisma.UuidFilter<"Product"> | string
-  reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
+  submitterId?: Prisma.StringFilter<"Product"> | string
+  reviewerId?: Prisma.StringNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   revision?: Prisma.IntFilter<"Product"> | number
   submitTime?: Prisma.DateTimeFilter<"Product"> | Date | string
@@ -1038,7 +1038,7 @@ export type ProductScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductScalarWhereWithAggregatesInput | Prisma.ProductScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Product"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Product"> | string
   code?: Prisma.StringWithAggregatesFilter<"Product"> | string
   name?: Prisma.StringWithAggregatesFilter<"Product"> | string
   category?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
@@ -1096,8 +1096,8 @@ export type ProductScalarWhereWithAggregatesInput = {
   marketAnalysis?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   competitivenessAnalysis?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   alternativeSuggestions?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
-  submitterId?: Prisma.UuidWithAggregatesFilter<"Product"> | string
-  reviewerId?: Prisma.UuidNullableWithAggregatesFilter<"Product"> | string | null
+  submitterId?: Prisma.StringWithAggregatesFilter<"Product"> | string
+  reviewerId?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
   revision?: Prisma.IntWithAggregatesFilter<"Product"> | number
   submitTime?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -1998,10 +1998,6 @@ export type NullableEnumDecisionFieldUpdateOperationsInput = {
   set?: $Enums.Decision | null
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type EnumProductStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProductStatus
 }
@@ -2223,7 +2219,6 @@ export type ProductCreateOrConnectWithoutSubmitterInput = {
 
 export type ProductCreateManySubmitterInputEnvelope = {
   data: Prisma.ProductCreateManySubmitterInput | Prisma.ProductCreateManySubmitterInput[]
-  skipDuplicates?: boolean
 }
 
 export type ProductCreateWithoutReviewerInput = {
@@ -2379,7 +2374,6 @@ export type ProductCreateOrConnectWithoutReviewerInput = {
 
 export type ProductCreateManyReviewerInputEnvelope = {
   data: Prisma.ProductCreateManyReviewerInput | Prisma.ProductCreateManyReviewerInput[]
-  skipDuplicates?: boolean
 }
 
 export type ProductUpsertWithWhereUniqueWithoutSubmitterInput = {
@@ -2402,7 +2396,7 @@ export type ProductScalarWhereInput = {
   AND?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
   OR?: Prisma.ProductScalarWhereInput[]
   NOT?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Product"> | string
+  id?: Prisma.StringFilter<"Product"> | string
   code?: Prisma.StringFilter<"Product"> | string
   name?: Prisma.StringFilter<"Product"> | string
   category?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -2460,8 +2454,8 @@ export type ProductScalarWhereInput = {
   marketAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
   competitivenessAnalysis?: Prisma.StringNullableFilter<"Product"> | string | null
   alternativeSuggestions?: Prisma.StringNullableFilter<"Product"> | string | null
-  submitterId?: Prisma.UuidFilter<"Product"> | string
-  reviewerId?: Prisma.UuidNullableFilter<"Product"> | string | null
+  submitterId?: Prisma.StringFilter<"Product"> | string
+  reviewerId?: Prisma.StringNullableFilter<"Product"> | string | null
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   revision?: Prisma.IntFilter<"Product"> | number
   submitTime?: Prisma.DateTimeFilter<"Product"> | Date | string
@@ -5463,7 +5457,6 @@ export type ProductCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Products.
    */
   data: Prisma.ProductCreateManyInput | Prisma.ProductCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -5482,7 +5475,6 @@ export type ProductCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Products.
    */
   data: Prisma.ProductCreateManyInput | Prisma.ProductCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

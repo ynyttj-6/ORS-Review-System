@@ -12,7 +12,7 @@ async function main() {
   if (!email) throw new Error("Test account email is missing");
 
   const user = await getPrisma().user.findFirst({
-    where: { OR: [{ loginName: email.trim().toLowerCase() }, { authEmail: email.trim().toLowerCase() }] },
+    where: { loginName: email.trim().toLowerCase() },
     select: { id: true, role: true, feishuUserId: true },
   });
   if (!user) throw new Error("The configured test user does not exist");

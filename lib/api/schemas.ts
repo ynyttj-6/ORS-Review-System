@@ -101,4 +101,8 @@ export const loginSchema = z.object({
   account: z.string().trim().min(1).max(100).transform((value) => value.toLowerCase()),
   password: z.string().min(1).max(72),
 });
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().max(72).optional(),
+  newPassword: z.string().min(12, "密码至少 12 位").max(72, "密码最多 72 位"),
+});
 export const importSchema = z.object({ rows: z.array(z.record(z.string(), z.unknown())).min(1).max(500) });

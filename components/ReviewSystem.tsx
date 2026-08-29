@@ -72,17 +72,12 @@ import SwapOutlined from "@ant-design/icons/SwapOutlined";
 import TeamOutlined from "@ant-design/icons/TeamOutlined";
 import UserOutlined from "@ant-design/icons/UserOutlined";
 import zhCN from "antd/locale/zh_CN";
-import { formatChinaDate, formatChinaDateCode, formatChinaDateTime, formatChinaLongDate } from "@/lib/time";
-import { seedState } from "@/lib/mock-data";
+import { formatChinaDate, formatChinaLongDate } from "@/lib/time";
 import type { AppState, Decision, NoticeLog, NoticeStatus, Product, ProductStatus, Role, User } from "@/types";
-import { createClient as createSupabaseClient } from "@/lib/supabase/client";
 import { calculateProductEconomics } from "@/lib/product-calculations";
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text, Paragraph } = Typography;
-const STORAGE_KEY = "ors-review-system-v1";
-const SESSION_KEY = "ors-active-user";
-const productionMode = process.env.NEXT_PUBLIC_APP_MODE === "production";
 
 async function apiRequest<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, init);
@@ -132,14 +127,6 @@ const notificationEventMeta: Record<string, { label: string; color: string }> = 
 };
 
 const categoryOptions = ["宠物用品", "家居收纳", "母婴用品", "户外运动", "汽车用品", "办公用品", "玩具游戏", "时尚配件", "厨具餐饮", "其他"];
-
-function cloneSeed(): AppState {
-  return JSON.parse(JSON.stringify(seedState)) as AppState;
-}
-
-function formatTime(date = new Date()) {
-  return formatChinaDateTime(date);
-}
 
 function nameOf(users: User[], id?: string) {
   return users.find((user) => user.id === id)?.name || "—";
@@ -277,8 +264,8 @@ export default function ReviewSystem() {
 function ReviewSystemInner() {
   const router = useRouter();
   const pathname = usePathname();
-  const [state, setState] = useState<AppState>(() => cloneSeed());
-  const [activeUserId, setActiveUserId] = useState("u-admin");
+  const [state, setState] = useState<AppState>({ users: [], products: [], notices: [] });
+  const [activeUserId, setActiveUserId] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [ready, setReady] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -307,29 +294,12 @@ function ReviewSystemInner() {
   }
 
   useEffect(() => {
-    if (productionMode) {
-      loadProduction().catch((error) => {
-        if (error instanceof Error && error.message.includes("双重验证")) router.replace("/mfa");
-        else appMessage.error(error instanceof Error ? error.message : "系统加载失败");
-      }).finally(() => setReady(true));
-      return;
-    }
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setState(JSON.parse(saved) as AppState);
-      const session = localStorage.getItem(SESSION_KEY);
-      if (session) setActiveUserId(session);
-    } catch { /* 保留演示种子数据 */ }
-    setReady(true);
+    loadProduction().catch((error) => {
+      appMessage.error(error instanceof Error ? error.message : "系统加载失败");
+    }).finally(() => setReady(true));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (!ready || productionMode) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    localStorage.setItem(SESSION_KEY, activeUserId);
-  }, [state, activeUserId, ready]);
-
-  const currentUser = state.users.find((user) => user.id === activeUserId) || state.users[0];
+  const currentUser = state.users.find((user) => user.id === activeUserId) || state.users[0] || { id: "", name: "加载中", account: "", role: "admin" as const, isActive: false, createdAt: "" };
   const operators = state.users.filter((user) => user.role === "operator" && user.isActive);
 
   const menus = useMemo(() => {
@@ -360,14 +330,6 @@ function ReviewSystemInner() {
     if (ready && !canRenderSelectedPage) router.replace("/dashboard");
   }, [ready, canRenderSelectedPage, router]);
 
-  const updateProduct = (id: string, updater: (product: Product) => Product) => {
-    setState((old) => ({ ...old, products: old.products.map((product) => product.id === id ? updater(product) : product) }));
-  };
-
-  const pushNotice = (target: string, event: string, content: string) => {
-    setState((old) => ({ ...old, notices: [{ id: `n-${Date.now()}`, target, event, content, time: formatTime(), success: true }, ...old.notices] }));
-  };
-
   const openProductEditor = (product?: Product) => {
     setEditingProduct(product || null);
     setProductStep(0);
@@ -377,7 +339,7 @@ function ReviewSystemInner() {
       for (const [field, attachmentType] of productAttachmentGroups) {
         values[field] = product.attachments
           .filter((attachment) => (attachment.attachmentType || "data_screenshot") === attachmentType)
-          .map((attachment) => ({ uid: attachment.id, name: attachment.name, status: "done", size: attachment.size, type: attachment.type, url: productionMode ? `/api/files/${attachment.id}` : undefined } satisfies UploadFile));
+          .map((attachment) => ({ uid: attachment.id, name: attachment.name, status: "done", size: attachment.size, type: attachment.type, url: `/api/files/${attachment.id}` } satisfies UploadFile));
       }
     }
     productForm.setFieldsValue(values);
@@ -416,12 +378,7 @@ function ReviewSystemInner() {
 
   const reopenProductForEdit = async (product: Product) => {
     try {
-      let reopened: Product;
-      if (productionMode) {
-        reopened = await apiRequest<Product>(`/api/products/${product.id}/reopen`, { method: "POST" });
-      } else {
-        reopened = { ...product, status: "draft", revision: (product.revision || 1) + 1, reviewerId: undefined, assignTime: undefined, latestReviewTime: undefined, finalDecision: undefined, launchDate: undefined, rejectionReason: undefined, firstBatchQuantity: undefined, marketAnalysis: undefined, competitivenessAnalysis: undefined, alternativeSuggestions: undefined };
-      }
+      const reopened = await apiRequest<Product>(`/api/products/${product.id}/reopen`, { method: "POST" });
       setState((old) => ({ ...old, products: old.products.map((item) => item.id === reopened.id ? reopened : item) }));
       setSelectedProduct(null);
       openProductEditor(reopened);
@@ -435,31 +392,22 @@ function ReviewSystemInner() {
       if (!values.name || String(values.name).trim().length < 2) throw new Error("请至少填写产品名称后再保存草稿");
       const groups = productAttachmentGroups;
       const payload = Object.fromEntries(Object.entries(values).filter(([key]) => !groups.some(([field]) => field === key)));
-      if (productionMode) {
-        let product: Product;
-        if (editingProduct) {
-          product = await apiRequest<Product>(`/api/products/${editingProduct.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-          if (action === "submit") product = await apiRequest<Product>(`/api/products/${editingProduct.id}/submit`, { method: "POST" });
-        } else {
-          product = await apiRequest<Product>("/api/products", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, action }) });
-        }
-        for (const [field, attachmentType] of groups) {
-          const attachments: UploadFile[] = values[field] || [];
-          for (const attachment of attachments) {
-            if (!attachment.originFileObj) continue;
-            const formData = new FormData(); formData.append("productId", product.id); formData.append("attachmentType", attachmentType); formData.append("file", attachment.originFileObj);
-            await apiRequest("/api/upload", { method: "POST", body: formData });
-          }
-        }
-        await loadProduction();
+      let product: Product;
+      if (editingProduct) {
+        product = await apiRequest<Product>(`/api/products/${editingProduct.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if (action === "submit") product = await apiRequest<Product>(`/api/products/${editingProduct.id}/submit`, { method: "POST" });
       } else {
-        const now = formatTime();
-        const attachments = groups.flatMap(([field, attachmentType]) => ((values[field] || []) as UploadFile[])
-          .filter((file) => !editingProduct?.attachments.some((attachment) => attachment.id === file.uid))
-          .map((file) => ({ id: file.uid, name: file.name, size: file.size || 0, type: file.type || "application/octet-stream", attachmentType })));
-        const product: Product = { ...(editingProduct || {} as Product), ...payload, ...calculateProductEconomics(values), id: editingProduct?.id || `p-${Date.now()}`, code: editingProduct?.code || `ORS-${formatChinaDateCode()}-${String(state.products.length + 1).padStart(2, "0")}`, name: values.name, category: values.category || "其他", expectedPrice: values.suggestedPrice, sourceUrl: values.competitorLink, submitterId: currentUser.id, status: action === "draft" ? "draft" : "pending_assign", submitTime: now, attachments: [...(editingProduct?.attachments || []), ...attachments], reviews: editingProduct?.reviews || [], objections: editingProduct?.objections || [] } as Product;
-        setState((old) => ({ ...old, products: editingProduct ? old.products.map((item) => item.id === product.id ? product : item) : [product, ...old.products] }));
+        product = await apiRequest<Product>("/api/products", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, action }) });
       }
+      for (const [field, attachmentType] of groups) {
+        const attachments: UploadFile[] = values[field] || [];
+        for (const attachment of attachments) {
+          if (!attachment.originFileObj) continue;
+          const formData = new FormData(); formData.append("productId", product.id); formData.append("attachmentType", attachmentType); formData.append("file", attachment.originFileObj);
+          await apiRequest("/api/upload", { method: "POST", body: formData });
+        }
+      }
+      await loadProduction();
       productForm.resetFields(); setNewProductOpen(false); setEditingProduct(null);
       if (action === "draft") { setDraftSavedVersion((version) => version + 1); router.push("/products"); }
       appMessage.success(action === "draft" ? "草稿已保存，可在草稿箱继续编辑" : "选品已提交，等待管理员分配");
@@ -473,14 +421,8 @@ function ReviewSystemInner() {
       const reviewer = state.users.find((user) => user.id === reviewerId)!;
       const previousReviewer = assignProduct.reviewerId ? state.users.find((user) => user.id === assignProduct.reviewerId) : undefined;
       const isReassignment = Boolean(previousReviewer);
-      if (productionMode) {
-        const product = await apiRequest<Product>(`/api/products/${assignProduct.id}/assign`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reviewerId }) });
-        setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
-      } else {
-        updateProduct(assignProduct.id, (product) => ({ ...product, reviewerId, status: product.status === "pending_assign" ? "pending_review" : product.status, assignTime: formatTime() }));
-        if (previousReviewer) pushNotice(previousReviewer.name, "任务转交通知", `选品「${assignProduct.name}」已转交给 ${reviewer.name} 审核`);
-        pushNotice(reviewer.name, isReassignment ? "审核任务转入" : "分配通知", `你有一个${isReassignment ? "转交的" : "新的"}选品待审核：${assignProduct.name}`);
-      }
+      const product = await apiRequest<Product>(`/api/products/${assignProduct.id}/assign`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reviewerId }) });
+      setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
       setAssignProduct(null); assignForm.resetFields(); appMessage.success(isReassignment ? `审核人已由 ${previousReviewer?.name} 更改为 ${reviewer.name}` : `已分配给 ${reviewer.name}`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
@@ -489,21 +431,9 @@ function ReviewSystemInner() {
     if (!reviewProduct) return;
     try {
       const values = await reviewForm.validateFields();
-      if (productionMode) {
-        const url = editingReviewRoundId ? `/api/products/${reviewProduct.id}/review/${editingReviewRoundId}` : `/api/products/${reviewProduct.id}/review`;
-        const product = await apiRequest<Product>(url, { method: editingReviewRoundId ? "PATCH" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
-        setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
-      } else {
-        const now = formatTime();
-        const reviewValues = { decision: values.decision as Decision, comment: values.comment, launchDate: values.decision === "approved" ? values.launchDate : undefined, firstBatchQuantity: values.decision === "approved" ? values.firstBatchQuantity : undefined, marketAnalysis: values.marketAnalysis, competitivenessAnalysis: values.competitivenessAnalysis, alternativeSuggestions: values.alternativeSuggestions, improvementSuggestions: values.decision === "redevelop" ? values.improvementSuggestions : undefined };
-        updateProduct(reviewProduct.id, (product) => {
-          const reviews = editingReviewRoundId
-            ? product.reviews.map((review) => review.id === editingReviewRoundId ? { ...review, ...reviewValues, updatedAt: now, editCount: (review.editCount || 0) + 1 } : review)
-            : [...product.reviews, { id: `r-${Date.now()}`, round: product.reviews.length + 1, reviewerId: currentUser.id, ...reviewValues, createdAt: now, updatedAt: now, editCount: 0 }];
-          return { ...product, status: values.decision === "redevelop" ? "objection_pending" : values.decision, finalDecision: values.decision === "redevelop" ? undefined : values.decision, launchDate: values.decision === "approved" ? values.launchDate : undefined, firstBatchQuantity: values.decision === "approved" ? values.firstBatchQuantity : undefined, rejectionReason: values.decision === "approved" ? undefined : values.comment, marketAnalysis: values.marketAnalysis, competitivenessAnalysis: values.competitivenessAnalysis, alternativeSuggestions: values.alternativeSuggestions, latestReviewTime: now, reviews };
-        });
-        pushNotice(nameOf(state.users, reviewProduct.submitterId), "审核结果", `选品「${reviewProduct.name}」审核结果：${decisionMeta[values.decision as Decision].label}`);
-      }
+      const url = editingReviewRoundId ? `/api/products/${reviewProduct.id}/review/${editingReviewRoundId}` : `/api/products/${reviewProduct.id}/review`;
+      const product = await apiRequest<Product>(url, { method: editingReviewRoundId ? "PATCH" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
+      setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
       const wasEditing = Boolean(editingReviewRoundId);
       setReviewProduct(null); setEditingReviewRoundId(null); reviewForm.resetFields(); appMessage.success(wasEditing ? "历史审核结果已修改并留痕" : "审核结果已提交");
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
@@ -514,18 +444,12 @@ function ReviewSystemInner() {
     try {
       const values = await objectionForm.validateFields();
       const { content } = values;
-      if (productionMode) {
-        const product = await apiRequest<Product>(`/api/products/${objectionProduct.id}/objection`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hasObjection: values.hasObjection, content }) });
-        const objection = product.objections.at(-1);
-        const files: UploadFile[] = values.dataScreenshots?.fileList || [];
-        if (values.hasObjection && objection) for (const file of files) if (file.originFileObj) { const formData = new FormData(); formData.append("productId", product.id); formData.append("objectionId", objection.id); formData.append("attachmentType", "data_screenshot"); formData.append("file", file.originFileObj); await apiRequest("/api/upload", { method: "POST", body: formData }); }
-        if (files.length) await loadProduction();
-        else setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
-      } else {
-        const lastRound = objectionProduct.reviews[objectionProduct.reviews.length - 1];
-        updateProduct(objectionProduct.id, (product) => ({ ...product, status: values.hasObjection ? "pending_review" : "rejected", objections: [...product.objections, { id: `o-${Date.now()}`, roundId: lastRound.id, submitterId: currentUser.id, hasObjection: values.hasObjection, content, createdAt: formatTime() }] }));
-        if (values.hasObjection) pushNotice(nameOf(state.users, objectionProduct.reviewerId), "异议通知", `选品「${objectionProduct.name}」开发人员提交了异议，请复审`);
-      }
+      const product = await apiRequest<Product>(`/api/products/${objectionProduct.id}/objection`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ hasObjection: values.hasObjection, content }) });
+      const objection = product.objections.at(-1);
+      const files: UploadFile[] = values.dataScreenshots?.fileList || [];
+      if (values.hasObjection && objection) for (const file of files) if (file.originFileObj) { const formData = new FormData(); formData.append("productId", product.id); formData.append("objectionId", objection.id); formData.append("attachmentType", "data_screenshot"); formData.append("file", file.originFileObj); await apiRequest("/api/upload", { method: "POST", body: formData }); }
+      if (files.length) await loadProduction();
+      else setState((old) => ({ ...old, products: old.products.map((item) => item.id === product.id ? product : item) }));
       setObjectionProduct(null); objectionForm.resetFields(); appMessage.success(values.hasObjection ? "异议已提交，等待运营复审" : "已确认无异议，选品已结束");
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
@@ -534,32 +458,16 @@ function ReviewSystemInner() {
     try {
       const values = await userForm.validateFields();
       const { confirmPassword: _confirmPassword, password, ...profileValues } = values;
-      if (productionMode) {
-        const isNew = userModal === "new";
-        const payload = password ? { ...profileValues, password } : profileValues;
-        const saved = await apiRequest<User>(isNew ? "/api/users" : `/api/users/${(userModal as User).id}`, { method: isNew ? "POST" : "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-        setState((old) => ({ ...old, users: isNew ? [...old.users, saved] : old.users.map((user) => user.id === saved.id ? saved : user) }));
-      } else if (userModal === "new") {
-        const user: User = { id: `u-${Date.now()}`, ...profileValues, isActive: true, createdAt: formatChinaDate() };
-        setState((old) => ({ ...old, users: [...old.users, user] }));
-      } else if (userModal) setState((old) => ({ ...old, users: old.users.map((user) => user.id === userModal.id ? { ...user, ...profileValues } : user) }));
+      const isNew = userModal === "new";
+      const payload = password ? { ...profileValues, password } : profileValues;
+      const saved = await apiRequest<User>(isNew ? "/api/users" : `/api/users/${(userModal as User).id}`, { method: isNew ? "POST" : "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      setState((old) => ({ ...old, users: isNew ? [...old.users, saved] : old.users.map((user) => user.id === saved.id ? saved : user) }));
       appMessage.success(userModal === "new" ? "用户账号已创建，可直接发放登录信息" : password ? "用户信息及登录密码已更新" : "用户信息已更新"); setUserModal(null); userForm.resetFields();
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
 
-  const switchUser = (id: string) => {
-    setActiveUserId(id);
-    router.push("/dashboard");
-    appMessage.info(`已切换为 ${nameOf(state.users, id)} 视角`);
-  };
-
-  const resetDemo = () => {
-    setState(cloneSeed());
-    appMessage.success("演示数据已恢复");
-  };
-
   const logout = async () => {
-    await createSupabaseClient().auth.signOut();
+    await apiRequest("/api/auth/logout", { method: "POST" }).catch(() => undefined);
     router.replace("/login"); router.refresh();
   };
 
@@ -590,9 +498,11 @@ function ReviewSystemInner() {
       { key: "view-all-notifications", icon: <BellOutlined />, label: "查看全部通知日志" },
     );
   }
-  const userMenuItems: MenuProps["items"] = productionMode
-    ? [{ key: "logout", icon: <LogoutOutlined />, label: "退出登录", onClick: logout }]
-    : state.users.filter((u) => u.isActive).map((u) => ({ key: u.id, label: <Space><Avatar size={24}>{u.name.slice(-1)}</Avatar><span>{u.name}</span><RoleTag role={u.role} /></Space>, onClick: () => switchUser(u.id) }));
+  const userMenuItems: MenuProps["items"] = [
+    { key: "password", icon: <SafetyCertificateOutlined />, label: "修改密码", onClick: () => router.push("/set-password") },
+    { type: "divider" },
+    { key: "logout", icon: <LogoutOutlined />, label: "退出登录", onClick: logout },
+  ];
 
   if (!ready) return <div className="loading-screen"><div className="brand-mark small"><ProductOutlined /></div><Text>正在载入审核中心…</Text></div>;
 
@@ -613,7 +523,6 @@ function ReviewSystemInner() {
         <Header className="app-header">
           <Button type="text" className="collapse-btn" icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} onClick={() => setCollapsed((value) => !value)} />
           <div className="header-right">
-            {!productionMode && <Tooltip title="恢复初始演示数据"><Button type="text" icon={<ReloadOutlined />} onClick={resetDemo} /></Tooltip>}
             <Dropdown menu={{ items: notificationItems, onClick: ({ key }) => { if (key === "view-all-notifications") router.push("/notifications"); } }} placement="bottomRight" trigger={["click"]}>
               <Badge count={state.notices.length} size="small"><Button type="text" icon={<BellOutlined />} /></Badge>
             </Dropdown>
@@ -679,7 +588,7 @@ function ReviewSystemInner() {
           <Form.Item label="登录账号" name="account" rules={[{ required: true, message: "请输入登录账号" }, { min: 3, message: "登录账号至少 3 位" }, { max: 100, message: "登录账号最多 100 位" }, { pattern: /^[A-Za-z0-9][A-Za-z0-9._@-]*$/, message: "账号只能包含字母、数字、点、下划线、短横线或 @" }]}><Input autoComplete="off" placeholder="例如：zhangsan 或员工编号" /></Form.Item>
           <Form.Item label="角色" name="role" rules={[{ required: true }]}><Select options={Object.entries(roleMeta).map(([value, meta]) => ({ value, label: meta.label }))} /></Form.Item>
           <Form.Item label="飞书 User ID" name="feishuUserId"><Input placeholder="可选，用于机器人消息推送" /></Form.Item>
-          {productionMode && <>
+          <>
             <Divider plain>登录密码</Divider>
             <Alert type="info" showIcon title={userModal === "new" ? "由管理员设置初始密码并安全发放" : "当前密码已加密，任何人都无法查看"} description={userModal === "new" ? "账号创建后无需邮箱确认，可立即使用账号和密码登录。" : "如需修改，请设置新密码；留空保存时不会改变原密码。"} style={{ marginBottom: 16 }} />
             <Form.Item label={userModal === "new" ? "初始密码" : "新密码（留空则不修改）"} name="password" rules={[{ required: userModal === "new", message: "请设置初始密码" }, { min: 12, message: "密码至少 12 位" }, { max: 72, message: "密码最多 72 位" }]}>
@@ -688,7 +597,7 @@ function ReviewSystemInner() {
             <Form.Item label="确认新密码" name="confirmPassword" dependencies={["password"]} rules={[({ getFieldValue }) => ({ validator(_, value) { const nextPassword = getFieldValue("password"); if (!nextPassword && !value) return Promise.resolve(); if (!value) return Promise.reject(new Error("请再次输入新密码")); return nextPassword === value ? Promise.resolve() : Promise.reject(new Error("两次输入的密码不一致")); } })]}>
               <Input.Password autoComplete="new-password" placeholder="再次输入新密码" />
             </Form.Item>
-          </>}
+          </>
         </Form>
       </Modal>
     </Layout>
@@ -816,7 +725,7 @@ function ProductsPage(ctx: PageContext) {
   const data = base.filter((p) => statusMatch(p) && (!normalizedQuery || p.name.toLowerCase().includes(normalizedQuery) || p.code.toLowerCase().includes(normalizedQuery) || p.coreKeyword?.toLowerCase().includes(normalizedQuery) || p.competitorLink?.toLowerCase().includes(normalizedQuery)));
   const removeDraft = async (product: Product) => {
     try {
-      if (productionMode) await apiRequest(`/api/products/${product.id}`, { method: "DELETE" });
+      await apiRequest(`/api/products/${product.id}`, { method: "DELETE" });
       setState((old) => ({ ...old, products: old.products.filter((item) => item.id !== product.id) }));
       appMessage.success("草稿已删除");
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
@@ -858,8 +767,7 @@ function AssignPage(ctx: PageContext) {
   const autoAssign = async () => {
     if (!pending.length || !operators.length) return;
     try {
-      if (productionMode) { await apiRequest("/api/products/batch-assign", { method: "POST" }); await reloadProduction(); }
-      else setState((old) => ({ ...old, products: old.products.map((product, index) => product.status === "pending_assign" ? { ...product, status: "pending_review", reviewerId: operators[index % operators.length].id, assignTime: formatTime() } : product) }));
+      await apiRequest("/api/products/batch-assign", { method: "POST" }); await reloadProduction();
       setSelected([]); appMessage.success(`已按轮询规则分配 ${pending.length} 项选品`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
@@ -933,7 +841,7 @@ function NotificationsPage(ctx: PageContext) {
   const [status, setStatus] = useState<NoticeStatus | "all">("all");
   const [event, setEvent] = useState("all");
   const [refreshKey, setRefreshKey] = useState(0);
-  const [loading, setLoading] = useState(productionMode);
+  const [loading, setLoading] = useState(true);
   const [remoteData, setRemoteData] = useState<NotificationsPageData>({
     items: [], total: 0, page: 1, pageSize: 10,
     summary: { all: 0, success: 0, failed: 0, skipped: 0 },
@@ -941,7 +849,6 @@ function NotificationsPage(ctx: PageContext) {
   });
 
   useEffect(() => {
-    if (!productionMode) return;
     let active = true;
     const params = new URLSearchParams({ page: String(page), pageSize: "10" });
     if (query) params.set("q", query);
@@ -955,30 +862,7 @@ function NotificationsPage(ctx: PageContext) {
     return () => { active = false; };
   }, [page, query, status, event, refreshKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const demoData = useMemo<NotificationsPageData>(() => {
-    const base = state.notices.filter((notice) => notice.target === currentUser.name);
-    const filtered = base.filter((notice) =>
-      (status === "all" || noticeStatus(notice) === status)
-      && (event === "all" || notice.event === event)
-      && (!query || notice.content.toLowerCase().includes(query.toLowerCase()) || notice.event.toLowerCase().includes(query.toLowerCase())),
-    );
-    const pageSize = 10;
-    return {
-      items: filtered.slice((page - 1) * pageSize, page * pageSize),
-      total: filtered.length,
-      page,
-      pageSize,
-      summary: {
-        all: base.length,
-        success: base.filter((notice) => noticeStatus(notice) === "success").length,
-        failed: base.filter((notice) => noticeStatus(notice) === "failed").length,
-        skipped: base.filter((notice) => noticeStatus(notice) === "skipped").length,
-      },
-      events: [...new Set(base.map((notice) => notice.event))].sort(),
-    };
-  }, [state.notices, currentUser.name, page, query, status, event]);
-
-  const data = productionMode ? remoteData : demoData;
+  const data = remoteData;
   const columns: TableColumnsType<NoticeLog> = [
     { title: "北京时间", dataIndex: "time", width: 170 },
     { title: "事件类型", dataIndex: "event", width: 140, render: (value: string) => { const meta = notificationEventMeta[value] || { label: value, color: "default" }; return <Tag color={meta.color}>{meta.label}</Tag>; } },
@@ -1028,8 +912,7 @@ function UsersPage(ctx: PageContext) {
   const openEdit = (user: User) => { userForm.resetFields(); userForm.setFieldsValue(user); setUserModal(user); };
   const toggle = async (user: User) => {
     try {
-      let saved = { ...user, isActive: !user.isActive };
-      if (productionMode) saved = await apiRequest<User>(`/api/users/${user.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isActive: !user.isActive }) });
+      const saved = await apiRequest<User>(`/api/users/${user.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isActive: !user.isActive }) });
       setState((old) => ({ ...old, users: old.users.map((item) => item.id === user.id ? saved : item) }));
       appMessage.success(`已${user.isActive ? "停用" : "启用"} ${user.name}`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
@@ -1129,14 +1012,8 @@ function ImportPage(ctx: PageContext) {
   };
   const importRows = async () => {
     try {
-      if (productionMode) {
-        const result = await apiRequest<{ imported: number; duplicates: number }>("/api/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rows }) });
-        await ctx.reloadProduction(); setStep(2); appMessage.success(`成功导入 ${result.imported} 条，跳过重复 ${result.duplicates} 条`);
-      } else {
-        const now = formatTime();
-        const added: Product[] = rows.map((row, index) => ({ id: `import-${Date.now()}-${index}`, code: `IMP-${formatChinaDateCode()}-${index + 1}`, name: String(row["表格名称"] || row["产品名称"] || `导入选品 ${index + 1}`), category: String(row["类目"] || "其他"), submitterId: state.users.find((u) => u.name === row["开发人员"])?.id || "u-dev-1", reviewerId: state.users.find((u) => u.name === row["运营分配"])?.id, status: "pending_assign", submitTime: String(row["选品时间"] || now), attachments: [], reviews: [], objections: [] }));
-        setState((old) => ({ ...old, products: [...added, ...old.products] })); setStep(2); appMessage.success(`成功导入 ${added.length} 条选品数据`);
-      }
+      const result = await apiRequest<{ imported: number; duplicates: number }>("/api/import", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rows }) });
+      await ctx.reloadProduction(); setStep(2); appMessage.success(`成功导入 ${result.imported} 条，跳过重复 ${result.duplicates} 条`);
     } catch (error) { if (error instanceof Error) appMessage.error(error.message); }
   };
   return (
@@ -1151,16 +1028,50 @@ function ImportPage(ctx: PageContext) {
   );
 }
 
+type RuntimeStatus = {
+  database: string;
+  databaseBytes: number;
+  uploadsBytes: number;
+  freeDiskBytes: number;
+  lastBackupAt: string | null;
+  singleInstance: boolean;
+};
+
+function formatBytes(value: number) {
+  if (!value) return "0 B";
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  const index = Math.min(Math.floor(Math.log(value) / Math.log(1024)), units.length - 1);
+  return `${(value / 1024 ** index).toFixed(index > 2 ? 2 : 1)} ${units[index]}`;
+}
+
+function SelfHostedStatus() {
+  const [status, setStatus] = useState<RuntimeStatus | null>(null);
+  const [error, setError] = useState("");
+  const load = () => apiRequest<RuntimeStatus>("/api/system/status", { cache: "no-store" }).then(setStatus).catch((caught) => setError(caught instanceof Error ? caught.message : "状态读取失败"));
+  useEffect(() => { load(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return <Card title="本机运行状态" extra={<Button icon={<ReloadOutlined />} onClick={load}>刷新</Button>} loading={!status && !error}>
+    {error && <Alert type="error" showIcon message="无法读取运行状态" description={error} />}
+    {status && <><Alert type="success" showIcon title="自托管单实例运行正常" description="SQLite、附件与备份均保存在服务器本机目录；请勿启用 PM2 cluster 或多副本。" /><Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      <Col span={8}><Card size="small"><Statistic title="数据库状态" value={status.database === "connected" ? "已连接" : "不可用"} /></Card></Col>
+      <Col span={8}><Card size="small"><Statistic title="SQLite 文件" value={formatBytes(status.databaseBytes)} /></Card></Col>
+      <Col span={8}><Card size="small"><Statistic title="附件占用" value={formatBytes(status.uploadsBytes)} /></Card></Col>
+      <Col span={8}><Card size="small"><Statistic title="剩余磁盘" value={formatBytes(status.freeDiskBytes)} /></Card></Col>
+      <Col span={8}><Card size="small"><Statistic title="最近备份" value={status.lastBackupAt ? new Date(status.lastBackupAt).toLocaleString("zh-CN") : "尚无备份"} /></Card></Col>
+      <Col span={8}><Card size="small"><Statistic title="运行模式" value={status.singleInstance ? "单实例" : "异常"} /></Card></Col>
+    </Row></>}
+  </Card>;
+}
+
 function SettingsPage(ctx: PageContext) {
   const { state, appMessage } = ctx;
   return (
     <>
       <PageHeading title="系统设置" description="配置飞书应用、通知模板与自动分配规则" />
           <Tabs tabPosition="left" className="settings-tabs" items={[
-        { key: "production", label: "生产接入", children: <Card title="生产环境接入进度"><Alert type={productionMode ? "success" : "warning"} showIcon title={productionMode ? "已启用生产数据模式" : "当前仍为安全演示模式"} description={productionMode ? "用户身份、业务数据、附件与通知均通过服务端生产接口处理。" : "完成以下步骤并将 NEXT_PUBLIC_APP_MODE 改为 production 后，系统才会连接云端资源。"} /><div className="production-checklist"><Steps orientation="vertical" current={productionMode ? 5 : 0} items={[{ title: "创建 Supabase 项目", content: "获取 Project URL、Publishable Key 与 Service Role Key" }, { title: "配置数据库连接", content: "分别填写运行时 Transaction Pooler URL 与迁移 Direct URL" }, { title: "执行数据库迁移", content: "运行 npm run db:migrate，并在 SQL Editor 执行 supabase/setup.sql" }, { title: "初始化管理员", content: "填写 BOOTSTRAP_ADMIN_* 后运行 npm run db:seed" }, { title: "启用生产模式", content: "设置 NEXT_PUBLIC_APP_MODE=production，重启或重新部署" }, { title: "验证外部服务", content: "访问 /api/health，并测试附件上传与飞书通知" }]} /></div></Card> },
-        { key: "feishu", label: "飞书集成", children: <Card title="飞书自建应用"><Alert title="凭据仅保存在服务端环境变量中，页面不会回显 App Secret。" type="info" showIcon /><Form layout="vertical" className="settings-form" initialValues={{ appId: "cli_a7••••••••92", enabled: true }}><Form.Item label="App ID" name="appId"><Input /></Form.Item><Form.Item label="App Secret"><Input.Password placeholder="输入新的 Secret 以更新" /></Form.Item><Form.Item label="启用机器人通知" name="enabled" valuePropName="checked"><Switch /></Form.Item><Button type="primary" icon={<SendOutlined />} onClick={() => appMessage.success("连接测试成功")}>保存并测试连接</Button></Form></Card> },
-        { key: "notify", label: "通知规则", children: <Card title="事件通知"><div className="setting-list">{["新选品分配给运营", "运营完成审核", "开发人员提交异议", "选品被驳回或要求二次开发"].map((item) => <div key={item}><span><strong>{item}</strong><small>通过飞书卡片消息实时推送</small></span><Switch defaultChecked /></div>)}</div></Card> },
-        { key: "assign", label: "自动分配", children: <Card title="轮询分配规则"><Paragraph type="secondary">启用后，新提交选品将按当前待审量优先分配给在岗运营。</Paragraph><Space orientation="vertical" size="large"><Space><Switch /><Text>启用自动分配</Text></Space><Select defaultValue="round-robin" style={{ width: 260 }} options={[{ value: "round-robin", label: "轮询平均分配" }, { value: "least-load", label: "按当前待审量分配" }]} /><Button type="primary" onClick={() => appMessage.success("分配规则已保存")}>保存规则</Button></Space></Card> },
+        { key: "runtime", label: "本机运行状态", children: <SelfHostedStatus /> },
+        { key: "feishu", label: "飞书集成", children: <Card title="可选飞书通知"><Alert title="飞书不是核心依赖" description="在服务器环境变量中配置 FEISHU_APP_ID、FEISHU_APP_SECRET 后生效；留空时不访问外网，站内通知仍会完整记录。凭据不会在页面中回显或保存。" type="info" showIcon /><Paragraph style={{ marginTop: 16 }}>管理员可在服务器运行 <Text code>npm run feishu:check</Text> 和 <Text code>npm run feishu:test</Text> 验证连接。</Paragraph></Card> },
+        { key: "notify", label: "通知规则", children: <Card title="固定业务通知"><Alert type="success" showIcon message="站内通知始终开启" description="分配、审核、异议和复审事件均写入本机 SQLite；配置飞书后会额外尝试发送卡片消息。" /></Card> },
+        { key: "assign", label: "分配规则", children: <Card title="人工与轮询分配"><Paragraph>管理员可逐项选择审核人，也可在“分配管理”中执行一键轮询分配。系统不会在后台自动改变负责人。</Paragraph></Card> },
         { key: "logs", label: `通知日志 (${state.notices.length})`, children: <Card title="最近通知"><Table rowKey="id" dataSource={state.notices} pagination={false} columns={[{ title: "时间", dataIndex: "time", width: 160 }, { title: "事件", dataIndex: "event", width: 120 }, { title: "接收人", dataIndex: "target", width: 100 }, { title: "通知内容", dataIndex: "content" }, { title: "状态", dataIndex: "success", width: 90, render: (value) => <Badge status={value ? "success" : "error"} text={value ? "成功" : "失败"} /> }]} /></Card> },
       ]} />
     </>
@@ -1211,7 +1122,7 @@ function ProductDrawer({ product, users, currentUser, onClose, onEdit, onReopen,
         <Row gutter={[12, 12]} className="calculation-panel compact"><Col span={6}><Statistic title="包装尺寸" value={`${product.lengthCm || 0} × ${product.widthCm || 0} × ${product.heightCm || 0} cm`} /></Col><Col span={6}><Statistic title="重量" value={product.weightG || 0} suffix="g" /></Col><Col span={6}><Statistic title="FBA 分段" value={product.fbaSizeTier || "—"} /></Col><Col span={6}><Statistic title="FBA 费用" value={product.fbaFee || 0} prefix="$" precision={2} /></Col><Col span={6}><Statistic title="计费重" value={product.billingWeightLb || 0} suffix="lb" precision={3} /></Col><Col span={6}><Statistic title="佣金比例" value={(product.commissionRate || 0) * 100} suffix="%" /></Col><Col span={6}><Statistic title="利润额" value={product.profitAmount || 0} prefix="$" precision={2} /></Col><Col span={6}><Statistic title="利润率" value={product.profitMargin || 0} suffix="%" precision={2} /></Col><Col span={6}><Statistic title="库存数量" value={product.inventoryQuantity ?? product.suggestedQuantity ?? 0} /></Col><Col span={6}><Statistic title="库存货值" value={product.inventoryValue || 0} prefix="¥" precision={2} /></Col></Row>
         <Divider />
         <Title level={5}>资料附件 <Text type="secondary" className="small-text">({product.attachments.length})</Text></Title>
-        {product.attachments.length ? <div className="attachment-list">{product.attachments.map((file) => <div key={file.id}><FileSearchOutlined /><span><strong>{file.name}</strong><small>{attachmentLabel[file.attachmentType || "data_screenshot"]} · {Math.max(file.size / 1024, 1).toFixed(0)} KB</small></span><Button type="link" href={productionMode ? `/api/files/${file.id}` : undefined} target="_blank">{productionMode ? "下载" : "预览"}</Button></div>)}</div> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无附件" />}
+        {product.attachments.length ? <div className="attachment-list">{product.attachments.map((file) => <div key={file.id}><FileSearchOutlined /><span><strong>{file.name}</strong><small>{attachmentLabel[file.attachmentType || "data_screenshot"]} · {Math.max(file.size / 1024, 1).toFixed(0)} KB</small></span><Button type="link" href={`/api/files/${file.id}`} target="_blank">下载</Button></div>)}</div> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无附件" />}
         <Divider />
         <Title level={5}>流转记录</Title>
         <Timeline items={timeline.slice().reverse().map((item) => ({ color: item.color, children: <div className="timeline-item"><div><strong>{item.title}</strong><Text type="secondary">{item.time}</Text></div><Paragraph>{item.content}</Paragraph></div> }))} />

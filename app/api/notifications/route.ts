@@ -23,8 +23,8 @@ export async function GET(request: Request) {
     const filters: Prisma.NotificationLogWhereInput[] = [ownershipWhere];
     if (query) {
       filters.push({ OR: [
-        { content: { contains: query, mode: "insensitive" } },
-        { event: { contains: query, mode: "insensitive" } },
+        { content: { contains: query } },
+        { event: { contains: query } },
       ] });
     }
     if (allowedStatuses.has(status)) filters.push({ status });

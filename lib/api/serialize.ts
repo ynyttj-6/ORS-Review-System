@@ -86,6 +86,6 @@ export function serializeProduct(product: ProductRecord) {
   };
 }
 
-export function serializeUser(user: { id: string; name: string; loginName: string; role: "admin" | "developer" | "operator"; feishuUserId: string | null; isActive: boolean; createdAt: Date }) {
-  return { id: user.id, name: user.name, account: user.loginName, role: user.role, feishuUserId: user.feishuUserId || undefined, isActive: user.isActive, createdAt: formatChinaDate(user.createdAt) };
+export function serializeUser(user: { id: string; name: string; loginName: string; role: "admin" | "developer" | "operator"; feishuUserId: string | null; isActive: boolean; mustChangePassword: boolean; createdAt: Date }) {
+  return { id: user.id, name: user.name, account: user.loginName, role: user.role, feishuUserId: user.feishuUserId || undefined, isActive: user.isActive, mustChangePassword: user.mustChangePassword, createdAt: formatChinaDate(user.createdAt) };
 }

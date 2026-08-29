@@ -1,5 +1,4 @@
 import { getPrisma } from "@/lib/db";
-import { productionEnv } from "@/lib/env";
 
 type NoticeColor = "blue" | "green" | "red" | "orange";
 
@@ -19,14 +18,15 @@ export async function notifyUser(params: NotifyParams) {
   let errorMessage: string | undefined;
 
   try {
-    const env = productionEnv();
-    if (!recipient?.feishuUserId || !env.FEISHU_APP_ID || !env.FEISHU_APP_SECRET) {
+    const appId = process.env.FEISHU_APP_ID;
+    const appSecret = process.env.FEISHU_APP_SECRET;
+    if (!recipient?.feishuUserId || !appId || !appSecret) {
       errorMessage = "未配置飞书凭据或接收人未绑定飞书 User ID";
     } else {
       const tokenResponse = await fetch("https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal", {
         method: "POST",
         headers: { "Content-Type": "application/json; charset=utf-8" },
-        body: JSON.stringify({ app_id: env.FEISHU_APP_ID, app_secret: env.FEISHU_APP_SECRET }),
+        body: JSON.stringify({ app_id: appId, app_secret: appSecret }),
         cache: "no-store",
       });
       const tokenData = await tokenResponse.json() as { code: number; msg?: string; tenant_access_token?: string };

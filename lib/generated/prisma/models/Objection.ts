@@ -191,10 +191,10 @@ export type ObjectionWhereInput = {
   AND?: Prisma.ObjectionWhereInput | Prisma.ObjectionWhereInput[]
   OR?: Prisma.ObjectionWhereInput[]
   NOT?: Prisma.ObjectionWhereInput | Prisma.ObjectionWhereInput[]
-  id?: Prisma.UuidFilter<"Objection"> | string
-  productId?: Prisma.UuidFilter<"Objection"> | string
-  roundId?: Prisma.UuidFilter<"Objection"> | string
-  submitterId?: Prisma.UuidFilter<"Objection"> | string
+  id?: Prisma.StringFilter<"Objection"> | string
+  productId?: Prisma.StringFilter<"Objection"> | string
+  roundId?: Prisma.StringFilter<"Objection"> | string
+  submitterId?: Prisma.StringFilter<"Objection"> | string
   content?: Prisma.StringFilter<"Objection"> | string
   hasObjection?: Prisma.BoolFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Objection"> | Date | string
@@ -223,9 +223,9 @@ export type ObjectionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ObjectionWhereInput | Prisma.ObjectionWhereInput[]
   OR?: Prisma.ObjectionWhereInput[]
   NOT?: Prisma.ObjectionWhereInput | Prisma.ObjectionWhereInput[]
-  productId?: Prisma.UuidFilter<"Objection"> | string
-  roundId?: Prisma.UuidFilter<"Objection"> | string
-  submitterId?: Prisma.UuidFilter<"Objection"> | string
+  productId?: Prisma.StringFilter<"Objection"> | string
+  roundId?: Prisma.StringFilter<"Objection"> | string
+  submitterId?: Prisma.StringFilter<"Objection"> | string
   content?: Prisma.StringFilter<"Objection"> | string
   hasObjection?: Prisma.BoolFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Objection"> | Date | string
@@ -252,10 +252,10 @@ export type ObjectionScalarWhereWithAggregatesInput = {
   AND?: Prisma.ObjectionScalarWhereWithAggregatesInput | Prisma.ObjectionScalarWhereWithAggregatesInput[]
   OR?: Prisma.ObjectionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ObjectionScalarWhereWithAggregatesInput | Prisma.ObjectionScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Objection"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"Objection"> | string
-  roundId?: Prisma.UuidWithAggregatesFilter<"Objection"> | string
-  submitterId?: Prisma.UuidWithAggregatesFilter<"Objection"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Objection"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"Objection"> | string
+  roundId?: Prisma.StringWithAggregatesFilter<"Objection"> | string
+  submitterId?: Prisma.StringWithAggregatesFilter<"Objection"> | string
   content?: Prisma.StringWithAggregatesFilter<"Objection"> | string
   hasObjection?: Prisma.BoolWithAggregatesFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Objection"> | Date | string
@@ -546,7 +546,6 @@ export type ObjectionCreateOrConnectWithoutSubmitterInput = {
 
 export type ObjectionCreateManySubmitterInputEnvelope = {
   data: Prisma.ObjectionCreateManySubmitterInput | Prisma.ObjectionCreateManySubmitterInput[]
-  skipDuplicates?: boolean
 }
 
 export type ObjectionUpsertWithWhereUniqueWithoutSubmitterInput = {
@@ -569,10 +568,10 @@ export type ObjectionScalarWhereInput = {
   AND?: Prisma.ObjectionScalarWhereInput | Prisma.ObjectionScalarWhereInput[]
   OR?: Prisma.ObjectionScalarWhereInput[]
   NOT?: Prisma.ObjectionScalarWhereInput | Prisma.ObjectionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Objection"> | string
-  productId?: Prisma.UuidFilter<"Objection"> | string
-  roundId?: Prisma.UuidFilter<"Objection"> | string
-  submitterId?: Prisma.UuidFilter<"Objection"> | string
+  id?: Prisma.StringFilter<"Objection"> | string
+  productId?: Prisma.StringFilter<"Objection"> | string
+  roundId?: Prisma.StringFilter<"Objection"> | string
+  submitterId?: Prisma.StringFilter<"Objection"> | string
   content?: Prisma.StringFilter<"Objection"> | string
   hasObjection?: Prisma.BoolFilter<"Objection"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Objection"> | Date | string
@@ -605,7 +604,6 @@ export type ObjectionCreateOrConnectWithoutProductInput = {
 
 export type ObjectionCreateManyProductInputEnvelope = {
   data: Prisma.ObjectionCreateManyProductInput | Prisma.ObjectionCreateManyProductInput[]
-  skipDuplicates?: boolean
 }
 
 export type ObjectionUpsertWithWhereUniqueWithoutProductInput = {
@@ -651,7 +649,6 @@ export type ObjectionCreateOrConnectWithoutRoundInput = {
 
 export type ObjectionCreateManyRoundInputEnvelope = {
   data: Prisma.ObjectionCreateManyRoundInput | Prisma.ObjectionCreateManyRoundInput[]
-  skipDuplicates?: boolean
 }
 
 export type ObjectionUpsertWithWhereUniqueWithoutRoundInput = {
@@ -1625,7 +1622,6 @@ export type ObjectionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Objections.
    */
   data: Prisma.ObjectionCreateManyInput | Prisma.ObjectionCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1644,7 +1640,6 @@ export type ObjectionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Objections.
    */
   data: Prisma.ObjectionCreateManyInput | Prisma.ObjectionCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
